@@ -1,6 +1,6 @@
 package zhiyuanzhe.pojo;
 
-public class adminInfo {
+public class AdminInfo {
     private int adminId;
     private String adminCarID;
     private String adminTel;
@@ -8,10 +8,10 @@ public class adminInfo {
     private String adminPwd;
     private String adminState;
 
-    public adminInfo() {
+    public AdminInfo() {
     }
 
-    public adminInfo(int adminId, String adminCarID, String adminTel, String adminLoginName, String adminPwd, String adminState) {
+    public AdminInfo(int adminId, String adminCarID, String adminTel, String adminLoginName, String adminPwd, String adminState) {
         this.adminId = adminId;
         this.adminCarID = adminCarID;
         this.adminTel = adminTel;
