@@ -2,32 +2,32 @@ package zhiyuanzhe.pojo;
 
 public class UserInfo {
     private int UserId;
-    private String UserName;
-    private String UserCardId;
-    private String UserTel;
-    private String UserEmail;
-    private String UserLoginName;
-    private String UserPwd;
-    private String UserHelpTime;
+    private String userName;
+    private String userCardId;
+    private String userTel;
+    private String userEmail;
+    private String userLoginName;
+    private String userPwd;
+    private String userHelpTime;
     private TeamJobInfo teamJobInfo;
-    private int ActiveJoinNum;
-    private String UserState;
+    private int ActiveJoNum;
+    private String userState;
 
     public UserInfo() {
     }
 
-    public UserInfo(int userId, String userName, String userCardId, String userTel, String userEmail, String userLoginName, String userPwd, String userHelpTime, TeamJobInfo teamJobInfo, int activeJoinNum, String userState) {
+    public UserInfo(int userId, String userName, String userCardId, String userTel, String userEmail, String userLoginName, String userPwd, String userHelpTime, TeamJobInfo teamJobInfo, int activeJoNum, String userState) {
         UserId = userId;
-        UserName = userName;
-        UserCardId = userCardId;
-        UserTel = userTel;
-        UserEmail = userEmail;
-        UserLoginName = userLoginName;
-        UserPwd = userPwd;
-        UserHelpTime = userHelpTime;
+        this.userName = userName;
+        this.userCardId = userCardId;
+        this.userTel = userTel;
+        this.userEmail = userEmail;
+        this.userLoginName = userLoginName;
+        this.userPwd = userPwd;
+        this.userHelpTime = userHelpTime;
         this.teamJobInfo = teamJobInfo;
-        ActiveJoinNum = activeJoinNum;
-        UserState = userState;
+        ActiveJoNum = activeJoNum;
+        this.userState = userState;
     }
 
     public int getUserId() {
@@ -39,59 +39,59 @@ public class UserInfo {
     }
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        this.userName = userName;
     }
 
     public String getUserCardId() {
-        return UserCardId;
+        return userCardId;
     }
 
     public void setUserCardId(String userCardId) {
-        UserCardId = userCardId;
+        this.userCardId = userCardId;
     }
 
     public String getUserTel() {
-        return UserTel;
+        return userTel;
     }
 
     public void setUserTel(String userTel) {
-        UserTel = userTel;
+        this.userTel = userTel;
     }
 
     public String getUserEmail() {
-        return UserEmail;
+        return userEmail;
     }
 
     public void setUserEmail(String userEmail) {
-        UserEmail = userEmail;
+        this.userEmail = userEmail;
     }
 
     public String getUserLoginName() {
-        return UserLoginName;
+        return userLoginName;
     }
 
     public void setUserLoginName(String userLoginName) {
-        UserLoginName = userLoginName;
+        this.userLoginName = userLoginName;
     }
 
     public String getUserPwd() {
-        return UserPwd;
+        return userPwd;
     }
 
     public void setUserPwd(String userPwd) {
-        UserPwd = userPwd;
+        this.userPwd = userPwd;
     }
 
     public String getUserHelpTime() {
-        return UserHelpTime;
+        return userHelpTime;
     }
 
     public void setUserHelpTime(String userHelpTime) {
-        UserHelpTime = userHelpTime;
+        this.userHelpTime = userHelpTime;
     }
 
     public TeamJobInfo getTeamJobInfo() {
@@ -102,19 +102,19 @@ public class UserInfo {
         this.teamJobInfo = teamJobInfo;
     }
 
-    public int getActiveJoinNum() {
-        return ActiveJoinNum;
+    public int getActiveJoNum() {
+        return ActiveJoNum;
     }
 
-    public void setActiveJoinNum(int activeJoinNum) {
-        ActiveJoinNum = activeJoinNum;
+    public void setActiveJoNum(int activeJoNum) {
+        ActiveJoNum = activeJoNum;
     }
 
     public String getUserState() {
-        return UserState;
+        return userState;
     }
 
     public void setUserState(String userState) {
-        UserState = userState;
+        this.userState = userState;
     }
 }

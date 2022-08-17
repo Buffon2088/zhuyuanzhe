@@ -1,40 +1,40 @@
 package zhiyuanzhe.pojo;
 
 public class TeamJobInfo {
-    private int TeamJobId;
-    private String TeamJobName;
-    private String TeamJobState;
+    private int teamJobId;
+    private String teamJobName;
+    private String teamJobState;
 
     public TeamJobInfo() {
     }
 
     public TeamJobInfo(int teamJobId, String teamJobName, String teamJobState) {
-        TeamJobId = teamJobId;
-        TeamJobName = teamJobName;
-        TeamJobState = teamJobState;
+        this.teamJobId = teamJobId;
+        this.teamJobName = teamJobName;
+        this.teamJobState = teamJobState;
     }
 
     public int getTeamJobId() {
-        return TeamJobId;
+        return teamJobId;
     }
 
     public void setTeamJobId(int teamJobId) {
-        TeamJobId = teamJobId;
+        this.teamJobId = teamJobId;
     }
 
     public String getTeamJobName() {
-        return TeamJobName;
+        return teamJobName;
     }
 
     public void setTeamJobName(String teamJobName) {
-        TeamJobName = teamJobName;
+        this.teamJobName = teamJobName;
     }
 
     public String getTeamJobState() {
-        return TeamJobState;
+        return teamJobState;
     }
 
     public void setTeamJobState(String teamJobState) {
-        TeamJobState = teamJobState;
+        this.teamJobState = teamJobState;
     }
 }
