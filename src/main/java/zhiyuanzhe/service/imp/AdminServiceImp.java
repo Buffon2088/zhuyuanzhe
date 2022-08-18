@@ -12,6 +12,7 @@ import java.util.List;
 @Service
 @Transactional
 public class AdminServiceImp implements IAdminService {
+
     @Autowired
     private AdminDao adminDao;
 
