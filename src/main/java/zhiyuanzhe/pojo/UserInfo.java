@@ -1,6 +1,6 @@
 package zhiyuanzhe.pojo;
 
-public class UserInfo {
+public class   UserInfo {
     private int UserId;
     private String userName;
     private String userCardId;
