@@ -22,11 +22,11 @@
     </resultMap>
     
     <select id="findAll" resultMap="userResultMap" resultType="java.util.ArrayList">
-        select * from user_info
+        select * from user_info u LEFT JOIN teamjob_info t ON u.teamJob_id=u.teamJob_id
     </select>
     
-    <select id="findAllUser" resultMap="userResultMap">
-        select * from user_info
+    <select id="findUser" resultMap="userResultMap">
+        select * from user_info select * from user_info u LEFT JOIN teamjob_info t ON u.teamJob_id=u.teamJob_id
        <where>
            <if test="userId!=0">user_id=#{userId}</if>
            <if test="userLoginName!=null">and user_loginName=#{userLoginName}</if>
