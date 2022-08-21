@@ -22,7 +22,7 @@
 
 
 
-<script>
+<%--<script>
 var tip=document.getElementById('tip');
 var loginK=document.getElementById('loginK');
 var loginName=$('#logink').val();
@@ -35,6 +35,6 @@ loginK.onblur=function (){
         alert('有密码')
     }
 }
-</script>
+</script>--%>
 </body>
 </html>

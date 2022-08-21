@@ -9,12 +9,14 @@
          <result column="admin_loginName" property="adminLoginName"/>
          <result column="admin_pwd" property="adminPwd"/>
          <result column="admin_state" property="adminState"/>
+         <result column="key" property="key"/>
      </resultMap>
-
+    <sql id="baseSql">
+        select * from admin_info
+    </sql>
      <select id="findAll" resultMap="adminResultMap" resultType="java.util.ArrayList">
-         select * from admin_info
+         <include refid="baseSql"/>
      </select>
-
      <select id="findAdmin" resultMap="adminResultMap">
          select * from admin_info
         <where>
@@ -25,7 +27,7 @@
      </select>
     
      <insert id="addAdmin">
-         insert into admin_info values (null,#{adminCarID},#{adminTel},#{adminLoginName},#{adminPwd},#{adminState})
+         insert into admin_info values (null,#{adminCarID},#{adminTel},#{adminLoginName},#{adminPwd},#{adminState},#{key})
      </insert>
 
      <delete id="deleteAdmin">

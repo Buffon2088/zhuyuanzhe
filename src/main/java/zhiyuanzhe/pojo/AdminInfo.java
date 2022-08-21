@@ -7,17 +7,18 @@ public class AdminInfo {
     private String adminLoginName;
     private String adminPwd;
     private String adminState;
-
+    private String key;
     public AdminInfo() {
     }
 
-    public AdminInfo(int adminId, String adminCarID, String adminTel, String adminLoginName, String adminPwd, String adminState) {
+    public AdminInfo(int adminId, String adminCarID, String adminTel, String adminLoginName, String adminPwd, String adminState, String key) {
         this.adminId = adminId;
         this.adminCarID = adminCarID;
         this.adminTel = adminTel;
         this.adminLoginName = adminLoginName;
         this.adminPwd = adminPwd;
         this.adminState = adminState;
+        this.key = key;
     }
 
     public int getAdminId() {
@@ -66,5 +67,13 @@ public class AdminInfo {
 
     public void setAdminState(String adminState) {
         this.adminState = adminState;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

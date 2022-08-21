@@ -31,7 +31,7 @@ public class AdminController {
         if (adminService.adminLogin(adminInfo)) {
             AdminInfo info = adminService.findAdminByLoginNameAndPwd(adminInfo);
             session.setAttribute("adminInfo", info);
-            return "/secsss";
+            return "/adminHome/adminIndex";
         } else {
             model.addAttribute("errorMessage", "登陆失败");
             return "/error";
@@ -65,7 +65,6 @@ public class AdminController {
         EmailInfo emailInfo=setEmailMessage.saveEmail(consignee,addressOr,otherInformation,information,imgInformation,txtInformation);
         //调用邮件发送类
         boolean emailState = sendEmail.sendEmail(emailInfo);
-        //返回前端界面
         //实例Ajax类
         AjaxResult ajaxResult=new AjaxResult();
         //将返回给前端结果存入map
