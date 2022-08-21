@@ -1,14 +1,21 @@
 package zhiyuanzhe.controller;
-
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import zhiyuanzhe.funtion.SendEmail;
 import zhiyuanzhe.pojo.AdminInfo;
+import zhiyuanzhe.pojo.EmailInfo;
 import zhiyuanzhe.service.IAdminService;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+import java.security.GeneralSecurityException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -33,6 +40,35 @@ public class AdminController {
         List<AdminInfo> list = adminService.findAll();
         model.addAttribute("adminList",list);
         return "/jsp/admin_index";
+    }
+    @RequestMapping("/goSendEmail")
+    public String goSendEmail(Model model,HttpSession session){
+
+        return "/jsp/email/send_email";
+    }
+    /**
+     * 邮箱发送方法
+     * */
+    @RequestMapping("/sendEmail")
+    @ResponseBody
+    public String sendEmail(String consignee,String addressOr,String otherInformation,String information,String imgInformation,String txtInformation) throws MessagingException, GeneralSecurityException {
+           SendEmail sendEmail=new SendEmail();
+           EmailInfo emailInfo=new EmailInfo();
+           Map<String, String> map = new HashMap<>();
+           emailInfo.setConsignee(consignee);
+           emailInfo.setAddressOr(addressOr);
+           emailInfo.setOtherInformation(otherInformation);
+           emailInfo.setInformation(information);
+           emailInfo.setImgInformation(imgInformation);
+           emailInfo.setTxtInformation(txtInformation);
+           boolean emailState = sendEmail.sendEmail(emailInfo);
+            if (emailState==true){
+                map.put("res","0");
+            }else {
+                map.put("res","1");
+            }
+            String json = JSONObject.toJSONString(map);
+            return json;
     }
 
     @RequestMapping("/showAdd")
