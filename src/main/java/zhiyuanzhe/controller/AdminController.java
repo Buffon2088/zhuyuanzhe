@@ -63,8 +63,6 @@ public class AdminController {
         SetEmailMessage setEmailMessage=new SetEmailMessage();
         //将用户界面输入信息存入邮件实体
         EmailInfo emailInfo=setEmailMessage.saveEmail(consignee,addressOr,otherInformation,information,imgInformation,txtInformation);
-        //存放ajax返回结果
-        Map<String, String> map = new HashMap<>();
         //调用邮件发送类
         boolean emailState = sendEmail.sendEmail(emailInfo);
         //返回前端界面

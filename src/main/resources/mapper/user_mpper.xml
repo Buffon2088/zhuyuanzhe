@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zhiyuanzhe.dao.UserDao">
+    <resultMap id="userResultMap" type="zhiyuanzhe.pojo.UserInfo">
+        <id column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="user_cardId" property="userCardId"/>
+        <result column="user_tel" property="userTel"/>
+        <result column="user_email" property="userEmail"/>
+        <result column="user_loginName" property="userLoginName"/>
+        <result column="user_pwd" property="userPwd"/>
+        <result column="user_helpTime" property="userHelpTime"/>
+        <result column="active_joNum" property="activeJoNum"/>
+        <result column="user_state" property="userState"/>
+        <result column="key" property="key"/>
+        <association property="TeamJobInfo" column="teamJob_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamJobInfo">
+            <id column="teamJob_id" property="TeamJobId" />
+            <result column="teamJob_name" property="TeamJobName"/>
+            <result column="teamJob_state" property="TeamJobState"/>
+        </association>
+    </resultMap>
+    
+    <select id="findAll" resultMap="userResultMap" resultType="java.util.ArrayList">
+        select * from user_info
+    </select>
+    
+    <select id="findAllUser" resultMap="userResultMap">
+        select * from user_info
+       <where>
+           <if test="userId!=0">user_id=#{userId}</if>
+           <if test="userLoginName!=null">and user_loginName=#{userLoginName}</if>
+           <if test="userPwd!=null">and user_pwd=#{userPwd}</if>
+           <if test="userName!=null">and user_name=#{userName}</if>
+           <if test="userHelpNum!=0">and user_helpNum=#{userHelpNum}</if>
+       </where>
+    </select>
+    
+    <delete id="deleteUser">
+        delete from user_info where user_id=#{userId}
+    </delete>
+
+    <insert id="addUser">
+        insert into user_info values (null,#{userName},#{userCardId},#{userTel},#{userEmail},#{userLoginName},#{userPwd},
+                                      #{teamJobInfo.teamJobId},0,0,#{userState},#{key})
+    </insert>
+
+    <update id="updateUser">
+        update user_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="userName!=null">user_name=#{userName},</if>
+            <if test="userCardId!=null">user_cardId=#{userCardId},</if>
+            <if test="userTel!=null">user_tel=#{userTel},</if>
+            <if test="userEmail!=null">user_email=#{userEmail},</if>
+            <if test="userLoginName!=null">user_loginName=#{userLoginName},</if>
+            <if test="userPwd!=null">user_pwd=#{userPwd},</if>
+            <if test="teamJobInfo!=null">teamJob_id=#{teamJobId}</if>
+        </trim>
+        where user_id=#{userId}
+    </update>
+</mapper>

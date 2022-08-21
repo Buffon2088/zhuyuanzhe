@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zhiyuanzhe.dao.TeamTypeDao">
+    <resultMap id="teamTypeResultMap" type="zhiyuanzhe.pojo.TeamTypeInfo">
+        <id column="teamType_id" property="teamTypeId"/>
+        <result column="teamType_name" property="teamTypeName"/>
+        <result column="teamType_state" property="teamTypeState"/>
+    </resultMap>
+
+    <select id="findAllTeamT" resultMap="teamTypeResultMap" resultType="java.util.ArrayList">
+        select * from teamType_info
+    </select>
+
+    <select id="findAllTeamType" resultMap="teamTypeResultMap">
+        select * from teamType_info
+        <where>
+            <if test="teamTypeId!=0">teamType_id=#{teamTypeId}</if>
+            <if test="teamTypeName!=null">and teamType_name=#{teamTypeName}</if>
+        </where>
+    </select>
+
+    <insert id="addTeamType">
+        insert into teamType_info values (null,#{teamTypeName},#{teamTypeState})
+    </insert>
+
+    <delete id="deleteTeamType">
+        delete from teamType_info where teamType_id=#{teamTypeId}
+    </delete>
+
+    <update id="updateTeamType">
+        update teamType_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="teamTypeName!=null">teamType_name=#{teamTypeName},</if>
+            <if test="teamTypeState!=null">teamType_state=#{teamTypeState}</if>
+        </trim>
+        where teamType_id=#{teamTypeId}
+    </update>
+</mapper>
