@@ -66,6 +66,7 @@
     }
 </script>
 <div style="text-align: center;padding-top: 230px;">
+    <h3 style="color: #100101;">目前发件账号默认为：2374347637@qq.com,发送图片或文档文件需要在C或D盘创建文件夹fakepath并从此文件夹取文件</h3>
     <input type="hidden" name="adminId" value=""><br>
     <h2>-Email-</h2>
     发件:<input type="text" id="consignee"><br>
