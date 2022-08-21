@@ -52,12 +52,13 @@
                 'otherInformation': otherInformation,
                 'information': information,
                 'imgInformation': imgInformationUrl,
-                'txtInformation': txtInformation
+                'txtInformation': txtInformation,
+                'key' : ${sessionScope.adminInfo.key}
             },
             //回调值，响应respones
             success: function (date) {
                 alert('发送成功');
-                window.location = '../admin_login.jsp';
+                window.location = '../adminHome/admin_login.jsp';
             },
             error: function (data) {
                 alert('发送失败');
@@ -76,8 +77,7 @@
     <font style="margin-left: 80px;">图片:<input type="file" id="imgInformation"></font><br>
     <font style="margin-left: 80px;">附件:<input type="file" id="txtInformation"></font><br><br>
     <button onclick="sendEmail()">发送</button>
-    <button onclick="window.location = '../admin_login.jsp';">返回</button>
+    <button onclick="window.location = '../adminHome/admin_login.jsp';">返回</button>
 </div>
-
 </body>
 </html>

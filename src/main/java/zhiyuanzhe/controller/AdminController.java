@@ -46,9 +46,9 @@ public class AdminController {
     }
 
     @RequestMapping("/goSendEmail")
-    public String goSendEmail(Model model, HttpSession session) {
-
-        return "/jsp/email/send_email";
+    public String goSendEmail(Model model, String key) {
+        model.addAttribute(key);
+        return "/email/send_email";
     }
 
     /**
