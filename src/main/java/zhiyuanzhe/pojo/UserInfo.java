@@ -1,7 +1,7 @@
 package zhiyuanzhe.pojo;
 
 public class   UserInfo {
-    private int UserId;
+    private int userId;
     private String userName;
     private String userCardId;
     private String userTel;
@@ -17,7 +17,7 @@ public class   UserInfo {
     }
 
     public UserInfo(int userId, String userName, String userCardId, String userTel, String userEmail, String userLoginName, String userPwd, String userHelpTime, TeamJobInfo teamJobInfo, int activeJoNum, String userState, String key) {
-        UserId = userId;
+        this.userId = userId;
         this.userName = userName;
         this.userCardId = userCardId;
         this.userTel = userTel;
@@ -32,11 +32,11 @@ public class   UserInfo {
     }
 
     public int getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(int userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 
     public String getUserName() {
