@@ -10,13 +10,13 @@ public class   UserInfo {
     private String userPwd;
     private String userHelpTime;
     private TeamJobInfo teamJobInfo;
-    private int ActiveJoNum;
+    private int activeJoNum;
     private String userState;
-
+    private String key;
     public UserInfo() {
     }
 
-    public UserInfo(int userId, String userName, String userCardId, String userTel, String userEmail, String userLoginName, String userPwd, String userHelpTime, TeamJobInfo teamJobInfo, int activeJoNum, String userState) {
+    public UserInfo(int userId, String userName, String userCardId, String userTel, String userEmail, String userLoginName, String userPwd, String userHelpTime, TeamJobInfo teamJobInfo, int activeJoNum, String userState, String key) {
         UserId = userId;
         this.userName = userName;
         this.userCardId = userCardId;
@@ -26,8 +26,9 @@ public class   UserInfo {
         this.userPwd = userPwd;
         this.userHelpTime = userHelpTime;
         this.teamJobInfo = teamJobInfo;
-        ActiveJoNum = activeJoNum;
+        this.activeJoNum = activeJoNum;
         this.userState = userState;
+        this.key = key;
     }
 
     public int getUserId() {
@@ -103,11 +104,11 @@ public class   UserInfo {
     }
 
     public int getActiveJoNum() {
-        return ActiveJoNum;
+        return activeJoNum;
     }
 
     public void setActiveJoNum(int activeJoNum) {
-        ActiveJoNum = activeJoNum;
+        this.activeJoNum = activeJoNum;
     }
 
     public String getUserState() {
@@ -116,5 +117,13 @@ public class   UserInfo {
 
     public void setUserState(String userState) {
         this.userState = userState;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }
