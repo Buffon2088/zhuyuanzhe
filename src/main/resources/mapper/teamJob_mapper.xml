@@ -9,11 +9,11 @@
     </resultMap>
     
     <select id="findALLTeamJ" resultMap="teamJobResultMap" resultType="java.util.ArrayList">
-        select * from teamJob_info
+        select * from teamjob_info
     </select>
     
-    <select id="findAllTeamJob" resultMap="teamJobResultMap">
-        select * from teamJob_info
+    <select id="findTeamJob" resultMap="teamJobResultMap">
+        select * from teamjob_info
        <where>
            <if test="teamJobId!=0">teamJob_id=#{teamJobId}</if>
            <if test="teamJobName!=null">and teamJob_name=#{teamJobName}</if>
@@ -21,15 +21,15 @@
     </select>
 
     <delete id="deleteTeamJob">
-        delete from teamJob_info where teamJob_id=#{teamJobId}
+        delete from teamjob_info where teamJob_id=#{teamJobId}
     </delete>
 
     <insert id="addTeamJob">
-        insert into teamJob_info values (null, #{teamJobName},#{teamJobState})
+        insert into teamjob_info values (null, #{teamJobName},#{teamJobState})
     </insert>
 
     <update id="updateTeamJob">
-        update teamJob_info
+        update teamjob_info
         <trim prefix="set" suffixOverrides=",">
             <if test="teamJobName!=null">teamJob_name=#{teamJobName},</if>
             <if test="teamJobState!=null">teamJob_state=#{teamJobState}</if>
