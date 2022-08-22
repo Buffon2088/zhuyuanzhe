@@ -8,10 +8,11 @@ public class AdminInfo {
     private String adminPwd;
     private String adminState;
     private String key;
+    private String email;
     public AdminInfo() {
     }
 
-    public AdminInfo(int adminId, String adminCarID, String adminTel, String adminLoginName, String adminPwd, String adminState, String key) {
+    public AdminInfo(int adminId, String adminCarID, String adminTel, String adminLoginName, String adminPwd, String adminState, String key, String email) {
         this.adminId = adminId;
         this.adminCarID = adminCarID;
         this.adminTel = adminTel;
@@ -19,6 +20,7 @@ public class AdminInfo {
         this.adminPwd = adminPwd;
         this.adminState = adminState;
         this.key = key;
+        this.email = email;
     }
 
     public int getAdminId() {
@@ -75,5 +77,13 @@ public class AdminInfo {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

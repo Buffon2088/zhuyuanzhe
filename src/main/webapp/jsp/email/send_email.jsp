@@ -52,13 +52,12 @@
                 'otherInformation': otherInformation,
                 'information': information,
                 'imgInformation': imgInformationUrl,
-                'txtInformation': txtInformation,
-                'key' : ${sessionScope.adminInfo.key}
+                'txtInformation': txtInformation
             },
             //回调值，响应respones
             success: function (date) {
                 alert('发送成功');
-                window.location = '../adminHome/admin_login.jsp';
+                window.location = '../jsp/adminHome/adminIndex.jsp';
             },
             error: function (data) {
                 alert('发送失败');
@@ -67,13 +66,13 @@
     }
 </script>
 <div style="text-align: center;padding-top: 230px;">
-    <h3 style="color: #100101;">目前发件账号默认为：2374347637@qq.com,发送图片或文档文件需要在C或D盘创建文件夹fakepath并从此文件夹取文件</h3>
+    <h3 style="color: #100101;">目前发件账号默认为：当前已注册账户,发送图片或文档文件需要在C或D盘创建文件夹fakepath并从此文件夹取文件</h3>
     <input type="hidden" name="adminId" value=""><br>
     <h2>-Email-</h2>
     发件:<input type="text" id="consignee"><br>
     收件:<input type="text" id="addressOr"><br>
     标题:<input type="text" id="otherInformation"><br>
-    内容:<input type="text" id="information"><br><br>
+    内容:<input type="" id="information"><br><br>
     <font style="margin-left: 80px;">图片:<input type="file" id="imgInformation"></font><br>
     <font style="margin-left: 80px;">附件:<input type="file" id="txtInformation"></font><br><br>
     <button onclick="sendEmail()">发送</button>

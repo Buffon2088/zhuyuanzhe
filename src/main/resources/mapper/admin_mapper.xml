@@ -10,6 +10,7 @@
          <result column="admin_pwd" property="adminPwd"/>
          <result column="admin_state" property="adminState"/>
          <result column="key" property="key"/>
+         <result column="email" property="email"/>
      </resultMap>
     <sql id="baseSql">
         select * from admin_info
@@ -27,7 +28,7 @@
      </select>
     
      <insert id="addAdmin">
-         insert into admin_info values (null,#{adminCarID},#{adminTel},#{adminLoginName},#{adminPwd},#{adminState},#{key})
+         insert into admin_info values (null,#{adminCarID},#{adminTel},#{adminLoginName},#{adminPwd},#{adminState},#{key},#{email})
      </insert>
 
      <delete id="deleteAdmin">

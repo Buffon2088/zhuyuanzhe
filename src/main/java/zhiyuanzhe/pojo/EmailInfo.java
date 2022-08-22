@@ -22,11 +22,12 @@ public class EmailInfo {
     //发送状态
     private boolean sendState;
     //授权码
+    private String key;
 
     public EmailInfo() {
     }
 
-    public EmailInfo(String consignee, String addressOr, String mailbox, String inbox, String information, String txtInformation, String imgInformation, String otherInformation, String sendTime, boolean sendState) {
+    public EmailInfo(String consignee, String addressOr, String mailbox, String inbox, String information, String txtInformation, String imgInformation, String otherInformation, String sendTime, boolean sendState, String key) {
         this.consignee = consignee;
         this.addressOr = addressOr;
         Mailbox = mailbox;
@@ -37,25 +38,7 @@ public class EmailInfo {
         this.otherInformation = otherInformation;
         this.sendTime = sendTime;
         this.sendState = sendState;
-    }
-    public EmailInfo(String consignee, String addressOr, String mailbox, String inbox, String information, String sendTime, boolean sendState) {
-        this.consignee = consignee;
-        this.addressOr = addressOr;
-        Mailbox = mailbox;
-        this.inbox = inbox;
-        this.information = information;
-        this.sendTime = sendTime;
-        this.sendState = sendState;
-    }
-    public EmailInfo(String consignee, String addressOr, String mailbox, String inbox, String txtInformation, String otherInformation, String sendTime, boolean sendState) {
-        this.consignee = consignee;
-        this.addressOr = addressOr;
-        Mailbox = mailbox;
-        this.inbox = inbox;
-        this.txtInformation = txtInformation;
-        this.otherInformation = otherInformation;
-        this.sendTime = sendTime;
-        this.sendState = sendState;
+        this.key = key;
     }
 
     public String getConsignee() {
@@ -136,5 +119,13 @@ public class EmailInfo {
 
     public void setSendState(boolean sendState) {
         this.sendState = sendState;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

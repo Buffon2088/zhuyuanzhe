@@ -16,7 +16,6 @@ import zhiyuanzhe.service.IAdminService;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.security.GeneralSecurityException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +30,8 @@ public class AdminController {
         if (adminService.adminLogin(adminInfo)) {
             AdminInfo info = adminService.findAdminByLoginNameAndPwd(adminInfo);
             session.setAttribute("adminInfo", info);
+            session.setAttribute("key",info.getKey());
+            session.setAttribute("email",info.getEmail());
             return "/adminHome/adminIndex";
         } else {
             model.addAttribute("errorMessage", "登陆失败");
@@ -57,12 +58,16 @@ public class AdminController {
     @RequestMapping("/sendEmail")
     @ResponseBody
     public String sendEmail(String consignee, String addressOr, String otherInformation, String information, String imgInformation, String txtInformation, HttpSession session) throws MessagingException, GeneralSecurityException {
+        //获取session中的数据
+        String email=session.getAttribute("email").toString();
+        String key=session.getAttribute("key").toString();
+
         //实例化邮箱类
         SendEmail sendEmail = new SendEmail();
         //实例邮件实体
         SetEmailMessage setEmailMessage=new SetEmailMessage();
         //将用户界面输入信息存入邮件实体
-        EmailInfo emailInfo=setEmailMessage.saveEmail(consignee,addressOr,otherInformation,information,imgInformation,txtInformation);
+        EmailInfo emailInfo=setEmailMessage.saveEmail(consignee,addressOr,otherInformation,information,imgInformation,txtInformation,email,key);
         //调用邮件发送类
         boolean emailState = sendEmail.sendEmail(emailInfo);
         //实例Ajax类

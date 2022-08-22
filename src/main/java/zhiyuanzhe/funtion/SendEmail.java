@@ -34,7 +34,7 @@ public class SendEmail {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 //传入发件人的姓名和授权码
-                return new PasswordAuthentication(emailInfo.getConsignee(), "ctvlrsuqswwfebed");
+                return new PasswordAuthentication(emailInfo.getConsignee(),emailInfo.getKey());
             }
         });
 
@@ -43,7 +43,7 @@ public class SendEmail {
 
         //3、通过transport对象邮箱用户名和授权码连接邮箱服务器
         String consignee = emailInfo.getConsignee();
-        transport.connect("smtp.qq.com", consignee, "ctvlrsuqswwfebed");
+        transport.connect("smtp.qq.com", consignee,emailInfo.getKey());
 
         //4、创建邮件,传入session对象
         MimeMessage mimeMessage = complexEmail(session, emailInfo);

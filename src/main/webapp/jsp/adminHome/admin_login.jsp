@@ -9,16 +9,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <html>
 <head>
+    <style type="text/css">
+        .zaoshang{
+            background:linear-gradient(
+                    #1084f6 0%, #FFF 80%);
+            height: 100%;
+        }
+    </style>
     <title>adminLogin</title>
     <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
 </head>
-<body>
-<form action="${pageContext.request.contextPath}/admin/adminLogin" method="post">
-    登录名：<input type="text" name="adminLoginName" id="loginK"><span id="tip">用户名不可为空</span><br>
-    密码：<input type="password" name="adminPwd" id="passK">
-    <a href="">找回密码</a>
-    <input value="login" type="submit">
-</form>
+<body class="zaoshang">
+<div style="text-align: center;padding-top: 300px;">
+    <form action="${pageContext.request.contextPath}/admin/adminLogin" method="post">
+        <h2>管理员登录</h2>
+        账号：<input type="text" name="adminLoginName" id="loginK"><span id="tip"></span><br><br>
+        密码：<input type="password" name="adminPwd" id="passK"><br><br>
+
+        <input value="login" type="submit">
+        <a href="">找回密码</a>
+    </form>
+</div>
+
 
 
 
