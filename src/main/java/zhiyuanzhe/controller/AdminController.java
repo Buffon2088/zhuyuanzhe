@@ -38,10 +38,14 @@ public class AdminController {
             return "/error";
         }
     }
-
+    /**
+     * 查询所有管理员类
+     */
     @RequestMapping("/findAll")
     public String findAll(Model model) {
+        //查询所有管理员
         List<AdminInfo> list = adminService.findAll();
+        //将管理员发送到前端
         model.addAttribute("adminList", list);
         return "/jsp/admin_index";
     }
@@ -51,7 +55,6 @@ public class AdminController {
         model.addAttribute(key);
         return "/email/send_email";
     }
-
     /**
      * 邮箱发送方法
      */
@@ -61,7 +64,6 @@ public class AdminController {
         //获取session中的数据
         String email=session.getAttribute("email").toString();
         String key=session.getAttribute("key").toString();
-
         //实例化邮箱类
         SendEmail sendEmail = new SendEmail();
         //实例邮件实体
@@ -80,9 +82,10 @@ public class AdminController {
         return json;
     }
 
-    @RequestMapping("/showAdd")
-    public String showAdd() {
-        return "/jsp/admin_add";
+    @RequestMapping("/goHome")
+    public String goHome() {
+        //获取当前用户信息
+        return "/adminHome/adminIndex";
     }
 
     @RequestMapping("/addAdmin")
