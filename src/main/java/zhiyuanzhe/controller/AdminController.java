@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zhiyuanzhe.annotaion.LogInfoAnnotaion;
 import zhiyuanzhe.funtion.AjaxResult;
 import zhiyuanzhe.funtion.SendEmail;
 import zhiyuanzhe.funtion.SetEmailMessage;
@@ -25,6 +26,7 @@ public class AdminController {
     @Autowired
     private IAdminService adminService;
 
+    @LogInfoAnnotaion(methodName = "adminLogin")
     @RequestMapping("/adminLogin")
     public String adminLogin(AdminInfo adminInfo, Model model, HttpSession session) {
         if (adminService.adminLogin(adminInfo)) {
@@ -58,6 +60,7 @@ public class AdminController {
     /**
      * 邮箱发送方法
      */
+    @LogInfoAnnotaion(methodName = "sendEmail")
     @RequestMapping("/sendEmail")
     @ResponseBody
     public String sendEmail(String consignee, String addressOr, String otherInformation, String information, String imgInformation, String txtInformation, HttpSession session) throws MessagingException, GeneralSecurityException {
