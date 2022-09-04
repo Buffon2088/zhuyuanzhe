@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zhiyuanzhe.dao.TeamJobDao">
+    <resultMap id="teamJobResultMap" type="zhiyuanzhe.pojo.TeamJobInfo">
+        <id column="teamJob_id" property="TeamJobId" />
+        <result column="teamJob_name" property="TeamJobName"/>
+        <result column="teamJob_state" property="TeamJobState"/>
+    </resultMap>
+    
+    <select id="findALLTeamJ" resultMap="teamJobResultMap" resultType="java.util.ArrayList">
+        select * from teamjob_info
+    </select>
+    
+    <select id="findTeamJob" resultMap="teamJobResultMap">
+        select * from teamjob_info
+       <where>
+           <if test="teamJobId!=0">teamJob_id=#{teamJobId}</if>
+           <if test="teamJobName!=null">and teamJob_name=#{teamJobName}</if>
+       </where>
+    </select>
+
+    <delete id="deleteTeamJob">
+        delete from teamjob_info where teamJob_id=#{teamJobId}
+    </delete>
+
+    <insert id="addTeamJob">
+        insert into teamjob_info values (null, #{teamJobName},#{teamJobState})
+    </insert>
+
+    <update id="updateTeamJob">
+        update teamjob_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="teamJobName!=null">teamJob_name=#{teamJobName},</if>
+            <if test="teamJobState!=null">teamJob_state=#{teamJobState}</if>
+        </trim>
+        where teamJob_id=#{teamJobId}
+    </update>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zhiyuanzhe.dao.ActiveDao">
+     <resultMap id="activeResultMap" type="zhiyuanzhe.pojo.ActiveInfo">
+         <id column="active_id" property="activeId"/>
+         <result column="active_name" property="activeName"/>
+         <result column="active_startTime" property="activeStartTime"/>
+         <result column="active_endTime" property="activeEndTime"/>
+         <result column="active_time" property="activeTime"/>
+         <result column="active_address" property="activeAddress"/>
+         <result column="active_highNum" property="activeHighNum"/>
+         <result column="active_lowNum" property="activeLowNum"/>
+         <result column="active_num" property="activeNum"/>
+         <result column="active_context" property="activeContext"/>
+         <result column="active_state" property="activeState"/>
+         <result column="active_joinNum" property="activeJoinNum"/>
+         <result column="email" property="email"/>
+
+
+         <association property="AdminInfo" column="admin_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.AdminInfo">
+             <id column="admin_id" property="adminId"/>
+             <result column="admin_carID" property="adminCarID"/>
+             <result column="admin_tel" property="adminTel"/>
+             <result column="admin_loginName" property="adminLoginName"/>
+             <result column="admin_pwd" property="adminPwd"/>
+             <result column="admin_state" property="adminState"/>
+             <result column="key" property="key"/>
+             <result column="email" property="email"/>
+         </association>
+
+         <association property="TeamTypeInfo" column="teamType_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
+             <id column="teamType_id" property="teamTypeId"/>
+             <result column="teamType_name" property="teamTypeName"/>
+             <result column="teamType_state" property="teamTypeState"/>
+         </association>
+     </resultMap>
+    <sql id="baseSql">
+        select * from active_info
+    </sql>
+     <select id="activeList" resultMap="activeResultMap" resultType="java.util.ArrayList">
+         select * from active_info
+     </select>
+     <select id="findActive" resultMap="activeResultMap">
+         select * from active_info where
+         <where>
+             <if test="activeId!=0">active_id=#{activeId}</if>
+             <if test="activeName!=null">and active_name=#{activeName}</if>
+         </where>
+     </select>
+    
+     <insert id="addActive">
+         insert into active_info values (null,#{activeName},#{activeStartTime},#{activeEndTime},#{activeTime},#{activeAddress},#{activeHighNum},#{activeLowNum},#{activeNum},#{activeContext},#{adminInfo.adminId},#{activeState},#{teamTypeInfo.teamTypeId},#{activeJoinNum})
+     </insert>
+
+     <delete id="delActive">
+         delete from active_info where active_id=#{activeId}
+     </delete>
+
+     <update id="updateAdmin">
+         update admin_info
+         <trim prefix="set" suffixOverrides=",">
+             <if test="adminCarID!=null">admin_carID=#{adminCarID},</if>
+             <if test="adminTel!=null">admin_tel=#{adminTel},</if>
+             <if test="adminLoginName!=null">admin_loginName=#{adminLoginName},</if>
+             <if test="adminPwd!=null">admin_pwd=#{adminPwd},</if>
+             <if test="adminState!=null">admin_state=#{adminState}</if>
+         </trim>
+         where admin_id=#{adminId}
+     </update>
+</mapper>
