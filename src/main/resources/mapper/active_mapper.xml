@@ -29,10 +29,10 @@
              <result column="email" property="email"/>
          </association>
 
-         <association property="TeamTypeInfo" column="teamType_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
-             <id column="teamType_id" property="teamTypeId"/>
-             <result column="teamType_name" property="teamTypeName"/>
-             <result column="teamType_state" property="teamTypeState"/>
+         <association property="ActiveTypeInfo" column="activeType_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
+             <id column="activeType_id" property="activeTypeId"/>
+             <result column="activeType_name" property="activeTypeName"/>
+             <result column="activeType_state" property="activeTypeState"/>
          </association>
      </resultMap>
     <sql id="baseSql">
