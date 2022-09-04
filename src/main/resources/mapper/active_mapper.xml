@@ -15,7 +15,6 @@
          <result column="active_context" property="activeContext"/>
          <result column="active_state" property="activeState"/>
          <result column="active_joinNum" property="activeJoinNum"/>
-
          <association column="activeType_id" property="activeTypeInfo" jdbcType="INTEGER"
                       javaType="zhiyuanzhe.pojo.ActiveTypeInfo">
              <id column="activeType_id" property="activeTypeId" />
@@ -63,5 +62,12 @@
      <delete id="delActive">
          delete from active_info where active_id=#{activeId}
      </delete>
-
+    <select id="countNum" resultType="java.lang.Integer">
+        select count(active_id) as countNums from active_info
+<!--        <where>-->
+<!--            <if test="activeType_id=1">activeType_id=#{activeTypeId}</if>-->
+<!--            <if test="activeType_id=2">and activeType_id=#{activeTypeId}</if>-->
+<!--            <if test="activeType_id=3">and activeType_id=#{activeTypeId}</if>-->
+<!--        </where>-->
+    </select>
 </mapper>

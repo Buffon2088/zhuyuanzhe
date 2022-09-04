@@ -53,4 +53,11 @@ public class ActiveServiceImp implements IActiveService {
     public int addActiveList(List<ActiveInfo> activeInfoList) {
         return activeDao.addActiveList(activeInfoList);
     }
+
+    @Override
+    public int countNum() {
+        return activeDao.countNum();
+    }
+
+
 }

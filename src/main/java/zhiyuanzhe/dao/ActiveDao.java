@@ -20,4 +20,6 @@ public interface ActiveDao {
     //批量添加
     int addActiveList(List<ActiveInfo> activeInfoList);
 
+    int countNum();
+
 }

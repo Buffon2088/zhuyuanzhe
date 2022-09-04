@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import zhiyuanzhe.annotaion.LogInfoAnnotaion;
 import zhiyuanzhe.pojo.ActiveInfo;
 import zhiyuanzhe.pojo.ActiveTypeInfo;
 import zhiyuanzhe.service.IActiveService;
 import zhiyuanzhe.service.IActiveTypeService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * zhangHong
@@ -32,9 +36,12 @@ public class ActiveController {
     /**
      * 遍历所有活动类型
      */
+    @LogInfoAnnotaion(methodName = "遍历活动")
     @RequestMapping("/findActiveList")
      public String findActiveList(Model model){
         List<ActiveTypeInfo> activeInfoList = activeTypeService.findAllActiveType();
+        String countNums = String.valueOf(activeService.countNum());
+        model.addAttribute("countNums",countNums);
         model.addAttribute(activeInfoList);
         return "/active/active_show";
      }
@@ -57,4 +64,6 @@ public class ActiveController {
          model.addAttribute(activeTypeInfoList);
          return "/active/active_show";
      }
+
+
 }

@@ -71,20 +71,17 @@
         </c:choose>
     </div>
     <h2>活动界面</h2>
-    <font class="nowziti">全部</font>
+    <font class="nowziti">活动数量：${countNums}</font>
     <c:forEach items="${activeTypeInfoList}" var="li">
        <a href="${pageContext.request.contextPath}/Active/findActiveType?activeTypeId=${li.activeTypeId}" class="ziti">${li.activeTypeName}</a>
     </c:forEach>
     <div style="margin-left: 150px" id="activePage">
-    <div class="box">
-        <div>
-
+        <div class="box">
+            <div><p id="activeName">活动名称：@@@</p></div>
         </div>
-        <div><p id="activeName">活动名称：@@@</p></div>
-    </div>
-    <div class="box"></div>
-    <div class="box"></div>
-    <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
         <div class="box"></div>
         <div class="box"></div>
         <div class="box"></div>

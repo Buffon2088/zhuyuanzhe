@@ -21,4 +21,6 @@ public interface IActiveService {
     boolean delActiveList(int begin,int end);
     //批量添加
     int addActiveList(List<ActiveInfo> activeInfoList);
+
+    int countNum();
 }

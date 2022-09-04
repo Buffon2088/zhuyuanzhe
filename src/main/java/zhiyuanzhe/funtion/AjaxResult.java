@@ -1,9 +1,15 @@
 package zhiyuanzhe.funtion;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import zhiyuanzhe.pojo.ActiveInfo;
+import zhiyuanzhe.service.IActiveService;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class AjaxResult {
+
+
 
     public Map<String, String> emailResult(Boolean emailState) {
         //存放ajax返回结果
@@ -16,4 +22,6 @@ public class AjaxResult {
         }
         return resultMap;
     }
+
+
 }
