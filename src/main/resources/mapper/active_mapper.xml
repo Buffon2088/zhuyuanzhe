@@ -31,6 +31,7 @@
              <result column="admin_state" property="adminState"/>
              <result column="key" property="key"/>
              <result column="email" property="email"/>
+
          </association>
 
          <association column="teamType_id" property="teamTypeInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
