@@ -2,6 +2,7 @@ package zhiyuanzhe.pojo;
 
 public class ActiveNoteInfo {
     private int activeNoteId;
+    private UserInfo userInfo;
     private TeamInfo teamInfo;
     private String activeNoteState;
     private AdminInfo adminInfo;
@@ -9,11 +10,13 @@ public class ActiveNoteInfo {
     private String activeNoteTime;
     private ActiveSignInfo activeSignInfo;
 
+
     public ActiveNoteInfo() {
     }
 
-    public ActiveNoteInfo(int activeNoteId, TeamInfo teamInfo, String activeNoteState, AdminInfo adminInfo, ActiveTypeInfo activeTypeInfo, String activeNoteTime, ActiveSignInfo activeSignInfo) {
+    public ActiveNoteInfo(int activeNoteId, UserInfo userInfo, TeamInfo teamInfo, String activeNoteState, AdminInfo adminInfo, ActiveTypeInfo activeTypeInfo, String activeNoteTime, ActiveSignInfo activeSignInfo) {
         this.activeNoteId = activeNoteId;
+        this.userInfo = userInfo;
         this.teamInfo = teamInfo;
         this.activeNoteState = activeNoteState;
         this.adminInfo = adminInfo;
@@ -28,6 +31,14 @@ public class ActiveNoteInfo {
 
     public void setActiveNoteId(int activeNoteId) {
         this.activeNoteId = activeNoteId;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 
     public TeamInfo getTeamInfo() {

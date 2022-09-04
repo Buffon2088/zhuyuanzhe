@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zhiyuanzhe.dao.ActiveNewsDao">
+    <resultMap id="newsResultMap" type="zhiyuanzhe.pojo.ActiveNewsInfo">
+        <id column="activeNews_id" property="activeNewsId"/>
+        <result column="activeNews_img" property="activeNewsImg"/>
+        <result column="activeNews_name" property="activeNewsName"/>
+        <result column="activeNews_context" property="activeNewsContext" />
+        <result column="activeNews_time" property="activeNewsTime" />
+        <result column="activeNews_num" property="activeNewsNum"/>
+        <result column="activeNews_state" property="activeNewsState"/>
+
+        <association property="AdminInfo" column="admin_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.AdminInfo">
+            <id column="admin_id" property="adminId"/>
+            <result column="admin_carID" property="adminCarID"/>
+            <result column="admin_tel" property="adminTel"/>
+            <result column="admin_loginName" property="adminLoginName"/>
+            <result column="admin_pwd" property="adminPwd"/>
+            <result column="admin_state" property="adminState"/>
+            <result column="key" property="key"/>
+            <result column="email" property="email"/>
+        </association>
+    </resultMap>
+
+    <select id="findAll" resultMap="newsResultMap" resultType="java.util.ArrayList">
+        select * from activeNews_info ac left join admin_info ad on ac.admin_id=ad.admin_id
+    </select>
+
+    <select id="findNews" resultMap="newsResultMap">
+        select * from activeNews_info
+      <where>
+          <if test="activeNewsId!=0">activeNews_id=#{activeNewsId}</if>
+      </where>
+    </select>
+
+    <delete id="deleteNews">
+        delete from activeNews_info where activeNews_id=#{activeNewsId}
+    </delete>
+
+    <insert id="addNews">
+        insert into activeNews_info values (null,#{activeNewsImg},#{activeNewsName},#{activeNewsContext},#{activeNewsTime},
+                                            #{activeNewsNum},#{adminInfo.adminId},#{activeNewsState})
+    </insert>
+
+    <update id="updateNews">
+        update activeNews_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="activeNewsImg!=null">activeNews_img=#{activeNewsImg},</if>
+            <if test="activeNewsName!=null">activeNews_name=#{activeNewsName},</if>
+            <if test="activeNews_context!=null">activeNews_context=#{activeNewsContext}</if>
+        </trim>
+        where activeNews_id=#{activeNewsId}
+    </update>
+</mapper>
