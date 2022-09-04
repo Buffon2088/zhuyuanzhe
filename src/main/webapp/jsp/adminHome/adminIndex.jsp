@@ -14,12 +14,20 @@
     <h2>新冠疫情志愿服务系统</h2>
     <a href="${pageContext.request.contextPath}/admin/goHome" onclick="testLogin()">首页</a><br><br>
     <a href="${pageContext.request.contextPath}" onclick="testLogin()">公告</a><br><br>
-    <a href="${pageContext.request.contextPath}" onclick="testLogin()">活动列表</a><br><br>
+    <a href="${pageContext.request.contextPath}/Active/findActiveList" onclick="testLogin()">活动列表</a><br><br>
     <a href="${pageContext.request.contextPath}" onclick="testLogin()">组织模块</a><br><br>
     <a href="${pageContext.request.contextPath}" onclick="testLogin()">个人中心</a><br><br>
     <a href="${pageContext.request.contextPath}/admin/goSendEmail?key=${sessionScope.adminInfo.key}" onclick="testLogin()">发送邮件</a><br><br>
-    <a href="${pageContext.request.contextPath}/jsp/adminHome/admin_login.jsp">登录</a>
-    <a href="${pageContext.request.contextPath}/jsp/adminHome/admin_login.jsp">注册</a>
+    <c:choose>
+        <c:when test="${sessionScope.adminInfo.adminId>0}">
+            <p>欢迎<font style="color: red;font-family: 仿宋;font-size: 20px;">-${sessionScope.adminInfo.adminLoginName}-</font>登录</p><br>
+            <a href="${pageContext.request.contextPath}/admin/loginOut">退出</a>
+        </c:when>
+        <c:otherwise>
+            <a href="${pageContext.request.contextPath}/jsp/adminHome/admin_login.jsp">登录</a>
+            <a href="${pageContext.request.contextPath}/jsp/adminHome/admin_login.jsp">注册</a>
+        </c:otherwise>
+    </c:choose>
 </div>
 </body>
 <script>
@@ -27,15 +35,6 @@
         var loginName="${sessionScope.adminInfo.adminLoginName}";
         if (loginName==""){
             alert('请您先登录');
-        }
-    }
-</script>
-<script>
-    function login(){
-        var loginName="${sessionScope.adminInfo.adminLoginName}";
-        if (loginName!=""){
-        }else {
-
         }
     }
 </script>

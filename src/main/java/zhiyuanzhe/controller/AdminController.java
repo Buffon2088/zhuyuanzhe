@@ -15,7 +15,11 @@ import zhiyuanzhe.pojo.EmailInfo;
 import zhiyuanzhe.service.IAdminService;
 
 import javax.mail.MessagingException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +43,16 @@ public class AdminController {
             model.addAttribute("errorMessage", "登陆失败");
             return "/error";
         }
+    }
+    /**
+     * 退出方法
+     */
+    @RequestMapping("/loginOut")
+    public void  loginOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session=request.getSession();
+        session.invalidate();
+        String requestPath=request.getContextPath();
+        response.sendRedirect(requestPath);
     }
     /**
      * 查询所有管理员类

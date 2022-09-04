@@ -8,6 +8,8 @@ public interface IActiveService {
 
     List<ActiveInfo> activeList();
 
+    List<ActiveInfo> activeList(int activeTypeId);
+
     ActiveInfo findActive(ActiveInfo activeInfo);
 
     boolean addActive(ActiveInfo activeInfo);

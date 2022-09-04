@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zhiyuanzhe.dao.ActiveTypeDao">
+    <resultMap id="activeTypeResultMap" type="zhiyuanzhe.pojo.ActiveTypeInfo">
+        <id column="activeType_id" property="activeTypeId"/>
+        <result column="activeType_name" property="activeTypeName"/>
+        <result column="activeType_state" property="activeTypeState"/>
+    </resultMap>
+
+    <select id="findAllActiveType" resultMap="activeTypeResultMap" resultType="java.util.ArrayList">
+        select * from activetype_info
+    </select>
+
+    <select id="findActiveType" resultMap="activeTypeResultMap">
+        select * from activetype_info
+        <where>
+            <if test="activeType_id!=0">activeType_id=#{activeTypeId}</if>
+            <if test="activeType_name!=null">and activeType_name=#{activeTypeName}</if>
+        </where>
+    </select>
+
+    <insert id="addActiveType">
+        insert into activetype_info values (null,#{activeTypeName},#{activeTypeState})
+    </insert>
+
+    <delete id="deleteActiveType">
+        delete from activetype_info where activeType_id=#{activeTypeId}
+    </delete>
+
+    <update id="updateActiveType">
+        update activetype_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="activeTypeName!=null">activeType_name=#{activeTypeName},</if>
+            <if test="activeTypeState!=null">activeType_state=#{activeTypeState}</if>
+        </trim>
+        where activeType_id=#{activeTypeId}
+    </update>
+</mapper>
