@@ -15,13 +15,14 @@
          <result column="active_context" property="activeContext"/>
          <result column="active_state" property="activeState"/>
          <result column="active_joinNum" property="activeJoinNum"/>
-         <association column="activeType_id" property="ActiveTypeInfo" jdbcType="INTEGER"
+
+         <association column="activeType_id" property="activeTypeInfo" jdbcType="INTEGER"
                       javaType="zhiyuanzhe.pojo.ActiveTypeInfo">
              <id column="activeType_id" property="activeTypeId" />
              <result column="activeType_name" property="activeTypeName" />
              <result column="activeType_state" property="activeTypeState"/>
          </association>
-         <association column="admin_id" property="AdminInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.AdminInfo">
+         <association column="admin_id" property="adminInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.AdminInfo">
              <id column="admin_id" property="adminId"/>
              <result column="admin_carID" property="adminCarID"/>
              <result column="admin_tel" property="adminTel"/>
@@ -30,9 +31,10 @@
              <result column="admin_state" property="adminState"/>
              <result column="key" property="key"/>
              <result column="email" property="email"/>
+
          </association>
 
-         <association column="teamType_id" property="TeamTypeInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
+         <association column="teamType_id" property="teamTypeInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
              <id column="teamType_id" property="teamTypeId"/>
              <result column="teamType_name" property="teamTypeName"/>
              <result column="teamType_state" property="teamTypeState"/>
