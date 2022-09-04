@@ -1,25 +1,31 @@
 package zhiyuanzhe.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class ActiveInfo {
     private int activeId;
     private String activeName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String activeStartTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String activeEndTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private int activeTime;
     private String activeAddress;
     private int activeHighNum;
     private int activeLowNum;
     private int activeNum;
     private String activeContext;
-    private AdminInfo adminInfo;
     private String activeState;
-    private TeamTypeInfo teamTypeInfo;
     private int activeJoinNum;
+    private AdminInfo adminInfo;
+    private ActiveTypeInfo activeTypeInfo;
+    private TeamTypeInfo teamTypeInfo;
 
     public ActiveInfo() {
     }
 
-    public ActiveInfo(int activeId, String activeName, String activeStartTime, String activeEndTime, int activeTime, String activeAddress, int activeHighNum, int activeLowNum, int activeNum, String activeContext, AdminInfo adminInfo, String activeState, TeamTypeInfo teamTypeInfo, int activeJoinNum) {
+    public ActiveInfo(int activeId, String activeName, String activeStartTime, String activeEndTime, int activeTime, String activeAddress, int activeHighNum, int activeLowNum, int activeNum, String activeContext, String activeState, int activeJoinNum, AdminInfo adminInfo, ActiveTypeInfo activeTypeInfo, TeamTypeInfo teamTypeInfo) {
         this.activeId = activeId;
         this.activeName = activeName;
         this.activeStartTime = activeStartTime;
@@ -30,10 +36,11 @@ public class ActiveInfo {
         this.activeLowNum = activeLowNum;
         this.activeNum = activeNum;
         this.activeContext = activeContext;
-        this.adminInfo = adminInfo;
         this.activeState = activeState;
-        this.teamTypeInfo = teamTypeInfo;
         this.activeJoinNum = activeJoinNum;
+        this.adminInfo = adminInfo;
+        this.activeTypeInfo = activeTypeInfo;
+        this.teamTypeInfo = teamTypeInfo;
     }
 
     public int getActiveId() {
@@ -116,14 +123,6 @@ public class ActiveInfo {
         this.activeContext = activeContext;
     }
 
-    public AdminInfo getAdminInfo() {
-        return adminInfo;
-    }
-
-    public void setAdminInfo(AdminInfo adminInfo) {
-        this.adminInfo = adminInfo;
-    }
-
     public String getActiveState() {
         return activeState;
     }
@@ -132,19 +131,35 @@ public class ActiveInfo {
         this.activeState = activeState;
     }
 
-    public TeamTypeInfo getTeamTypeInfo() {
-        return teamTypeInfo;
-    }
-
-    public void setTeamTypeInfo(TeamTypeInfo teamTypeInfo) {
-        this.teamTypeInfo = teamTypeInfo;
-    }
-
     public int getActiveJoinNum() {
         return activeJoinNum;
     }
 
     public void setActiveJoinNum(int activeJoinNum) {
         this.activeJoinNum = activeJoinNum;
+    }
+
+    public AdminInfo getAdminInfo() {
+        return adminInfo;
+    }
+
+    public void setAdminInfo(AdminInfo adminInfo) {
+        this.adminInfo = adminInfo;
+    }
+
+    public ActiveTypeInfo getActiveTypeInfo() {
+        return activeTypeInfo;
+    }
+
+    public void setActiveTypeInfo(ActiveTypeInfo activeTypeInfo) {
+        this.activeTypeInfo = activeTypeInfo;
+    }
+
+    public TeamTypeInfo getTeamTypeInfo() {
+        return teamTypeInfo;
+    }
+
+    public void setTeamTypeInfo(TeamTypeInfo teamTypeInfo) {
+        this.teamTypeInfo = teamTypeInfo;
     }
 }

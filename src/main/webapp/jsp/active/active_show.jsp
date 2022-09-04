@@ -36,7 +36,7 @@
 </head>
 <body class="zaoshang">
 <script>
-    function chooseActive(){
+    function TestchooseActive(){
         alert('触发响应');
         var activeTypeNmae=document.getElementById('activeTypeNmae').innerText;
         alert(activeTypeNmae);
@@ -56,7 +56,7 @@
         <a href="${pageContext.request.contextPath}/admin/goHome" onclick="testLogin()">首页</a>&nbsp;&nbsp;
         <a href="${pageContext.request.contextPath}" onclick="testLogin()">公告</a>&nbsp;&nbsp;
         <a href="${pageContext.request.contextPath}/Active/findActiveList" onclick="testLogin()">活动列表</a>&nbsp;&nbsp;
-        <a href="${pageContext.request.contextPath}" onclick="testLogin()">组织模块</a>&nbsp;&nbsp;
+        <a href="${pageContext.request.contextPath}/Active/ActiveList" onclick="testLogin()">组织模块</a>&nbsp;&nbsp;
         <a href="${pageContext.request.contextPath}" onclick="testLogin()">个人中心</a>&nbsp;&nbsp;
         <a href="${pageContext.request.contextPath}/admin/goSendEmail?key=${sessionScope.adminInfo.key}" onclick="testLogin()">发送邮件</a>&nbsp;&nbsp;
         <c:choose>
@@ -73,7 +73,7 @@
     <h2>活动界面</h2>
     <font class="nowziti">全部</font>
     <c:forEach items="${activeTypeInfoList}" var="li">
-       <a class="ziti" onclick="chooseActive()" id="activeTypeNmae">${li.activeTypeName}</a>
+       <a href="${pageContext.request.contextPath}/Active/findActiveType?activeTypeId=${li.activeTypeId}" class="ziti">${li.activeTypeName}</a>
     </c:forEach>
     <div style="margin-left: 150px" id="activePage">
     <div class="box">

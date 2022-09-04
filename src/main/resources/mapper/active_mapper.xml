@@ -15,10 +15,13 @@
          <result column="active_context" property="activeContext"/>
          <result column="active_state" property="activeState"/>
          <result column="active_joinNum" property="activeJoinNum"/>
-         <result column="email" property="email"/>
-
-
-         <association property="AdminInfo" column="admin_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.AdminInfo">
+         <association column="activeType_id" property="ActiveTypeInfo" jdbcType="INTEGER"
+                      javaType="zhiyuanzhe.pojo.ActiveTypeInfo">
+             <id column="activeType_id" property="activeTypeId" />
+             <result column="activeType_name" property="activeTypeName" />
+             <result column="activeType_state" property="activeTypeState"/>
+         </association>
+         <association column="admin_id" property="AdminInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.AdminInfo">
              <id column="admin_id" property="adminId"/>
              <result column="admin_carID" property="adminCarID"/>
              <result column="admin_tel" property="adminTel"/>
@@ -29,18 +32,20 @@
              <result column="email" property="email"/>
          </association>
 
-         <association property="ActiveTypeInfo" column="activeType_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
-             <id column="activeType_id" property="activeTypeId"/>
-             <result column="activeType_name" property="activeTypeName"/>
-             <result column="activeType_state" property="activeTypeState"/>
+         <association column="teamType_id" property="TeamTypeInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
+             <id column="teamType_id" property="teamTypeId"/>
+             <result column="teamType_name" property="teamTypeName"/>
+             <result column="teamType_state" property="teamTypeState"/>
          </association>
      </resultMap>
-    <sql id="baseSql">
-        select * from active_info
-    </sql>
+
      <select id="activeList" resultMap="activeResultMap" resultType="java.util.ArrayList">
-         select * from active_info
+         select * from active_info a LEFT JOIN activetype_info t ON a.activeType_id=t.activeType_id LEFT JOIN teamtype_info p ON a.teamType_id=p.teamType_id
      </select>
+
+    <select id="findActiveList" resultMap="activeResultMap" resultType="java.util.ArrayList">
+        select * from active_info a LEFT JOIN activetype_info t ON a.activeType_id=t.activeType_id LEFT JOIN teamtype_info p ON a.teamType_id=p.teamType_id  WHERE  a.activeType_id=#{activeTypeId}
+    </select>
      <select id="findActive" resultMap="activeResultMap">
          select * from active_info where
          <where>
@@ -50,22 +55,11 @@
      </select>
     
      <insert id="addActive">
-         insert into active_info values (null,#{activeName},#{activeStartTime},#{activeEndTime},#{activeTime},#{activeAddress},#{activeHighNum},#{activeLowNum},#{activeNum},#{activeContext},#{adminInfo.adminId},#{activeState},#{teamTypeInfo.teamTypeId},#{activeJoinNum})
+         insert into active_info values (null,#{activeName},#{activeStartTime},#{activeEndTime},#{activeTime},#{activeAddress},#{activeHighNum},#{activeLowNum},#{activeNum},#{activeContext},#{adminInfo.adminId},#{activeState},#{teamTypeInfo.teamTypeId},#{activeJoinNum},#{activeTypeInfo.activeTypeId})
      </insert>
 
      <delete id="delActive">
          delete from active_info where active_id=#{activeId}
      </delete>
 
-     <update id="updateAdmin">
-         update admin_info
-         <trim prefix="set" suffixOverrides=",">
-             <if test="adminCarID!=null">admin_carID=#{adminCarID},</if>
-             <if test="adminTel!=null">admin_tel=#{adminTel},</if>
-             <if test="adminLoginName!=null">admin_loginName=#{adminLoginName},</if>
-             <if test="adminPwd!=null">admin_pwd=#{adminPwd},</if>
-             <if test="adminState!=null">admin_state=#{adminState}</if>
-         </trim>
-         where admin_id=#{adminId}
-     </update>
 </mapper>

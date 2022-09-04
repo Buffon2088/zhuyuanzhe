@@ -1,19 +1,15 @@
 package zhiyuanzhe.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import zhiyuanzhe.pojo.ActiveInfo;
 import zhiyuanzhe.pojo.ActiveTypeInfo;
 import zhiyuanzhe.service.IActiveService;
 import zhiyuanzhe.service.IActiveTypeService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * zhangHong
@@ -42,13 +38,23 @@ public class ActiveController {
         model.addAttribute(activeInfoList);
         return "/active/active_show";
      }
-
+    /**
+     * 遍历所有活动
+     */
+    @RequestMapping("/ActiveList")
+    public String ActiveList(Model model){
+        List<ActiveInfo> activeInfoList = activeService.activeList();
+        model.addAttribute(activeInfoList);
+        return "/active/active_show";
+    }
 
      @RequestMapping("/findActiveType")
-     @ResponseBody
-     public String findActiveType(String activeTypeNmae){
-         List<ActiveTypeInfo> activeInfoList = activeTypeService.findAllActiveType();
-         String activeTypeJson = JSONObject.toJSONString(activeInfoList);
-        return activeTypeJson;
+     public String findActiveType(int activeTypeId,Model model){
+         List<ActiveInfo> activeTypeInfoList1 = activeService.activeList();
+        //查看当前类型下的活动
+         List<ActiveInfo> activeTypeInfoList = activeService.activeList(activeTypeId);
+         //发送界面集合
+         model.addAttribute(activeTypeInfoList);
+         return "/active/active_show";
      }
 }

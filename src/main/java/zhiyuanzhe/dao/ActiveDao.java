@@ -1,5 +1,4 @@
 package zhiyuanzhe.dao;
-
 import zhiyuanzhe.pojo.ActiveInfo;
 
 import java.util.List;
@@ -8,6 +7,8 @@ public interface ActiveDao {
     List<ActiveInfo> activeList();
 
     ActiveInfo findActive(ActiveInfo activeInfo);
+
+    List<ActiveInfo> findActiveList(int activeTypeId);
 
     int addActive(ActiveInfo activeInfo);
 
