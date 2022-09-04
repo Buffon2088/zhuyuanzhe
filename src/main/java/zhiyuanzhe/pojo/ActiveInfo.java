@@ -22,6 +22,15 @@ public class ActiveInfo {
     private ActiveTypeInfo activeTypeInfo;
     private TeamTypeInfo teamTypeInfo;
 
+    public ActiveTypeInfo getActiveTypeInfo() {
+        return activeTypeInfo;
+    }
+
+    public void setActiveTypeInfo(ActiveTypeInfo activeTypeInfo) {
+        this.activeTypeInfo = activeTypeInfo;
+    }
+
+
     public ActiveInfo() {
     }
 
@@ -147,13 +156,7 @@ public class ActiveInfo {
         this.adminInfo = adminInfo;
     }
 
-    public ActiveTypeInfo getActiveTypeInfo() {
-        return activeTypeInfo;
-    }
 
-    public void setActiveTypeInfo(ActiveTypeInfo activeTypeInfo) {
-        this.activeTypeInfo = activeTypeInfo;
-    }
 
     public TeamTypeInfo getTeamTypeInfo() {
         return teamTypeInfo;
