@@ -5,11 +5,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class ActiveInfo {
     private int activeId;
     private String activeName;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String activeStartTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String activeEndTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private int activeTime;
     private String activeAddress;
     private int activeHighNum;
@@ -18,23 +18,15 @@ public class ActiveInfo {
     private String activeContext;
     private String activeState;
     private int activeJoinNum;
+    private String img;
     private AdminInfo adminInfo;
     private ActiveTypeInfo activeTypeInfo;
     private TeamTypeInfo teamTypeInfo;
 
-    public ActiveTypeInfo getActiveTypeInfo() {
-        return activeTypeInfo;
-    }
-
-    public void setActiveTypeInfo(ActiveTypeInfo activeTypeInfo) {
-        this.activeTypeInfo = activeTypeInfo;
-    }
-
-
     public ActiveInfo() {
     }
 
-    public ActiveInfo(int activeId, String activeName, String activeStartTime, String activeEndTime, int activeTime, String activeAddress, int activeHighNum, int activeLowNum, int activeNum, String activeContext, String activeState, int activeJoinNum, AdminInfo adminInfo, ActiveTypeInfo activeTypeInfo, TeamTypeInfo teamTypeInfo) {
+    public ActiveInfo(int activeId, String activeName, String activeStartTime, String activeEndTime, int activeTime, String activeAddress, int activeHighNum, int activeLowNum, int activeNum, String activeContext, String activeState, int activeJoinNum, String img, AdminInfo adminInfo, ActiveTypeInfo activeTypeInfo, TeamTypeInfo teamTypeInfo) {
         this.activeId = activeId;
         this.activeName = activeName;
         this.activeStartTime = activeStartTime;
@@ -47,6 +39,7 @@ public class ActiveInfo {
         this.activeContext = activeContext;
         this.activeState = activeState;
         this.activeJoinNum = activeJoinNum;
+        this.img = img;
         this.adminInfo = adminInfo;
         this.activeTypeInfo = activeTypeInfo;
         this.teamTypeInfo = teamTypeInfo;
@@ -148,6 +141,14 @@ public class ActiveInfo {
         this.activeJoinNum = activeJoinNum;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public AdminInfo getAdminInfo() {
         return adminInfo;
     }
@@ -156,7 +157,13 @@ public class ActiveInfo {
         this.adminInfo = adminInfo;
     }
 
+    public ActiveTypeInfo getActiveTypeInfo() {
+        return activeTypeInfo;
+    }
 
+    public void setActiveTypeInfo(ActiveTypeInfo activeTypeInfo) {
+        this.activeTypeInfo = activeTypeInfo;
+    }
 
     public TeamTypeInfo getTeamTypeInfo() {
         return teamTypeInfo;

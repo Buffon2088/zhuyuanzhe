@@ -11,7 +11,7 @@
         <result column="activeNews_num" property="activeNewsNum"/>
         <result column="activeNews_state" property="activeNewsState"/>
 
-        <association property="AdminInfo" column="admin_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.AdminInfo">
+        <association property="adminInfo" column="admin_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.AdminInfo">
             <id column="admin_id" property="adminId"/>
             <result column="admin_carID" property="adminCarID"/>
             <result column="admin_tel" property="adminTel"/>
@@ -40,7 +40,7 @@
 
     <insert id="addNews">
         insert into activeNews_info values (null,#{activeNewsImg},#{activeNewsName},#{activeNewsContext},#{activeNewsTime},
-                                            #{activeNewsNum},#{adminInfo.adminId},#{activeNewsState})
+                                            0,#{adminInfo.adminId},#{activeNewsState})
     </insert>
 
     <update id="updateNews">

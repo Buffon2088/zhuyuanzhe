@@ -32,6 +32,9 @@ public class AdminController {
 
     @LogInfoAnnotaion(methodName = "adminLogin")
     @RequestMapping("/adminLogin")
+    /**
+     * 管理员登录方法
+     */
     public String adminLogin(AdminInfo adminInfo, Model model, HttpSession session) {
         if (adminService.adminLogin(adminInfo)) {
             AdminInfo info = adminService.findAdminByLoginNameAndPwd(adminInfo);

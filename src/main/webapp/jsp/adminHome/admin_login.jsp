@@ -23,6 +23,7 @@
 <div style="text-align: center;padding-top: 300px;">
     <form action="${pageContext.request.contextPath}/admin/adminLogin" method="post">
         <h2>管理员登录</h2>
+        <h5><a href="${pageContext.request.contextPath}/jsp/userHome/user_login.jsp">用户登录</a></h5>
         账号：<input type="text" name="adminLoginName" id="loginK"><span id="tip"></span><br><br>
         密码：<input type="password" name="adminPwd" id="passK"><br><br>
 

@@ -14,10 +14,10 @@
         <result column="active_joNum" property="activeJoNum"/>
         <result column="user_state" property="userState"/>
         <result column="key" property="key"/>
-        <association property="TeamJobInfo" column="teamJob_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamJobInfo">
-            <id column="teamJob_id" property="TeamJobId" />
-            <result column="teamJob_name" property="TeamJobName"/>
-            <result column="teamJob_state" property="TeamJobState"/>
+        <association property="teamJobInfo" column="teamJob_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamJobInfo">
+            <id column="teamJob_id" property="teamJobId" />
+            <result column="teamJob_name" property="teamJobName"/>
+            <result column="teamJob_state" property="teamJobState"/>
         </association>
     </resultMap>
     
@@ -26,13 +26,11 @@
     </select>
     
     <select id="findUser" resultMap="userResultMap">
-        select * from user_info select * from user_info u LEFT JOIN teamjob_info t ON u.teamJob_id=u.teamJob_id
+         select * from user_info u LEFT JOIN teamjob_info t ON u.teamJob_id=u.teamJob_id
        <where>
            <if test="userId!=0">user_id=#{userId}</if>
            <if test="userLoginName!=null">and user_loginName=#{userLoginName}</if>
            <if test="userPwd!=null">and user_pwd=#{userPwd}</if>
-           <if test="userName!=null">and user_name=#{userName}</if>
-           <if test="userHelpNum!=0">and user_helpNum=#{userHelpNum}</if>
        </where>
     </select>
     

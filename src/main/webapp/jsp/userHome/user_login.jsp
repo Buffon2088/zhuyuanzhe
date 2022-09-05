@@ -21,10 +21,11 @@
 </head>
 <body class="zaoshang">
 <div style="text-align: center;padding-top: 300px;">
-    <form action="${pageContext.request.contextPath}/admin/adminLogin" method="post">
-        <h2>管理员登录</h2>
-        账号：<input type="text" name="adminLoginName" id="loginK"><span id="tip"></span><br><br>
-        密码：<input type="password" name="adminPwd" id="passK"><br><br>
+    <form action="${pageContext.request.contextPath}/User/userLogin" method="post">
+        <h2>用户登录</h2>
+        <h5><a href="${pageContext.request.contextPath}/jsp/adminHome/admin_login.jsp">管理员登录</a></h5>
+        账号：<input type="text" name="userLoginName" id="loginK"><span id="tip"></span><br><br>
+        密码：<input type="password" name="userPwd" id="passK"><br><br>
 
         <input value="login" type="submit">
         <a href="">找回密码</a>

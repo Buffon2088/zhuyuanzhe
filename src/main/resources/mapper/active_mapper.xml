@@ -30,6 +30,7 @@
              <result column="admin_state" property="adminState"/>
              <result column="key" property="key"/>
              <result column="email" property="email"/>
+             <result column="img" property="img"/>
 
          </association>
 

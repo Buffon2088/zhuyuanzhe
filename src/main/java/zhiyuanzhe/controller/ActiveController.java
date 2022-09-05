@@ -4,22 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 import zhiyuanzhe.annotaion.LogInfoAnnotaion;
 import zhiyuanzhe.pojo.ActiveInfo;
 import zhiyuanzhe.pojo.ActiveTypeInfo;
 import zhiyuanzhe.service.IActiveService;
 import zhiyuanzhe.service.IActiveTypeService;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-/**
- * zhangHong
- * 2022/09/03
- * 活动 界面处理类
- */
+
 @Controller
 @RequestMapping("/Active")
 public class ActiveController {
@@ -39,7 +31,9 @@ public class ActiveController {
     @LogInfoAnnotaion(methodName = "遍历活动")
     @RequestMapping("/findActiveList")
      public String findActiveList(Model model){
+        //查询活动全部类型
         List<ActiveTypeInfo> activeInfoList = activeTypeService.findAllActiveType();
+        //查询活动总数量
         String countNums = String.valueOf(activeService.countNum());
         model.addAttribute("countNums",countNums);
         model.addAttribute(activeInfoList);
@@ -64,6 +58,4 @@ public class ActiveController {
          model.addAttribute(activeTypeInfoList);
          return "/active/active_show";
      }
-
-
 }
