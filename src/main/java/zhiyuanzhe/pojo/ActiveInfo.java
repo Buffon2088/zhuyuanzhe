@@ -5,11 +5,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class ActiveInfo {
     private int activeId;
     private String activeName;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String activeStartTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String activeEndTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private int activeTime;
     private String activeAddress;
     private int activeHighNum;
