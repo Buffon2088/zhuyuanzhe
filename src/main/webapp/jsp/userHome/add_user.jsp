@@ -76,13 +76,24 @@
             document.getElementById('button').disabled = false;
         }
     }
+    function idCardTest(){
+        //身份证正则
+        var idCardGz=/^(\d{6})(18|19|20)?(\d{2})([01]\d)([0123]\d)(\d{3})(\d|X)?/;
+        var idCard=document.getElementById('idCard').value;
+        if (idCardGz.test(idCard)){
+            document.getElementById('button').disabled = false;
+        }else {
+            alert('身份证不符合规范');
+            document.getElementById('button').disabled = true;
+        }
+    }
 </script>
 <div style="text-align: center;padding-top: 100px;">
     <form action="${pageContext.request.contextPath}/publicAddPeo/addUser" method="post">
         <h2>用户注册</h2>
         <h5><a href="${pageContext.request.contextPath}/jsp/adminHome/admin_login.jsp">管理员登录</a></h5>
         真实姓名：<input type="text" name="userName" id="trueName" onblur="trueNameTest()"><span id="tip"></span><br><br>
-        身份证号：<input type="text" name="userCardId"><br><br>
+        身份证号：<input type="text" name="userCardId" id="idCard" onblur="idCardTest()"><br><br>
         联系方式：<input type="text" name="userTel" ><br><br>
         电子邮箱：<input type="text" name="userEmail" ><br><br>
         新用户名：<input type="text" name="userLoginName" id="userLoginName" onblur="nameRepeat()"><br><br>
