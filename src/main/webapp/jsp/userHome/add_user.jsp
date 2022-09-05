@@ -20,6 +20,7 @@
     <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
 </head>
 <body class="zaoshang">
+
 <script>
     function passwordSure(){
         var password=document.getElementById('password').value;
@@ -56,12 +57,32 @@
             });
     }
 </script>
-<div style="text-align: center;padding-top: 300px;">
+<script>
+    function trueNameTest(){
+        var rg=/[\u4e00-\u9fa5]/;
+        var trueName=document.getElementById('trueName').value;
+        //全部为中文正则
+        if(rg.test(trueName)){
+            document.getElementById('button').disabled = false;
+        }else {
+            alert('真实姓名只能为中文');
+            document.getElementById('button').disabled = true;
+
+        }
+        if (trueName.length>=6||trueName.length<2){
+            alert('姓名不规范,真实姓名不能小于2或者不能超过6');
+            document.getElementById('button').disabled = true;
+        }else {
+            document.getElementById('button').disabled = false;
+        }
+    }
+</script>
+<div style="text-align: center;padding-top: 100px;">
     <form action="${pageContext.request.contextPath}/publicAddPeo/addUser" method="post">
         <h2>用户注册</h2>
         <h5><a href="${pageContext.request.contextPath}/jsp/adminHome/admin_login.jsp">管理员登录</a></h5>
-        真实姓名：<input type="text" name="userName" ><span id="tip"></span><br><br>
-        证件ID： <input type="text" name="userCardId"><br><br>
+        真实姓名：<input type="text" name="userName" id="trueName" onblur="trueNameTest()"><span id="tip"></span><br><br>
+        身份证号：<input type="text" name="userCardId"><br><br>
         联系方式：<input type="text" name="userTel" ><br><br>
         电子邮箱：<input type="text" name="userEmail" ><br><br>
         新用户名：<input type="text" name="userLoginName" id="userLoginName" onblur="nameRepeat()"><br><br>
@@ -69,8 +90,7 @@
         确认密码：<input type="password" id="againPas" onblur="passwordSure()"><br><br>
         邮箱编码：<input type="text" name="key" ><br><br>
         <font><a href="https://mail.qq.com/">去申请邮箱编码</a></font><br><br>
-        <input value="注册" type="submit" id="button">
-        <a href="">找回密码</a>
+        <input value="注册" type="submit" id="button" style="width: 100px;">
     </form>
 </div>
 
