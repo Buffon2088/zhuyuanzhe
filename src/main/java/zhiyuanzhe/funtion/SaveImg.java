@@ -62,7 +62,7 @@ public class SaveImg {
         bis.close();
     }
     /**
-     * 存储到target
+     * 存储到本地
      * */
     public UserInfo saveImgToLocal(UserInfo userInfo,MultipartFile file, HttpServletRequest request) {
         //项目根路径
