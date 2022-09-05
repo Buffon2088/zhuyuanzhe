@@ -63,18 +63,17 @@
         var trueName=document.getElementById('trueName').value;
         //全部为中文正则
         if(rg.test(trueName)){
-            document.getElementById('button').disabled = false;
+            if (trueName.length>=6||trueName.length<2){
+                alert('姓名不规范,真实姓名不能小于2或者不能超过6');
+                document.getElementById('button').disabled = true;
+            }else {
+                document.getElementById('button').disabled = false;
+            }
         }else {
             alert('真实姓名只能为中文');
             document.getElementById('button').disabled = true;
+        }
 
-        }
-        if (trueName.length>=6||trueName.length<2){
-            alert('姓名不规范,真实姓名不能小于2或者不能超过6');
-            document.getElementById('button').disabled = true;
-        }else {
-            document.getElementById('button').disabled = false;
-        }
     }
     function idCardTest(){
         //身份证正则
@@ -89,9 +88,10 @@
     }
 </script>
 <div style="text-align: center;padding-top: 100px;">
-    <form action="${pageContext.request.contextPath}/publicAddPeo/addUser" method="post">
+    <form action="${pageContext.request.contextPath}/publicAddPeo/addUser" method="post" enctype="multipart/form-data">
         <h2>用户注册</h2>
         <h5><a href="${pageContext.request.contextPath}/jsp/adminHome/admin_login.jsp">管理员登录</a></h5>
+        用户头像: <input type="file" name="file"><br><br>
         真实姓名：<input type="text" name="userName" id="trueName" onblur="trueNameTest()"><span id="tip"></span><br><br>
         身份证号：<input type="text" name="userCardId" id="idCard" onblur="idCardTest()"><br><br>
         联系方式：<input type="text" name="userTel" ><br><br>

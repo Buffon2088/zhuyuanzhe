@@ -14,6 +14,7 @@
         <result column="active_joNum" property="activeJoNum"/>
         <result column="user_state" property="userState"/>
         <result column="key" property="key"/>
+        <result column="img" property="img"/>
         <association property="teamJobInfo" column="teamJob_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamJobInfo">
             <id column="teamJob_id" property="teamJobId" />
             <result column="teamJob_name" property="teamJobName"/>
@@ -40,7 +41,7 @@
 
     <insert id="addUser">
         insert into user_info values (null,#{userName},#{userCardId},#{userTel},#{userEmail},#{userLoginName},#{userPwd},
-                                      0,0,0,#{userState},#{key})
+                                      0,0,0,#{userState},#{key},#{img})
     </insert>
 
     <update id="updateUser">

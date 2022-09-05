@@ -6,10 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import zhiyuanzhe.funtion.SaveImg;
 import zhiyuanzhe.pojo.UserInfo;
 import zhiyuanzhe.service.IAdminService;
 import zhiyuanzhe.service.IUserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,13 +26,17 @@ public class add_people {
     private IUserService userService;
     @Autowired
     private IAdminService adminService;
+    @Autowired
+    private SaveImg saveImg;
     /**
      * 用户注册方法
     * */
     @RequestMapping("addUser")
-    public String addUser(UserInfo userInfo,Model model){
+    public String addUser(UserInfo userInfo, Model model, MultipartFile file, HttpServletRequest request){
+        //处理图片存储(存储到target,后使用IO流复制到本地项目img文件夹中)
+        UserInfo newUser=saveImg.saveImgToTarget(userInfo,file,request);
         //判断是否注册成功
-        if (userService.addUser(userInfo)){
+        if (userService.addUser(newUser)){
             return "/userHome/user_login";
         }else {
             //失败跳转页面进行提示
