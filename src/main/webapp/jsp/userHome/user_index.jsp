@@ -25,7 +25,7 @@
         </c:when>
         <c:otherwise>
             <a href="${pageContext.request.contextPath}/jsp/userHome/user_login.jsp">登录</a>
-            <a href="${pageContext.request.contextPath}/jsp/userHome/user_add.jsp">注册</a>
+            <a href="${pageContext.request.contextPath}/jsp/userHome/add_user.jsp">注册</a>
         </c:otherwise>
     </c:choose>
 </div>

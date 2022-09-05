@@ -40,7 +40,7 @@
 
     <insert id="addUser">
         insert into user_info values (null,#{userName},#{userCardId},#{userTel},#{userEmail},#{userLoginName},#{userPwd},
-                                      #{teamJobInfo.teamJobId},0,0,#{userState},#{key})
+                                      0,0,0,#{userState},#{key})
     </insert>
 
     <update id="updateUser">

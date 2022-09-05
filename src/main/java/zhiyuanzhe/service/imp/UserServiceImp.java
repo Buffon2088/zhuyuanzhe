@@ -40,17 +40,17 @@ public class UserServiceImp implements IUserService {
     }
 
     @Override
-    public int addUser(UserInfo userInfo) {
-        return userDao.addUser(userInfo);
+    public boolean addUser(UserInfo userInfo) {
+        return userDao.addUser(userInfo)>0;
     }
 
     @Override
-    public int updateUser(UserInfo userInfo) {
-        return userDao.updateUser(userInfo);
+    public boolean updateUser(UserInfo userInfo) {
+        return userDao.updateUser(userInfo)>0;
     }
 
     @Override
-    public int deleteUser(UserInfo userInfo) {
-        return userDao.deleteUser(userInfo);
+    public boolean deleteUser(UserInfo userInfo) {
+        return userDao.deleteUser(userInfo)>0;
     }
 }

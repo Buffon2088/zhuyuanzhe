@@ -10,7 +10,7 @@ public interface IUserService {
     UserInfo findUserByLoginNameAndPwd(UserInfo userInfo);
     List<UserInfo> findAll();
     UserInfo findUser(UserInfo userInfo);
-    int addUser(UserInfo userInfo);
-    int updateUser(UserInfo userInfo);
-    int deleteUser(UserInfo userInfo);
+    boolean addUser(UserInfo userInfo);
+    boolean updateUser(UserInfo userInfo);
+    boolean deleteUser(UserInfo userInfo);
 }
