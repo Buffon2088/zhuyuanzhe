@@ -3,7 +3,6 @@ package zhiyuanzhe.funtionDao;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,9 +30,12 @@ public class add_people {
     public String addUser(UserInfo userInfo,Model model){
         //判断是否注册成功
         if (userService.addUser(userInfo)){
-            return "";
+            return "/userHome/user_login";
         }else {
-            return "";
+            //失败跳转页面进行提示
+            String err="数据库异常：请联系管理员";
+            model.addAttribute("err",err);
+            return "/public_function/errMessage";
         }
     }
 
