@@ -39,8 +39,8 @@
     </delete>
 
     <insert id="addNews">
-        insert into activeNews_info values (null,#{activeNewsImg},#{activeNewsName},#{activeNewsContext},#{activeNewsTime},
-                                            0,#{adminInfo.adminId},#{activeNewsState})
+        insert into activeNews_info values (null,null ,#{activeNewsName},#{activeNewsContext},#{activeNewsTime},
+                                            0,#{adminInfo.adminId},0)
     </insert>
 
     <update id="updateNews">

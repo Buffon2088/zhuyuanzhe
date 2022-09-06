@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import zhiyuanzhe.pojo.ActiveNewsInfo;
+import zhiyuanzhe.pojo.AdminInfo;
 import zhiyuanzhe.service.IActiveNewsService;
 import zhiyuanzhe.service.IAdminService;
 
@@ -21,13 +22,15 @@ public class ActiveNewsController {
     @RequestMapping("/findAll")
     public String findAll(Model model){
         List<ActiveNewsInfo> newsList = activeNewsService.findAll();
-        model.addAttribute(newsList);
-        return "/news/activeNews_show";
+        model.addAttribute("newsList",newsList);
+        return "/news/news_index";
     }
 
     @RequestMapping("/showAdd")
-    public String showAdd(){
-        return "/news/activeNews_add";
+    public String showAdd(Model model){
+        List<AdminInfo> adminList = adminService.findAll();
+        model.addAttribute("adminList",adminList);
+        return "/news/news_add";
     }
 
     @RequestMapping("/addNews")

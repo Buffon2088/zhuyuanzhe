@@ -13,7 +13,7 @@
 <div style="text-align: center;padding-top: 200px;">
     <h2>新冠疫情志愿服务后台管理系统</h2>
     <a href="${pageContext.request.contextPath}" onclick="testLogin()">查看管理员</a><br><br>
-    <a href="${pageContext.request.contextPath}" onclick="testLogin()">公告管理</a><br><br>
+    <a href="${pageContext.request.contextPath}/news/findAll" onclick="testLogin()">公告管理</a><br><br>
     <a href="${pageContext.request.contextPath}" onclick="testLogin()">活动类型管理</a><br><br>
     <a href="${pageContext.request.contextPath}" onclick="testLogin()">活动管理</a><br><br>
     <a href="${pageContext.request.contextPath}" onclick="testLogin()">组织管理</a><br><br>

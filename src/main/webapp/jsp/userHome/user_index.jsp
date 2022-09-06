@@ -13,7 +13,7 @@
 <div style="text-align: center;padding-top: 200px;">
     <h2>新冠疫情志愿服务系统</h2>
     <a href="${pageContext.request.contextPath}" onclick="testLogin()">首页</a><br><br>
-    <a href="${pageContext.request.contextPath}" onclick="testLogin()">公告</a><br><br>
+    <a href="${pageContext.request.contextPath}/news/findAll" onclick="testLogin()">公告</a><br><br>
     <a href="${pageContext.request.contextPath}/Active/findActiveList" onclick="testLogin()">活动列表</a><br><br>
     <a href="${pageContext.request.contextPath}" onclick="testLogin()">组织模块</a><br><br>
     <a href="${pageContext.request.contextPath}" onclick="testLogin()">个人中心</a><br><br>
