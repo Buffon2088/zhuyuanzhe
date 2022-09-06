@@ -91,7 +91,7 @@
     <form action="${pageContext.request.contextPath}/publicAddPeo/addUser" method="post" enctype="multipart/form-data">
         <h2>用户注册</h2>
         <h5><a href="${pageContext.request.contextPath}/jsp/adminHome/admin_login.jsp">管理员登录</a></h5>
-        用户头像: <input type="file" name="file"><br><br>
+        <font style="margin-left: 75px">用户头像:</font> <input type="file" name="file" ><br><br>
         真实姓名：<input type="text" name="userName" id="trueName" onblur="trueNameTest()"><span id="tip"></span><br><br>
         身份证号：<input type="text" name="userCardId" id="idCard" onblur="idCardTest()"><br><br>
         联系方式：<input type="text" name="userTel" ><br><br>

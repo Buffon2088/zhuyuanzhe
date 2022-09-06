@@ -17,7 +17,6 @@ class RendererExample
 {
 
     public static void main(String[] args) throws MalformedURLException, IOException, URISyntaxException, AWTException {
-        //此方法仅适用于JdK1.6及以上版本
         Desktop.getDesktop().browse(
                 new URL("http://baidu.com").toURI());
         Robot robot = new Robot();

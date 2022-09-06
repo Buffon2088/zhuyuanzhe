@@ -7,6 +7,7 @@ import zhiyuanzhe.pojo.UserInfo;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/PublicImg")
@@ -18,10 +19,12 @@ public class SaveImg {
     public UserInfo saveImgToTarget(UserInfo userInfo,MultipartFile file, HttpServletRequest request) {
         //target路径
         String path = request.getServletContext().getRealPath("/img");
-        //本地omg路径
+        //本地img路径
         String localPath="D:\\xampp\\2023毕业设计\\zhuyuanzhe\\src\\main\\webapp\\img";
-        String filename = file.getOriginalFilename();
-        // String filename = UUID.randomUUID().toString().replace("-", "");
+        //通过UUID来命名
+         String filenames = UUID.randomUUID().toString().replace("-", "");
+         //生成最终文件名
+        String filename = file.getOriginalFilename()+filenames;
         //存储到Target
         File f = new File(path,filename);
         File f1=new File(localPath,filename);
@@ -67,8 +70,8 @@ public class SaveImg {
     public UserInfo saveImgToLocal(UserInfo userInfo,MultipartFile file, HttpServletRequest request) {
         //项目根路径
         String localPath="D:\\xampp\\2023毕业设计\\zhuyuanzhe\\src\\main\\webapp\\img";
-        String filename = file.getOriginalFilename();
-        // String filename = UUID.randomUUID().toString().replace("-", "");
+        String filenames = UUID.randomUUID().toString().replace("-", "");
+        String filename = file.getOriginalFilename()+filenames;
         //存储到本地项目中
         File localImg = new File(localPath,filename);
         //判断路径是否存在，不存在则创建

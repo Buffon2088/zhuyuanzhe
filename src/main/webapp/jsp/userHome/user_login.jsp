@@ -26,7 +26,6 @@
         <h5><a href="${pageContext.request.contextPath}/jsp/adminHome/admin_login.jsp">管理员登录</a></h5>
         账号：<input type="text" name="userLoginName" id="loginK"><span id="tip"></span><br><br>
         密码：<input type="password" name="userPwd" id="passK"><br><br>
-
         <input value="login" type="submit">
         <a href="">找回密码</a>
     </form>
