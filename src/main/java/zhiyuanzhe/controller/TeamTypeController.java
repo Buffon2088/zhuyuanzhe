@@ -39,6 +39,13 @@ public class TeamTypeController {
         }
     }
 
+    @RequestMapping("/showById")
+    public String showById(TeamTypeInfo teamTypeInfo,Model model){
+        TeamTypeInfo Info = teamTypeService.findTeamType(teamTypeInfo);
+        model.addAttribute("teamTypeInfo",Info);
+        return "/teamType/teamType_update";
+    }
+
     @RequestMapping("/updateTeamType")
     public String updateTeamType(TeamTypeInfo teamTypeInfo,Model model){
         if(teamTypeService.updateTeamType(teamTypeInfo)){

@@ -3,15 +3,15 @@ package zhiyuanzhe.pojo;
 public class TeamTypeInfo {
     private int teamTypeId;
     private String teamTypeName;
-    private String teamTYpeState;
+    private String teamTypeState;
 
     public TeamTypeInfo() {
     }
 
-    public TeamTypeInfo(int teamTypeId, String teamTypeName, String teamTYpeState) {
+    public TeamTypeInfo(int teamTypeId, String teamTypeName, String teamTypeState) {
         this.teamTypeId = teamTypeId;
         this.teamTypeName = teamTypeName;
-        this.teamTYpeState = teamTYpeState;
+        this.teamTypeState = teamTypeState;
     }
 
     public int getTeamTypeId() {
@@ -30,11 +30,11 @@ public class TeamTypeInfo {
         this.teamTypeName = teamTypeName;
     }
 
-    public String getTeamTYpeState() {
-        return teamTYpeState;
+    public String getTeamTypeState() {
+        return teamTypeState;
     }
 
-    public void setTeamTYpeState(String teamTYpeState) {
-        this.teamTYpeState = teamTYpeState;
+    public void setTeamTypeState(String teamTypeState) {
+        this.teamTypeState = teamTypeState;
     }
 }

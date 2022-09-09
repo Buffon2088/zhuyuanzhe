@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import zhiyuanzhe.pojo.TeamJobInfo;
+import zhiyuanzhe.pojo.TeamTypeInfo;
 import zhiyuanzhe.service.ITeamJobService;
 
 import java.util.List;
@@ -37,6 +38,13 @@ public class TeamJobController {
             model.addAttribute("errorMessage","添加失败");
             return "/teamJob/error";
         }
+    }
+
+    @RequestMapping("showById")
+    public String showById(TeamJobInfo teamJobInfo,Model model){
+        TeamJobInfo Info = teamJobService.findTeamJob(teamJobInfo);
+        model.addAttribute("teamJobInfo",Info);
+        return "/teamJob/teamJob_update";
     }
 
     @RequestMapping("/updateTeamJob")
