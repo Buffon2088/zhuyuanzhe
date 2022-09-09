@@ -1,9 +1,9 @@
 package zhiyuanzhe.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import zhiyuanzhe.pojo.UserInfo;
 import zhiyuanzhe.service.IUserService;
 
@@ -17,31 +17,37 @@ import java.io.IOException;
 @RequestMapping("/User")
 public class UserController {
     @Autowired
-   private IUserService userService;
+    private IUserService userService;
+
     /**
      * 用户登录方法
      */
     @RequestMapping("/userLogin")
-    public String userLogin(UserInfo userInfo, Model model, HttpSession session) {
+    public String userLogin(UserInfo userInfo, Model model, HttpSession session,HttpServletRequest request) {
         if (userService.userLogin(userInfo)) {
             UserInfo info = userService.findUserByLoginNameAndPwd(userInfo);
             session.setAttribute("userInfo", info);
-            session.setAttribute("key",info.getKey());
-            session.setAttribute("email",info.getUserEmail());
+            session.setAttribute("key", info.getKey());
+            session.setAttribute("email", info.getUserEmail());
             return "/userHome/user_index";
         } else {
-            model.addAttribute("errorMessage", "登陆失败");
-            return "/error";
+            //获取当前请求的URL
+            String contPath=request.getContextPath();
+            model.addAttribute("url",contPath);
+            //登陆失败提示语
+            model.addAttribute("err", "登陆失败，请重新登录");
+            return "/public_function/errMessage";
         }
     }
+
     /**
      * 退出方法
      */
     @RequestMapping("/loginOut")
-    public void  loginOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session=request.getSession();
+    public void loginOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         session.invalidate();
-        String requestPath=request.getContextPath();
+        String requestPath = request.getContextPath();
         response.sendRedirect(requestPath);
     }
 }
