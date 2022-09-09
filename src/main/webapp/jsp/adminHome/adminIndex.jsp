@@ -8,6 +8,7 @@
         height: 100%;
     }
 </style>
+<script src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
 <body class="zaoshang">
 
 <div style="text-align: center;padding-top: 200px;">
@@ -35,6 +36,7 @@
     function testLogin(){
         var loginName="${sessionScope.adminInfo.adminLoginName}";
         if (loginName==""){
+            window.location = '${sessionScope.adminInfo.adminLoginName}/jsp/adminHome/adminIndex.jsp';
             alert('请您先登录');
         }
     }

@@ -1,6 +1,7 @@
 package zhiyuanzhe.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +36,7 @@ public class AdminController {
     /**
      * 管理员登录方法
      */
-    public String adminLogin(AdminInfo adminInfo, Model model, HttpSession session) {
+    public String adminLogin(AdminInfo adminInfo, Model model, HttpSession session, HttpServletRequest request) {
         if (adminService.adminLogin(adminInfo)) {
             AdminInfo info = adminService.findAdminByLoginNameAndPwd(adminInfo);
             session.setAttribute("adminInfo", info);
@@ -43,8 +44,12 @@ public class AdminController {
             session.setAttribute("email",info.getEmail());
             return "/adminHome/adminIndex";
         } else {
-            model.addAttribute("errorMessage", "登陆失败");
-            return "/error";
+            //获取当前请求的URL
+            String contPath=request.getContextPath();
+            model.addAttribute("url",contPath);
+            //登陆失败提示语
+            model.addAttribute("err", "登陆失败，请重新登录");
+            return "/public_function/errMessage";
         }
     }
     /**

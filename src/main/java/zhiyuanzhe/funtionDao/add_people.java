@@ -29,7 +29,7 @@ public class add_people {
     @Autowired
     private SaveImg saveImg;
     /**
-     * 用户注册方法
+     * 用户注册方法（图片）
     * */
     @RequestMapping("addUser")
     public String addUser(UserInfo userInfo, Model model, MultipartFile file, HttpServletRequest request){
