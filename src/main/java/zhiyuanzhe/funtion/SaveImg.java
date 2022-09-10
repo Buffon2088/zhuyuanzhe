@@ -7,7 +7,6 @@ import zhiyuanzhe.pojo.UserInfo;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.net.URL;
 import java.util.UUID;
 
 @Controller
@@ -21,6 +20,7 @@ public class SaveImg {
      * 截取去除路径
      * */
     public static String TARGET_PATH="/target/zhiyuanzhe/WEB-INF/classes/";
+
     /**
      * 存储到target
      * */
@@ -35,7 +35,7 @@ public class SaveImg {
         //通过UUID来命名
         String filenames = UUID.randomUUID().toString().replace("-", "");
         //生成最终文件名
-        String filename =filenames+file.getOriginalFilename();
+        String filename =filenames+"-"+file.getOriginalFilename();
         //存储到Target
         File f = new File(path,filename);
         File f1=new File(localPath,filename);
