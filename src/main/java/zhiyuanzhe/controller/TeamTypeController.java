@@ -1,14 +1,21 @@
 package zhiyuanzhe.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import zhiyuanzhe.pojo.TeamTypeInfo;
 import zhiyuanzhe.service.ITeamTypeService;
 
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/TeamType")
@@ -66,5 +73,25 @@ public class TeamTypeController {
         }
     }
 
+    @RequestMapping("/checkName")
+    @ResponseBody
+    public String checkName(TeamTypeInfo teamTypeInfo){
+        //TeamTypeInfo TypeInfo = teamTypeService.findTeamType(teamTypeInfo);
+        Map<String,String> map = new HashMap<>();
+        try{
+            if(teamTypeService.findTeamType(teamTypeInfo).getTeamTypeId()>0){
+                map.put("res","1");
+            }else{
+                map.put("res","0");
+            }
+        }catch (Exception e){
+            map.put("res","0");
+        }
+
+        String js = JSONObject.toJSONString(map);
+        return js;
+    }
+
 
 }
+

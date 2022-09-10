@@ -40,4 +40,9 @@ public class TeamJobServiceImp implements ITeamJobService {
     public boolean deleteTeamJob(TeamJobInfo teamJobInfo) {
         return teamJobDao.deleteTeamJob(teamJobInfo)>0;
     }
+
+    @Override
+    public boolean resName(TeamJobInfo teamJobInfo) {
+        return teamJobDao.findTeamJob(teamJobInfo)!=null;
+    }
 }

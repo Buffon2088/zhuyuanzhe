@@ -27,6 +27,11 @@ public class TeamTypeServiceImp implements ITeamTypeService {
     }
 
     @Override
+    public boolean checkName(TeamTypeInfo teamTypeInfo) {
+        return teamTypeDao.findTeamType(teamTypeInfo)!=null;
+    }
+
+    @Override
     public boolean addTeamType(TeamTypeInfo teamTypeInfo) {
         return teamTypeDao.addTeamType(teamTypeInfo)>0;
     }

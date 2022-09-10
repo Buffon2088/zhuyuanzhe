@@ -1,15 +1,19 @@
 package zhiyuanzhe.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import zhiyuanzhe.pojo.TeamJobInfo;
 import zhiyuanzhe.pojo.TeamTypeInfo;
 import zhiyuanzhe.service.ITeamJobService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/TeamJob")
@@ -65,5 +69,22 @@ public class TeamJobController {
             model.addAttribute("errorMessage","添加失败");
             return "/teamJob/error";
         }
+    }
+
+   @RequestMapping("/resName")
+   @ResponseBody
+   public String resName(TeamJobInfo teamJobInfo,Model model){
+        Map<String,String> map = new HashMap<>();
+        try{
+            if(teamJobService.findTeamJob(teamJobInfo).getTeamJobId()>0){
+                map.put("res","1");
+            }else{
+                map.put("res","0");
+            }
+        }catch (Exception e){
+            map.put("res","0");
+        }
+        return JSONObject.toJSONString(map);
+
     }
 }

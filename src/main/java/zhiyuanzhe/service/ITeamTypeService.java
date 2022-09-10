@@ -10,6 +10,8 @@ public interface ITeamTypeService {
 
     TeamTypeInfo findTeamType(TeamTypeInfo teamTypeInfo);
 
+    boolean checkName(TeamTypeInfo teamTypeInfo);
+
     boolean addTeamType(TeamTypeInfo teamTypeInfo);
 
     boolean updateTeamType(TeamTypeInfo teamTypeInfo);

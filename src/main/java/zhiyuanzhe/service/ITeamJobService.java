@@ -15,4 +15,6 @@ public interface ITeamJobService {
     boolean updateTeamJob(TeamJobInfo teamJobInfo);
 
     boolean deleteTeamJob(TeamJobInfo teamJobInfo);
+
+    boolean resName(TeamJobInfo teamJobInfo);
 }
