@@ -15,6 +15,7 @@
          <result column="active_context" property="activeContext"/>
          <result column="active_state" property="activeState"/>
          <result column="active_joinNum" property="activeJoinNum"/>
+         <result column="img" property="img"/>
          <association column="activeType_id" property="activeTypeInfo" jdbcType="INTEGER"
                       javaType="zhiyuanzhe.pojo.ActiveTypeInfo">
              <id column="activeType_id" property="activeTypeId" />
@@ -31,7 +32,6 @@
              <result column="key" property="key"/>
              <result column="email" property="email"/>
              <result column="img" property="img"/>
-
          </association>
 
          <association column="teamType_id" property="teamTypeInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
@@ -57,7 +57,7 @@
      </select>
     
      <insert id="addActive">
-         insert into active_info values (null,#{activeName},#{activeStartTime},#{activeEndTime},#{activeTime},#{activeAddress},#{activeHighNum},#{activeLowNum},#{activeNum},#{activeContext},#{adminInfo.adminId},#{activeState},#{teamTypeInfo.teamTypeId},#{activeJoinNum},#{activeTypeInfo.activeTypeId})
+         insert into active_info values (null,#{activeName},#{activeStartTime},#{activeEndTime},#{activeTime},#{activeAddress},#{activeHighNum},#{activeLowNum},#{activeNum},#{activeContext},#{adminInfo.adminId},#{activeState},#{teamTypeInfo.teamTypeId},#{activeJoinNum},#{activeTypeInfo.activeTypeId},#{img})
      </insert>
 
      <delete id="delActive">

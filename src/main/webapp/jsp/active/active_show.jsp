@@ -11,39 +11,67 @@
 <head>
     <title>活动列表</title>
     <style type="text/css">
-        .zaoshang{
-            background:linear-gradient(
+        .zaoshang {
+            background: linear-gradient(
                     #1084f6 0%, #FFF 80%);
             height: 100%;
         }
-        .box{
-            width: 250px;height: 250px;border-bottom: #1084f6;background: darkgrey;float: left;margin-left:100px;margin-top: 100px;
+
+        .imgBackground {
+            background: linear-gradient(
+                    #4e9510 0%, #FFF 80%);
+            height: 100%;
         }
-        .ziti{
-           font-size: 20px;
+
+        .box {
+            width: 250px;
+            height: 450px;
+            border-bottom: #1084f6;
+            background: darkgrey;
+            float: left;
+            margin-left: 100px;
+            margin-top: 100px;
+            background: linear-gradient(
+                    #6eac38 0%, #FFF 80%);
+        }
+
+        .ziti {
+            font-size: 20px;
             font-family: 微软雅黑;
             font-weight: 600;
             color: coral;
         }
-        .nowziti{
+
+        .nowziti {
             font-size: 23px;
             font-family: 微软雅黑;
             font-weight: 600;
             color: #070200;
+        }
+
+        .activeImg {
+            width: 200px;
+            height: 180px;
+        }
+
+        .button {
+            width: 100px;
+            height: 35px;
+            background: #a3bd3d;
         }
     </style>
     <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
 </head>
 <body class="zaoshang">
 <script>
-    function TestchooseActive(){
+    function TestchooseActive() {
         alert('触发响应');
-        var activeTypeNmae=document.getElementById('activeTypeNmae').innerText;
+        var activeTypeNmae = document.getElementById('activeTypeNmae').innerText;
         alert(activeTypeNmae);
         $.ajax({
             url: '${pageContext.request.contextPath}/Active/findActiveType',
             method: 'post',
-            data: {'activeTypeNmae' : activeTypeNmae},
+            data: {'activeTypeNmae': activeTypeNmae},
             success: function (data) {
                 alert('回调成功');
             }
@@ -58,35 +86,41 @@
         <a href="${pageContext.request.contextPath}/Active/findActiveList" onclick="testLogin()">活动列表</a>&nbsp;&nbsp;
         <a href="${pageContext.request.contextPath}/Active/ActiveList" onclick="testLogin()">组织模块</a>&nbsp;&nbsp;
         <a href="${pageContext.request.contextPath}" onclick="testLogin()">个人中心</a>&nbsp;&nbsp;
-        <a href="${pageContext.request.contextPath}/admin/goSendEmail?key=${sessionScope.adminInfo.key}" onclick="testLogin()">发送邮件</a>&nbsp;&nbsp;
+        <a href="${pageContext.request.contextPath}/admin/goSendEmail?key=${sessionScope.adminInfo.key}"
+           onclick="testLogin()">发送邮件</a>&nbsp;&nbsp;
         <c:choose>
-            <c:when test="${sessionScope.adminInfo.adminId>0}">
-                <font>欢迎<font style="color: red;font-family: 仿宋;font-size: 20px;">-${sessionScope.adminInfo.adminLoginName}-</font></font>
-                <a href="${pageContext.request.contextPath}/admin/loginOut">退出</a>
+            <c:when test="${sessionScope.userInfo.userId>0}">
+                <font>欢迎<font
+                        style="color: red;font-family: 仿宋;font-size: 20px;">-${sessionScope.userInfo.userName}-</font></font>
+                <a href="${pageContext.request.contextPath}/User/loginOut">退出</a>
             </c:when>
             <c:otherwise>
-                <a href="${pageContext.request.contextPath}/jsp/adminHome/admin_login.jsp">登录</a>
-                <a href="${pageContext.request.contextPath}/jsp/adminHome/admin_login.jsp">注册</a>
+                <a href="${pageContext.request.contextPath}/jsp/userHome/user_login.jsp">登录</a>
+                <a href="${pageContext.request.contextPath}/jsp/userHome/add_user.jsp">注册</a>
             </c:otherwise>
         </c:choose>
     </div>
     <h2>活动界面</h2>
     <font class="nowziti">活动数量：${countNums}</font>
     <c:forEach items="${activeTypeInfoList}" var="li">
-       <a href="${pageContext.request.contextPath}/Active/findActiveType?activeTypeId=${li.activeTypeId}" class="ziti">${li.activeTypeName}</a>
+        <a href="${pageContext.request.contextPath}/Active/findActiveType?activeTypeId=${li.activeTypeId}"
+           class="ziti">${li.activeTypeName}</a>
     </c:forEach>
     <div style="margin-left: 150px" id="activePage">
-        <div class="box">
-            <div><p id="activeName">活动名称：@@@</p></div>
-        </div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-    </div>
+        <c:forEach items="${activeInfoList}" var="li">
+            <div class="box">
+                <div>
+                    <p id="activeName">活动名称：${li.activeName}</p>
+                    <img src="${pageContext.request.contextPath}/img/${li.img}" class="activeImg">
+                    <p>开始时间：${li.activeStartTime}</p>
+                    <p>结束时间：${li.activeEndTime}</p>
+                    <p>活动地点：${li.activeAddress}</p>
+                    <p>人数(Now/Max)：${li.activeNum}/${li.activeHighNum}</p>
+                    <a href=""><input type="button" value="查看详情" class="button"></a>
+                </div>
+            </div>
+        </c:forEach>
+   </div>
 </div>
 </body>
 </html>

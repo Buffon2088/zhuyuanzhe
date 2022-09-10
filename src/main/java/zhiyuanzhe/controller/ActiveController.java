@@ -48,14 +48,18 @@ public class ActiveController {
         model.addAttribute(activeInfoList);
         return "/active/active_show";
     }
-
+    /**
+     * 查看某一类型的所有活动
+     */
      @RequestMapping("/findActiveType")
      public String findActiveType(int activeTypeId,Model model){
-         List<ActiveInfo> activeTypeInfoList1 = activeService.activeList();
-        //查看当前类型下的活动
+         //查询全部活动类型
+         List<ActiveTypeInfo> activeInfoList = activeTypeService.findAllActiveType();
+         //查看当前类型下的活动
          List<ActiveInfo> activeTypeInfoList = activeService.activeList(activeTypeId);
          //发送界面集合
          model.addAttribute(activeTypeInfoList);
+         model.addAttribute(activeInfoList);
          return "/active/active_show";
      }
 }
