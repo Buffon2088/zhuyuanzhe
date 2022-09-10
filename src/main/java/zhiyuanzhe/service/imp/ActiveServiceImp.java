@@ -23,6 +23,11 @@ public class ActiveServiceImp implements IActiveService {
         return activeDao.findActiveList(activeTypeId);
     }
 
+    @Override
+    public ActiveInfo findActiveById(ActiveInfo activeInfo) {
+        return activeDao.findActive(activeInfo);
+    }
+
 
     @Override
     public ActiveInfo findActive(ActiveInfo activeInfo) {
