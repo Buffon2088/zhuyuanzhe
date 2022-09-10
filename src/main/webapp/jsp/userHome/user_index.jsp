@@ -7,11 +7,22 @@
                 #1084f6 0%, #FFF 80%);
         height: 100%;
     }
+    .headImg{
+        width: 150px;
+        height: 150px;
+    }
 </style>
 <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
 <body class="zaoshang">
 
 <div style="text-align: center;padding-top: 200px;">
+    <div>
+        <c:choose>
+            <c:when test="${sessionScope.userInfo.userId>0}">
+                <img src="${pageContext.request.contextPath}/img/${sessionScope.userInfo.img}" class="headImg">
+            </c:when>
+        </c:choose>
+    </div>
     <h2>新冠疫情志愿服务系统</h2>
     <a href="${pageContext.request.contextPath}" onclick="testLogin()">首页</a><br><br>
     <a href="${pageContext.request.contextPath}/news/findAll" onclick="testLogin()">公告</a><br><br>

@@ -35,7 +35,7 @@ public class add_people {
     public String addUser(UserInfo userInfo, Model model, MultipartFile file, HttpServletRequest request){
         //处理图片存储(存储到target,后使用IO流复制到本地项目img文件夹中)
         UserInfo newUser=saveImg.saveImgToTarget(userInfo,file,request);
-        //判断图片是否保存成功是否注册成功
+        //判断图片是否保存成功,是否注册成功
         if (userService.addUser(newUser) && newUser!=null){
             return "/userHome/user_login";
         }else {
