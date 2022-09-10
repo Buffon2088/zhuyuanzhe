@@ -7,11 +7,20 @@ import zhiyuanzhe.pojo.UserInfo;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.net.URL;
 import java.util.UUID;
 
 @Controller
 @RequestMapping("/PublicImg")
 public class SaveImg {
+    /**
+     * 图片文件目录
+     * */
+    public static String URL_PATH="/src/main/webapp/img";
+    /**
+     * 截取去除路径
+     * */
+    public static String TARGET_PATH="/target/zhiyuanzhe/WEB-INF/classes/";
     /**
      * 存储到target
      * */
@@ -19,12 +28,14 @@ public class SaveImg {
     public UserInfo saveImgToTarget(UserInfo userInfo,MultipartFile file, HttpServletRequest request) {
         //target路径
         String path = request.getServletContext().getRealPath("/img");
-        //本地img路径
-        String localPath="D:\\xampp\\2023毕业设计\\zhuyuanzhe\\src\\main\\webapp\\img";
+        //截取本地路径
+        File notImgPath = new File(this.getClass().getResource("/").getPath().replaceAll(TARGET_PATH,  "" ));
+        //拼接img完整路径
+        String localPath=notImgPath+URL_PATH;
         //通过UUID来命名
-         String filenames = UUID.randomUUID().toString().replace("-", "");
-         //生成最终文件名
-        String filename = file.getOriginalFilename()+filenames;
+        String filenames = UUID.randomUUID().toString().replace("-", "");
+        //生成最终文件名
+        String filename =filenames+file.getOriginalFilename();
         //存储到Target
         File f = new File(path,filename);
         File f1=new File(localPath,filename);
@@ -37,6 +48,7 @@ public class SaveImg {
             file.transferTo(f);
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
         userInfo.setImg(filename);
         //复制图片执行方法
@@ -44,6 +56,7 @@ public class SaveImg {
             copyImg(f,f1);
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
         return userInfo;
     }
