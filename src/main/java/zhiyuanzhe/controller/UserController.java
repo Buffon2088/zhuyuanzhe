@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import zhiyuanzhe.pojo.ActiveInfo;
 import zhiyuanzhe.pojo.UserInfo;
+import zhiyuanzhe.service.IActiveService;
 import zhiyuanzhe.service.IUserService;
 
 import javax.servlet.ServletException;
@@ -22,7 +24,8 @@ import java.util.Properties;
 public class UserController {
     @Autowired
     private IUserService userService;
-
+    @Autowired
+    private IActiveService activeService;
     /**
      * 用户登录方法
      */
@@ -53,5 +56,17 @@ public class UserController {
         session.invalidate();
         String requestPath = request.getContextPath();
         response.sendRedirect(requestPath);
+    }
+    /**
+     * 用户查看活动详情
+     */
+    @RequestMapping("/findActiveById")
+    public String findActiveById(Model model,ActiveInfo activeInfo,HttpServletRequest request){
+        int activeId=Integer.parseInt(request.getParameter("activeId"));
+        ActiveInfo info=new ActiveInfo();
+        info.setActiveId(activeId);
+        activeInfo=activeService.findActiveById(info);
+        model.addAttribute("activeInfo",activeInfo);
+        return "/active/active_detail";
     }
 }

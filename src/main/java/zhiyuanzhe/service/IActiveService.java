@@ -9,6 +9,8 @@ public interface IActiveService {
     List<ActiveInfo> activeList();
 
     List<ActiveInfo> activeList(int activeTypeId);
+    //通过ID查看
+    ActiveInfo findActiveById(ActiveInfo activeInfo);
 
     ActiveInfo findActive(ActiveInfo activeInfo);
 
