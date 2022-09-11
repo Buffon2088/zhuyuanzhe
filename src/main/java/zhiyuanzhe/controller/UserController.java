@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import zhiyuanzhe.funtionDao.IsTimeOut;
 import zhiyuanzhe.pojo.ActiveInfo;
 import zhiyuanzhe.pojo.UserInfo;
 import zhiyuanzhe.service.IActiveService;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.Properties;
 
 @Controller
@@ -64,12 +66,24 @@ public class UserController {
      * 用户查看活动详情
      */
     @RequestMapping("/findActiveById")
-    public String findActiveById(Model model,ActiveInfo activeInfo,HttpServletRequest request){
+    public String findActiveById(Model model,ActiveInfo activeInfo,HttpServletRequest request) throws ParseException {
+        //通过id查询活动信息
         int activeId=Integer.parseInt(request.getParameter("activeId"));
         ActiveInfo info=new ActiveInfo();
         info.setActiveId(activeId);
         activeInfo=activeService.findActiveById(info);
+        //发送到前台界面
         model.addAttribute("activeInfo",activeInfo);
-        return "/active/active_detail";
+        //校验当前活动时间
+        boolean isTimeOut=new IsTimeOut().isTimeOut(activeInfo);
+        if (isTimeOut){
+            //判断当前活动状态
+
+            return "/active/active_detail";
+        }else {
+            //活动异常提示语
+            model.addAttribute("err", "该活动已经结束~");
+            return "/public_function/errMessage";
+        }
     }
 }
