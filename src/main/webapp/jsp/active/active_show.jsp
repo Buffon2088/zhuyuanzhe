@@ -81,7 +81,7 @@
 <div style="text-align: center;padding-top: 100px;">
     <div style="text-align: center;">
         <h2>新冠疫情志愿服务系统</h2>
-        <a href="${pageContext.request.contextPath}/admin/goHome" onclick="testLogin()">首页</a>&nbsp;&nbsp;
+        <a href="${pageContext.request.contextPath}/User/goHome" onclick="testLogin()">首页</a>&nbsp;&nbsp;
         <a href="${pageContext.request.contextPath}/news/findAll" onclick="testLogin()">公告</a>&nbsp;&nbsp;
         <a href="${pageContext.request.contextPath}/Active/findActiveList" onclick="testLogin()">活动列表</a>&nbsp;&nbsp;
         <a href="${pageContext.request.contextPath}/Active/ActiveList" onclick="testLogin()">组织模块</a>&nbsp;&nbsp;
@@ -116,7 +116,7 @@
                     <p>结束时间：${li.activeEndTime}</p>
                     <p>活动地点：${li.activeAddress}</p>
                     <p>人数(Now/Max)：${li.activeNum}/${li.activeHighNum}</p>
-                    <a href=""><input type="button" value="查看详情" class="button"></a>
+                    <a href="${pageContext.request.contextPath}/User/findActiveById?activeId=${li.activeId}"><input type="button" value="查看详情" class="button"></a>
                 </div>
             </div>
         </c:forEach>

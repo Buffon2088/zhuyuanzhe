@@ -11,39 +11,59 @@
 <head>
     <title>活动详情</title>
     <style type="text/css">
-        body{
+        body {
             margin-left: auto;
             margin-right: auto;
             text-align: center;
+            background: linear-gradient(
+                    #1084f6 0%, #FFF 80%);
+            height: 100%;
         }
-        .allDiv{
+
+        .allDiv {
             width: 80%;
             height: 300px;
             margin: 0 auto;
             padding-left: 220px;
             padding-top: 50px;
         }
-        .imgDiv{
+
+        .imgDiv {
             width: 40%;
             height: 240px;
             float: left;
-            text-align: center;
+            text-align: left;
 
         }
-        .fontDiv{
-            width: 60%;
+
+        .fontDiv {
+            width: 30%;
             height: 240px;
             float: left;
             text-align: center;
-
-
+            margin-left: 100px;
         }
-        .detailDiv{
+
+        .detailDiv {
             width: 100%;
             height: 33px;
             text-align: left;
         }
-        .introduceDiv{
+        .detailButton2 {
+            background: darkgray;
+            width: 20%;
+            height: 28px;
+            float: left;
+        }
+        .detailButton {
+            background: darkgray;
+            width: 20%;
+            height: 28px;
+            float: left;
+            margin-left: 20px;
+        }
+
+        .introduceDiv {
             height: 30px;
             width: 100%;
             text-align: center;
@@ -53,38 +73,40 @@
     <script>
         $(function () {
             $('#rel').click(function () {
-                window.location.href="${pageContext.request.contextPath}//";
+                window.location.href = "${pageContext.request.contextPath}//";
             })
             $('#back').click(function () {
-                window.location.href="${pageContext.request.contextPath}/Active/findActiveList";
+                window.location.href = "${pageContext.request.contextPath}/Active/findActiveList";
             })
         })
     </script>
 </head>
 <body>
 <div class="allDiv">
-    <div class="imgDiv">
-        <img src="${activeInfo.img}" width="100%" height="200px">
-    </div>
-    <input type="hidden" id="activeId" value="${activeInfo.activeId}">
-    <div class="fontDiv">
-        <div class="detailDiv"><h3>${activeInfo.activeName}</h3></div>
-        <div class="detailDiv">活动类型：${activeInfo.activeTypeInfo.activeTypeName}</div>
-        <div class="detailDiv">开始时间：${activeInfo.activeStartTime}</div>
-        <div class="detailDiv">结束时间：${activeInfo.activeEndTime}</div>
-        <div class="detailDiv">活动地点：${activeInfo.activeAddress}</div>
-        <div class="detailDiv">活动发起人：${activeInfo.adminInfo.adminId}</div>
-        <div class="detailDiv">活动状态：${activeInfo.activeState}</div>
-        <div class="detailDiv">活动最多人数：${activeInfo.activeHighNum}</div>
-        <div class="detailDiv">活动当前参与人数：${activeInfo.activeJoinNum}</div>
+    <div style="padding-top: 200px; text-align: center">
+        <div class="imgDiv">
+            <img src="${pageContext.request.contextPath}/img/${activeInfo.img}" width="100%" height="345px">
+            <h2>活动介绍</h2>
+            <p>${activeInfo.activeContext}</p>
+        </div>
+        <input type="hidden" id="activeId" value="${activeInfo.activeId}">
+
+        <div class="fontDiv">
+            <div class="detailDiv"><h3>${activeInfo.activeName}</h3></div>
+            <div class="detailDiv">活动类型：${activeInfo.activeTypeInfo.activeTypeName}</div>
+            <div class="detailDiv">开始时间：${activeInfo.activeStartTime}</div>
+            <div class="detailDiv">结束时间：${activeInfo.activeEndTime}</div>
+            <div class="detailDiv">活动地点：${activeInfo.activeAddress}</div>
+            <div class="detailDiv">活动发起人：${activeInfo.adminInfo.adminLoginName}</div>
+            <div class="detailDiv">活动状态：${activeInfo.activeState}</div>
+            <div class="detailDiv">活动最多人数：${activeInfo.activeHighNum}</div>
+            <div class="detailDiv">活动当前参与人数：${activeInfo.activeJoinNum}</div>
+            <a href="${pageContext.request.contextPath}/Active/findActiveList" class="detailButton2">报名</a>
+            <a href="${pageContext.request.contextPath}" class="detailButton">返回</a>
+        </div>
     </div>
 </div>
-<div class="introduceDiv">
-    <h2>活动介绍</h2>
-    ${activeInfo.activeContext}
-    <input id="rel" type="button" value="报名">
-    <input id="back" type="button" value="返回">
-</div>
+
 
 </body>
 </html>

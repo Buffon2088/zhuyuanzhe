@@ -46,7 +46,10 @@ public class UserController {
             return "/public_function/errMessage";
         }
     }
-
+    @RequestMapping("goHome")
+    public String goHome(Model modeel){
+        return "/userHome/user_index";
+    }
     /**
      * 退出方法
      */
