@@ -2,6 +2,10 @@ package zhiyuanzhe.pojo;
 
 public class ActiveJoinInInfo {
     private int activeJoinInId;
+    private ActiveTypeInfo activeTypeInfo;
+    private TeamInfo teamInfo;
+    private UserInfo userInfo;
+    private AdminInfo adminInfo;
     private String activeJoinInState;
     private int activeJoinInNum;
     private String activeJoinInAskTime;
@@ -10,8 +14,12 @@ public class ActiveJoinInInfo {
     public ActiveJoinInInfo() {
     }
 
-    public ActiveJoinInInfo(int activeJoinInId, String activeJoinInState, int activeJoinInNum, String activeJoinInAskTime, String activeJoinInPassTime) {
+    public ActiveJoinInInfo(int activeJoinInId, ActiveTypeInfo activeTypeInfo, TeamInfo teamInfo, UserInfo userInfo, AdminInfo adminInfo, String activeJoinInState, int activeJoinInNum, String activeJoinInAskTime, String activeJoinInPassTime) {
         this.activeJoinInId = activeJoinInId;
+        this.activeTypeInfo = activeTypeInfo;
+        this.teamInfo = teamInfo;
+        this.userInfo = userInfo;
+        this.adminInfo = adminInfo;
         this.activeJoinInState = activeJoinInState;
         this.activeJoinInNum = activeJoinInNum;
         this.activeJoinInAskTime = activeJoinInAskTime;
@@ -24,6 +32,38 @@ public class ActiveJoinInInfo {
 
     public void setActiveJoinInId(int activeJoinInId) {
         this.activeJoinInId = activeJoinInId;
+    }
+
+    public ActiveTypeInfo getActiveTypeInfo() {
+        return activeTypeInfo;
+    }
+
+    public void setActiveTypeInfo(ActiveTypeInfo activeTypeInfo) {
+        this.activeTypeInfo = activeTypeInfo;
+    }
+
+    public TeamInfo getTeamInfo() {
+        return teamInfo;
+    }
+
+    public void setTeamInfo(TeamInfo teamInfo) {
+        this.teamInfo = teamInfo;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    public AdminInfo getAdminInfo() {
+        return adminInfo;
+    }
+
+    public void setAdminInfo(AdminInfo adminInfo) {
+        this.adminInfo = adminInfo;
     }
 
     public String getActiveJoinInState() {

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zhiyuanzhe.dao.ActiveJoinDao">
+    <resultMap id="activeJoinResultMap" type="zhiyuanzhe.pojo.ActiveJoinInInfo">
+        <id column="activeJoinIn_id" property="activeJoinInId"/>
+        <result column="activeJoinIn_state" property="activeJoinInState"/>
+        <result column="activeJoinIn_num" property="activeJoinInNum"/>
+        <result column="activeJoinIn_askTime" property="activeJoinInAskTime"/>
+        <result column="activeJoinIn_passTime" property="activeJoinInPassTime"/>
+        <association column="activeType_id" property="activeTypeInfo" jdbcType="INTEGER"
+                     javaType="zhiyuanzhe.pojo.ActiveTypeInfo">
+            <id column="activeType_id" property="activeTypeId" />
+            <result column="activeType_name" property="activeTypeName" />
+            <result column="activeType_state" property="activeTypeState"/>
+        </association>
+        <association column="admin_id" property="adminInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.AdminInfo">
+            <id column="admin_id" property="adminId"/>
+            <result column="admin_carID" property="adminCarID"/>
+            <result column="admin_tel" property="adminTel"/>
+            <result column="admin_loginName" property="adminLoginName"/>
+            <result column="admin_pwd" property="adminPwd"/>
+            <result column="admin_state" property="adminState"/>
+            <result column="key" property="key"/>
+            <result column="email" property="email"/>
+            <result column="img" property="img"/>
+        </association>
+    </resultMap>
+
+    <select id="findActiveState" resultMap="activeJoinResultMap" resultType="java.util.ArrayList">
+        SELECT * FROM activejoinin j LEFT JOIN user_info u ON j.user_id=u.user_id LEFT JOIN activetype_info t ON j.activeType_id=t.activeType_id LEFT JOIN admin_info d ON j.admin_id=d.admin_id LEFT JOIN team_info m ON j.team_id=m.team_id LEFT JOIN active_info a ON a.activeType_id=t.activeType_id  WHERE a.active_id=#{activeId} AND u.user_id=#{userId};
+    </select>
+    <select id="findTest" resultMap="activeJoinResultMap" resultType="java.util.ArrayList">
+        SELECT * FROM activejoinin j LEFT JOIN user_info u ON j.user_id=u.user_id LEFT JOIN activetype_info t ON j.activeType_id=t.activeType_id LEFT JOIN admin_info d ON j.admin_id=d.admin_id LEFT JOIN team_info m ON j.team_id=m.team_id LEFT JOIN active_info a ON a.activeType_id=t.activeType_id  WHERE u.user_id=#{userid}
+    </select>
+    <select id="findAllJoin" resultMap="activeJoinResultMap" resultType="java.util.ArrayList">
+        SELECT * FROM activejoinin
+    </select>
+    <insert id="addActive">
+        insert into active_info values (null,#{activeTypeInfo.activeTypeId},#{teamInfo.teamId},#{userInfo.userId},#{adminInfo.adminId},#{activeJoinInState},#{activeJoinInNum},#{activeJoinInAskTime},#{activeJoinInPassTime})
+    </insert>
+</mapper>
