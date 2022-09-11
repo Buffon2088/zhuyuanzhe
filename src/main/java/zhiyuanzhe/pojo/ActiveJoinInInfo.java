@@ -6,6 +6,7 @@ public class ActiveJoinInInfo {
     private TeamInfo teamInfo;
     private UserInfo userInfo;
     private AdminInfo adminInfo;
+    private ActiveInfo activeInfo;
     private String activeJoinInState;
     private int activeJoinInNum;
     private String activeJoinInAskTime;
@@ -14,12 +15,13 @@ public class ActiveJoinInInfo {
     public ActiveJoinInInfo() {
     }
 
-    public ActiveJoinInInfo(int activeJoinInId, ActiveTypeInfo activeTypeInfo, TeamInfo teamInfo, UserInfo userInfo, AdminInfo adminInfo, String activeJoinInState, int activeJoinInNum, String activeJoinInAskTime, String activeJoinInPassTime) {
+    public ActiveJoinInInfo(int activeJoinInId, ActiveTypeInfo activeTypeInfo, TeamInfo teamInfo, UserInfo userInfo, AdminInfo adminInfo, ActiveInfo activeInfo, String activeJoinInState, int activeJoinInNum, String activeJoinInAskTime, String activeJoinInPassTime) {
         this.activeJoinInId = activeJoinInId;
         this.activeTypeInfo = activeTypeInfo;
         this.teamInfo = teamInfo;
         this.userInfo = userInfo;
         this.adminInfo = adminInfo;
+        this.activeInfo = activeInfo;
         this.activeJoinInState = activeJoinInState;
         this.activeJoinInNum = activeJoinInNum;
         this.activeJoinInAskTime = activeJoinInAskTime;
@@ -64,6 +66,14 @@ public class ActiveJoinInInfo {
 
     public void setAdminInfo(AdminInfo adminInfo) {
         this.adminInfo = adminInfo;
+    }
+
+    public ActiveInfo getActiveInfo() {
+        return activeInfo;
+    }
+
+    public void setActiveInfo(ActiveInfo activeInfo) {
+        this.activeInfo = activeInfo;
     }
 
     public String getActiveJoinInState() {

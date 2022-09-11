@@ -84,7 +84,6 @@ public class UserController {
      */
     @RequestMapping("/findActiveById")
     public String findActiveById(Model model, ActiveInfo activeInfo, HttpServletRequest request, HttpSession session) throws ParseException {
-        List<ActiveJoinInInfo> aa = activeJoinDao.findAllJoin();
         //通过id查询活动信息
         int activeId = Integer.parseInt(request.getParameter("activeId"));
         ActiveInfo info = new ActiveInfo();

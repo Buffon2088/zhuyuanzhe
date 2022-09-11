@@ -10,13 +10,13 @@
         <result column="team_helpTime" property="teamHelpTime"/>
         <result column="team_state" property="teamState"/>
 
-        <association property="TeamTypeInfo" column="teamType_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
+        <association property="teamTypeInfo" column="teamType_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
             <id column="teamType_id" property="teamTypeId"/>
             <result column="teamType_name" property="teamTypeName"/>
             <result column="teamType_state" property="teamTypeState"/>
         </association>
 
-        <association property="UserInfo" column="user_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.UserInfo">
+        <association property="userInfo" column="user_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.UserInfo">
             <id column="user_id" property="userId" />
             <result column="user_name" property="userName" />
             <result column="user_cardId" property="userCardId"/>
@@ -28,7 +28,7 @@
             <result column="active_joNum" property="activeJoNum"/>
             <result column="user_state" property="userState"/>
             <result column="key" property="key"/>
-            <association property="TeamJobInfo" column="teamJob_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamJobInfo">
+            <association property="teamJobInfo" column="teamJob_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamJobInfo">
                 <id column="teamJob_id" property="TeamJobId" />
                 <result column="teamJob_name" property="TeamJobName"/>
                 <result column="teamJob_state" property="TeamJobState"/>

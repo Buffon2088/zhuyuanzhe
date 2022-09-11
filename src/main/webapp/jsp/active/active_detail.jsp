@@ -82,7 +82,7 @@
     </script>
 </head>
 <body>
-<div class="allDiv">
+<div class="allDiv" >
     <div style="padding-top: 200px; text-align: center">
         <div class="imgDiv">
             <img src="${pageContext.request.contextPath}/img/${activeInfo.img}" width="100%" height="345px">
