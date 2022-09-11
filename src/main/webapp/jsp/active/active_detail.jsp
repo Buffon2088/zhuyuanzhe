@@ -101,7 +101,15 @@
             <div class="detailDiv">活动状态：${activeInfo.activeState}</div>
             <div class="detailDiv">活动最多人数：${activeInfo.activeHighNum}</div>
             <div class="detailDiv">活动当前参与人数：${activeInfo.activeJoinNum}</div>
-            <a href="${pageContext.request.contextPath}/Active/findActiveList" class="detailButton2">报名</a>
+            <c:choose>
+                <c:when test="${activeState=='立即报名'}">
+                    <a href="${pageContext.request.contextPath}/Active/findActiveList" class="detailButton2">${activeState}</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="#" class="detailButton2">${activeState}</a>
+                </c:otherwise>
+            </c:choose>
+
             <a href="${pageContext.request.contextPath}" class="detailButton">返回</a>
         </div>
     </div>
