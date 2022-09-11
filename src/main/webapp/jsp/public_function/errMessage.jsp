@@ -17,7 +17,7 @@
 
 
 <div style="text-align: center;padding-top: 230px;">
-    <h3 style="color: #ef0606;">错误：<a href="${url}">${err}</a></h3>
+    <h3 style="color: #ef0606;">错误：<a href="${pageContext.request.contextPath}">${err}</a></h3>
 </div>
 </body>
 </html>
