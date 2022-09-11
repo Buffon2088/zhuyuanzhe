@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ActiveJoinDao {
     ActiveJoinInInfo findActiveState(@Param("activeId") int activeId,@Param("userId") int userId);
-    ActiveJoinInInfo findTest(@Param("userid") int id);
+
     List<ActiveJoinInInfo> findAllJoin();
+
+    int addActiveJoin(ActiveJoinInInfo activeJoinInInfo);
 }

@@ -103,7 +103,8 @@
             <div class="detailDiv">活动当前参与人数：${activeInfo.activeJoinNum}</div>
             <c:choose>
                 <c:when test="${activeState=='立即报名'}">
-                    <a href="${pageContext.request.contextPath}/Active/findActiveList" class="detailButton2">${activeState}</a>
+                    <a href="${pageContext.request.contextPath}/Active/addActiveJoin?ActiveTypeInfo.activeTypeId=${activeInfo.activeTypeInfo.activeTypeId}&activeInfo.activeId=${activeInfo.activeId}&UserInfo.userId=${sessionScope.userId}&AdminInfo.adminId=${activeInfo.adminInfo.adminId}"
+                       class="detailButton2">${activeState}</a>
                 </c:when>
                 <c:otherwise>
                     <a href="#" class="detailButton2">${activeState}</a>

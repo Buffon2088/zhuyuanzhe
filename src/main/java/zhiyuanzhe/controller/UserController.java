@@ -15,7 +15,6 @@ import zhiyuanzhe.service.IActiveJoinService;
 import zhiyuanzhe.service.IActiveService;
 import zhiyuanzhe.service.IUserService;
 
-import javax.annotation.Resource;
 import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +37,7 @@ public class UserController {
     private IActiveService activeService;
     @Autowired
     private IActiveJoinService activeJoinService;
-    @Resource
+    @Autowired
     private ActiveJoinDao activeJoinDao;
 
     /**
@@ -83,12 +82,9 @@ public class UserController {
      * 用户查看活动详情
      */
     @RequestMapping("/findActiveById")
-    public String findActiveById(Model model, ActiveInfo activeInfo, HttpServletRequest request, HttpSession session) throws ParseException {
+    public String findActiveById(ActiveInfo activeInfo, Model model,HttpSession session) throws ParseException {
         //通过id查询活动信息
-        int activeId = Integer.parseInt(request.getParameter("activeId"));
-        ActiveInfo info = new ActiveInfo();
-        info.setActiveId(activeId);
-        activeInfo = activeService.findActiveById(info);
+        activeInfo = activeService.findActiveById(activeInfo);
         //发送到前台界面
         model.addAttribute("activeInfo", activeInfo);
         //校验当前活动时间

@@ -108,7 +108,12 @@
     <select id="findAllJoin" resultMap="activeJoinResultMap" resultType="java.util.ArrayList">
         SELECT * FROM activejoinin
     </select>
-    <insert id="addActive">
-        insert into active_info values (null,#{activeTypeInfo.activeTypeId},#{teamInfo.teamId},#{userInfo.userId},#{adminInfo.adminId},#{activeJoinInState},#{activeJoinInNum},#{activeJoinInAskTime},#{activeJoinInPassTime},#{activeInfo.activeId})
+    <insert id="addActiveJoin">
+        insert into activejoinin values (null,#{activeTypeInfo.activeTypeId},0,#{userInfo.userId},#{activeInfo.activeId},#{adminInfo.adminId},
+                                        '申请中',1,current_time ,'9999-12-31 00:00:00')
     </insert>
+
+    <update id="updateActiveJoin">
+        update activejoinin set activeJoinIn_state='已通过',activeJoinIn_passTime=current_time where activeJoinIn_id=#{activeJoinInId}
+    </update>
 </mapper>

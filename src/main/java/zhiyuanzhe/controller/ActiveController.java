@@ -5,10 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import zhiyuanzhe.annotaion.LogInfoAnnotaion;
-import zhiyuanzhe.pojo.ActiveInfo;
-import zhiyuanzhe.pojo.ActiveTypeInfo;
+import zhiyuanzhe.pojo.*;
+import zhiyuanzhe.service.IActiveJoinService;
 import zhiyuanzhe.service.IActiveService;
 import zhiyuanzhe.service.IActiveTypeService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -19,6 +22,9 @@ public class ActiveController {
     private IActiveService activeService;
     @Autowired
     private IActiveTypeService activeTypeService;
+
+    @Autowired
+    private IActiveJoinService activeJoinService;
     //注入团队实现方法
 
     //注入个人实现方法
@@ -61,5 +67,15 @@ public class ActiveController {
          model.addAttribute(activeTypeInfoList);
          model.addAttribute(activeInfoList);
          return "/active/active_show";
+     }
+
+     @RequestMapping("/addActiveJoin")
+     public String addActiveJoin(ActiveJoinInInfo activeJoinInInfo,Model model){
+         if (activeJoinService.addActiveJoin(activeJoinInInfo)){
+             return "redirect:/User/findActiveById?activeId="+activeJoinInInfo.getActiveInfo().getActiveId()+"";
+         }else{
+             model.addAttribute("err", "申请异常，请联系工作人员");
+             return "/public_function/errMessage";
+         }
      }
 }

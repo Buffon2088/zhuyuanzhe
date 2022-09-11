@@ -9,19 +9,18 @@ import zhiyuanzhe.pojo.ActiveInfo;
 import zhiyuanzhe.pojo.ActiveJoinInInfo;
 import zhiyuanzhe.service.IActiveJoinService;
 
-import javax.annotation.Resource;
+
 
 @Controller
 @RequestMapping("/user")
 public class ActiveState {
-    @Resource
+    @Autowired
     private IActiveJoinService activeJoinService;
-    @Resource
+    @Autowired
     private ActiveJoinDao activeJoinDao;
     public String activeState(ActiveInfo activeInfo,int userId){
 
         activeJoinDao.findAllJoin();
-        activeJoinDao.findTest(userId);
         //查询审核表中状态值
 
         return "22";

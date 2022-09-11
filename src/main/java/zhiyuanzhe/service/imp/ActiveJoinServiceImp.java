@@ -28,4 +28,9 @@ public class ActiveJoinServiceImp implements IActiveJoinService {
             return null;
         }
     }
+
+    @Override
+    public boolean addActiveJoin(ActiveJoinInInfo activeJoinInInfo) {
+        return activeJoinDao.addActiveJoin(activeJoinInInfo)>0;
+    }
 }
