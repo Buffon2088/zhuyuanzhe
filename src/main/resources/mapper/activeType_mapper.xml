@@ -13,11 +13,7 @@
     </select>
 
     <select id="findActiveType" resultMap="activeTypeResultMap">
-        select * from activetype_info
-        <where>
-            <if test="activeType_id!=0">activeType_id=#{activeTypeId}</if>
-            <if test="activeType_name!=null">and activeType_name=#{activeTypeName}</if>
-        </where>
+        select * from activetype_info where activeType_id=#{activeTypeId}
     </select>
 
     <insert id="addActiveType">

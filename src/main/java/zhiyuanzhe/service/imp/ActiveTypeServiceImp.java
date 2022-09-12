@@ -22,7 +22,7 @@ public class ActiveTypeServiceImp implements IActiveTypeService {
     }
 
     @Override
-    public TeamTypeInfo findActiveType(ActiveTypeInfo activeTypeInfo) {
+    public ActiveTypeInfo findActiveType(ActiveTypeInfo activeTypeInfo) {
         return activeTypeDao.findActiveType(activeTypeInfo);
     }
 

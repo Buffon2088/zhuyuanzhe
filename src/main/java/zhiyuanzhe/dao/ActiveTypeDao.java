@@ -8,8 +8,12 @@ import java.util.List;
 public interface ActiveTypeDao {
 
     List<ActiveTypeInfo> findAllActiveType();
-    TeamTypeInfo findActiveType(ActiveTypeInfo activeTypeInfo);
+
+    ActiveTypeInfo findActiveType(ActiveTypeInfo activeTypeInfo);
+
     int addActiveType(ActiveTypeInfo activeTypeInfo);
+
     int updateActiveType(ActiveTypeInfo activeTypeInfo);
+
     int deleteActiveType(ActiveTypeInfo activeTypeInfo);
 }

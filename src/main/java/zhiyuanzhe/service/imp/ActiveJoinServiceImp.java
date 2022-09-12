@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import zhiyuanzhe.dao.ActiveJoinDao;
-import zhiyuanzhe.pojo.ActiveInfo;
 import zhiyuanzhe.pojo.ActiveJoinInInfo;
 import zhiyuanzhe.service.IActiveJoinService;
 @Service

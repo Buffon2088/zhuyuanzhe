@@ -8,7 +8,7 @@ import java.util.List;
 public interface IActiveTypeService {
 
     List<ActiveTypeInfo> findAllActiveType();
-    TeamTypeInfo findActiveType(ActiveTypeInfo activeTypeInfo);
+    ActiveTypeInfo findActiveType(ActiveTypeInfo activeTypeInfo);
     boolean addActiveType(ActiveTypeInfo activeTypeInfo);
     boolean updateActiveType(ActiveTypeInfo activeTypeInfo);
     boolean deleteActiveType(ActiveTypeInfo activeTypeInfo);

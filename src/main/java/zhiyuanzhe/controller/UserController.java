@@ -82,7 +82,7 @@ public class UserController {
      * 用户查看活动详情
      */
     @RequestMapping("/findActiveById")
-    public String findActiveById(ActiveInfo activeInfo, Model model,HttpSession session) throws ParseException {
+    public String findActiveById(ActiveInfo activeInfo, Model model, HttpSession session) throws ParseException {
         //通过id查询活动信息
         activeInfo = activeService.findActiveById(activeInfo);
         //发送到前台界面
