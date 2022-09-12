@@ -105,6 +105,35 @@
                 <input value="重填" type="reset"  style="width: 100px;">
             </form>
         </c:when>
+        <c:when test="${state=='addActive'}">
+            <form action="${pageContext.request.contextPath}/Active/addActive?AdminInfo.adminId=${sessionScope.adminInfo.adminId}" method="post" enctype="multipart/form-data">
+                <h2>添加活动</h2>
+                活动图片: <input type="file" name="file"><br><br>
+                活动名称：<input type="text" name="activeName"><br><br>
+                开始时间：<input type="date" name="activeStartTime"><br><br>
+                结束时间：<input type="date" name="activeEndTime"><br><br>
+                活动地址：<input type="text" name="activeAddress"><br><br>
+                最大人数：<input type="number" name="activeHighNum"><br><br>
+                活动内容：<input type="text" name="activeContext"><br><br>
+                活动类型：<select name="ActiveTypeInfo.activeTypeId">
+                            <c:forEach items="${activeTypeInfoList}" var="li">
+                                <option value="${li.activeTypeId}">${li.activeTypeName}</option>
+                            </c:forEach>
+                        </select><br><br>
+                活动等级：<select name="TeamTypeInfo.teamTypeId">
+                            <c:forEach items="${teamTypeInfoList}" var="li">
+                                <option value="${li.teamTypeId}">${li.teamTypeName}</option>
+                            </c:forEach>
+                        </select><br><br>
+                活动状态：<select name="activeState">
+                            <option value="上线">上线</option>
+                            <option value="下线">下线</option>
+                            <option value="维护">维护</option>
+                        </select><br><br>
+                <input value="添加" type="submit" style="width: 100px;">
+                <input value="重填" type="reset"  style="width: 100px;">
+            </form>
+        </c:when>
         <c:otherwise>
             <form action="${pageContext.request.contextPath}/activeType/addActiveType" method="post"
                   enctype="multipart/form-data">

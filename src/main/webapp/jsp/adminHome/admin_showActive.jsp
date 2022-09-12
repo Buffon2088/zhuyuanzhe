@@ -27,6 +27,17 @@
             background: linear-gradient(
                     #6eac38 0%, #FFF 80%);
         }
+        .boxDown {
+            width: 250px;
+            height: 450px;
+            border-bottom: #a9afb4;
+            background: darkgrey;
+            float: left;
+            margin-left: 100px;
+            margin-top: 100px;
+            background: linear-gradient(
+                    #343832 0%, #FFF 80%);
+        }
 
         .ziti {
             font-size: 20px;
@@ -116,23 +127,44 @@
         </c:choose>
         <br><br>
     </c:forEach>
-    <a href="${pageContext.request.contextPath}/Active/addActive?url=/active/add_activeType"><p>新增活动</p></a>
+    <a href="${pageContext.request.contextPath}/activeType/addPublic?url=/active/add_activeType&state=addActive"><p>
+        新增活动</p></a>
     <div style="margin-left: 150px" id="activePage">
         <c:forEach items="${activeInfoList}" var="li">
-            <div class="box">
-                <div>
-                    <p id="activeName">活动名称：${li.activeName}</p>
-                    <img src="${pageContext.request.contextPath}/img/${li.img}" class="activeImg">
-                    <p>开始时间：${li.activeStartTime}</p>
-                    <p>结束时间：${li.activeEndTime}</p>
-                    <p>活动地点：${li.activeAddress}</p>
-                    <p>人数(Now/Max)：${li.activeNum}/${li.activeHighNum}</p>
-                    <a href="${pageContext.request.contextPath}/User/findActiveById?activeId=${li.activeId}"><input
-                            type="button" value="修改" class="button"></a>
-                    <a href="${pageContext.request.contextPath}/User/findActiveById?activeId=${li.activeId}"><input
-                            type="button" value="下架" class="button"></a>
-                </div>
-            </div>
+            <c:choose>
+                <c:when test="${li.activeState=='下线'}">
+                    <div class="boxDown">
+                        <div>
+                            <p>活动名称：${li.activeName}</p>
+                            <img src="${pageContext.request.contextPath}/img/${li.img}" class="activeImg">
+                            <p>开始时间：${li.activeStartTime}</p>
+                            <p>结束时间：${li.activeEndTime}</p>
+                            <p>活动地点：${li.activeAddress}</p>
+                            <p>人数(Now/Max)：${li.activeNum}/${li.activeHighNum}</p>
+                            <input
+                                    type="button" value="已下架" class="button">
+                            <a href="${pageContext.request.contextPath}/User/findActiveById?activeId=${li.activeId}"><input
+                                    type="button" value="上架" class="button"></a>
+                        </div>
+                    </div>
+                </c:when>
+                <c:when test="${li.activeState=='上线'}">
+                    <div class="box">
+                        <div>
+                            <p id="activeName">活动名称：${li.activeName}</p>
+                            <img src="${pageContext.request.contextPath}/img/${li.img}" class="activeImg">
+                            <p>开始时间：${li.activeStartTime}</p>
+                            <p>结束时间：${li.activeEndTime}</p>
+                            <p>活动地点：${li.activeAddress}</p>
+                            <p>人数(Now/Max)：${li.activeNum}/${li.activeHighNum}</p>
+                            <a href="${pageContext.request.contextPath}/User/findActiveById?activeId=${li.activeId}"><input
+                                    type="button" value="修改" class="button"></a>
+                            <a href="${pageContext.request.contextPath}/User/findActiveById?activeId=${li.activeId}"><input
+                                    type="button" value="下架" class="button"></a>
+                        </div>
+                    </div>
+                </c:when>
+            </c:choose>
         </c:forEach>
     </div>
 </div>
