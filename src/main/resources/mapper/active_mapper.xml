@@ -2,77 +2,86 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zhiyuanzhe.dao.ActiveDao">
-     <resultMap id="activeResultMap" type="zhiyuanzhe.pojo.ActiveInfo">
-         <id column="active_id" property="activeId"/>
-         <result column="active_name" property="activeName"/>
-         <result column="active_startTime" property="activeStartTime"/>
-         <result column="active_endTime" property="activeEndTime"/>
-         <result column="active_time" property="activeTime"/>
-         <result column="active_address" property="activeAddress"/>
-         <result column="active_highNum" property="activeHighNum"/>
-         <result column="active_lowNum" property="activeLowNum"/>
-         <result column="active_num" property="activeNum"/>
-         <result column="active_context" property="activeContext"/>
-         <result column="img" property="img"/>
-         <result column="active_state" property="activeState"/>
-         <result column="active_joinNum" property="activeJoinNum"/>
-         <result column="img" property="img"/>
-         <association column="activeType_id" property="activeTypeInfo" jdbcType="INTEGER"
-                      javaType="zhiyuanzhe.pojo.ActiveTypeInfo">
-             <id column="activeType_id" property="activeTypeId" />
-             <result column="activeType_name" property="activeTypeName" />
-             <result column="activeType_state" property="activeTypeState"/>
-         </association>
-         <association column="admin_id" property="adminInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.AdminInfo">
-             <id column="admin_id" property="adminId"/>
-             <result column="admin_carID" property="adminCarID"/>
-             <result column="admin_tel" property="adminTel"/>
-             <result column="admin_loginName" property="adminLoginName"/>
-             <result column="admin_pwd" property="adminPwd"/>
-             <result column="admin_state" property="adminState"/>
-             <result column="key" property="key"/>
-             <result column="email" property="email"/>
-             <result column="img" property="img"/>
-         </association>
+    <resultMap id="activeResultMap" type="zhiyuanzhe.pojo.ActiveInfo">
+        <id column="active_id" property="activeId"/>
+        <result column="active_name" property="activeName"/>
+        <result column="active_startTime" property="activeStartTime"/>
+        <result column="active_endTime" property="activeEndTime"/>
+        <result column="active_time" property="activeTime"/>
+        <result column="active_address" property="activeAddress"/>
+        <result column="active_highNum" property="activeHighNum"/>
+        <result column="active_lowNum" property="activeLowNum"/>
+        <result column="active_num" property="activeNum"/>
+        <result column="active_context" property="activeContext"/>
+        <result column="img" property="img"/>
+        <result column="active_state" property="activeState"/>
+        <result column="active_joinNum" property="activeJoinNum"/>
+        <result column="img" property="img"/>
+        <association column="activeType_id" property="activeTypeInfo" jdbcType="INTEGER"
+                     javaType="zhiyuanzhe.pojo.ActiveTypeInfo">
+            <id column="activeType_id" property="activeTypeId"/>
+            <result column="activeType_name" property="activeTypeName"/>
+            <result column="activeType_state" property="activeTypeState"/>
+        </association>
+        <association column="admin_id" property="adminInfo" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.AdminInfo">
+            <id column="admin_id" property="adminId"/>
+            <result column="admin_carID" property="adminCarID"/>
+            <result column="admin_tel" property="adminTel"/>
+            <result column="admin_loginName" property="adminLoginName"/>
+            <result column="admin_pwd" property="adminPwd"/>
+            <result column="admin_state" property="adminState"/>
+            <result column="key" property="key"/>
+            <result column="email" property="email"/>
+            <result column="img" property="img"/>
+        </association>
 
-         <association column="teamType_id" property="teamTypeInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
-             <id column="teamType_id" property="teamTypeId"/>
-             <result column="teamType_name" property="teamTypeName"/>
-             <result column="teamType_state" property="teamTypeState"/>
-         </association>
-     </resultMap>
+        <association column="teamType_id" property="teamTypeInfo" jdbcType="INTEGER"
+                     javaType="zhiyuanzhe.pojo.TeamTypeInfo">
+            <id column="teamType_id" property="teamTypeId"/>
+            <result column="teamType_name" property="teamTypeName"/>
+            <result column="teamType_state" property="teamTypeState"/>
+        </association>
+    </resultMap>
 
-     <select id="activeList" resultMap="activeResultMap" resultType="java.util.ArrayList">
-         select * from active_info a LEFT JOIN activetype_info t ON a.activeType_id=t.activeType_id LEFT JOIN teamtype_info p ON a.teamType_id=p.teamType_id
-     </select>
+    <select id="activeList" resultMap="activeResultMap" resultType="java.util.ArrayList">
+        select *
+        from active_info a
+                 LEFT JOIN activetype_info t ON a.activeType_id = t.activeType_id
+                 LEFT JOIN teamtype_info p ON a.teamType_id = p.teamType_id
+    </select>
 
     <select id="findActiveList" resultMap="activeResultMap" resultType="java.util.ArrayList">
-        select * from active_info a LEFT JOIN activetype_info t ON a.activeType_id=t.activeType_id LEFT JOIN teamtype_info p ON a.teamType_id=p.teamType_id  WHERE  a.activeType_id=#{activeTypeId}
+        select *
+        from active_info a
+                 LEFT JOIN activetype_info t ON a.activeType_id = t.activeType_id
+                 LEFT JOIN teamtype_info p ON a.teamType_id = p.teamType_id
+        WHERE a.activeType_id = #{activeTypeId}
     </select>
 
     <select id="findActive" resultMap="activeResultMap">
         select * from active_info aa LEFT JOIN activetype_info ab
         ON aa.activeType_id=ab.activeType_id LEFT JOIN admin_info ac on
         aa.admin_id=ac.admin_id
-         <where>
-             <if test="activeId!=0">active_id=#{activeId}</if>
-             <if test="activeName!=null">and active_name=#{activeName}</if>
-         </where>
-     </select>
-    
-     <insert id="addActive">
-         insert into active_info values (null,#{activeName},#{activeStartTime},#{activeEndTime},#{activeTime},#{activeAddress},#{activeHighNum},#{activeLowNum},#{activeNum},#{activeContext},#{adminInfo.adminId},#{activeState},#{teamTypeInfo.teamTypeId},#{activeJoinNum},#{activeTypeInfo.activeTypeId},#{img})
-     </insert>
+        <where>
+            <if test="activeId!=0">active_id=#{activeId}</if>
+            <if test="activeName!=null">and active_name=#{activeName}</if>
+        </where>
+    </select>
 
-     <delete id="delActive">
-         delete from active_info where active_id=#{activeId}
-     </delete>
+    <insert id="addActive">
+        insert into active_info
+        values (null, #{activeName}, #{activeStartTime}, #{activeEndTime}, #{activeTime}, #{activeAddress},
+                #{activeHighNum},1,0, #{activeContext}, #{adminInfo.adminId}, #{img}, #{activeState},
+                #{teamTypeInfo.teamTypeId},0, #{activeTypeInfo.activeTypeId})
+    </insert>
+
+    <delete id="delActive">
+        delete
+        from active_info
+        where active_id = #{activeId}
+    </delete>
     <select id="countNum" resultType="java.lang.Integer">
-        select count(active_id) as countNums from active_info
-<!--        <where>-->
-<!--            <if test="activeType_id=1">activeType_id=#{activeTypeId}</if>-->
-<!--            <if test="activeType_id=2">and activeType_id=#{activeTypeId}</if>-->
-<!--            <if test="activeType_id=3">and activeType_id=#{activeTypeId}</if>-->
-<!--        </where>-->
+        select count(active_id) as countNums
+        from active_info
     </select>
 </mapper>

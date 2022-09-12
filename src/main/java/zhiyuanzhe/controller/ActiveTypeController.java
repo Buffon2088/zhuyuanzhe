@@ -5,29 +5,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import zhiyuanzhe.pojo.ActiveInfo;
 import zhiyuanzhe.pojo.ActiveTypeInfo;
+import zhiyuanzhe.pojo.TeamTypeInfo;
 import zhiyuanzhe.service.IActiveTypeService;
+import zhiyuanzhe.service.ITeamTypeService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/activeType")
 public class ActiveTypeController {
     @Autowired
     private IActiveTypeService activeTypeService;
+    @Autowired
+    private ITeamTypeService teamTypeService;
     /**
      * 添加修改中转方法
      * */
     @RequestMapping("/addPublic")
-    public String addPublic(String url,String state,ActiveTypeInfo activeTypeInfo,Model model){
+    public String addPublic(String url, String state, ActiveTypeInfo activeTypeInfo, ActiveInfo activeInfo,Model model){
         //前台发送请求路径以及操作方式（添加/修改）
         if ("update".equals(state)){
-            //活动类型修改-通过Id查询该活动类型的信息，用于修改活动输入框显示
+            //活动类型修改-通过Id查询该活动类型的信息
             ActiveTypeInfo activeType=activeTypeService.findActiveType(activeTypeInfo);
             model.addAttribute(activeType);
             model.addAttribute("state","update");
         }else {
             model.addAttribute("state","add");
         }
-        return url;
+        //新增活动界面跳转判断
+        if ("addActive".equals(state)){
+            //查询可报名团队等级表
+            List<TeamTypeInfo> teamTypeInfoList=teamTypeService.findAll();
+            //查询活动类型
+            List<ActiveTypeInfo> activeTypeInfoList=activeTypeService.findAllActiveType();
+            model.addAttribute(activeTypeInfoList);
+            model.addAttribute(teamTypeInfoList);
+            model.addAttribute("state","addActive");
+        }
+        return "/active/add_activeType";
     }
     /**
      * 添加活动类型
