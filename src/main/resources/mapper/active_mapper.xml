@@ -97,6 +97,7 @@
             <if test="activeNum!=null">active_num=#{activeNum},</if>
             <if test="activeContext!=null">active_context=#{activeContext},</if>
             <if test="activeState!=null">active_state=#{activeState},</if>
+            <if test="img!=null">img=#{img},</if>
             <if test="activeJoinNum!=null">active_joinNum=#{activeJoinNum},</if>
             <if test="activeTypeInfo!=null">activeType_id=#{activeTypeInfo.activeTypeId},</if>
             <if test="teamTypeInfo!=null">teamType_id=#{teamTypeInfo.teamTypeId}</if>
