@@ -101,24 +101,32 @@
         </c:choose>
     </div>
     <h2>活动界面</h2>
-    <font class="nowziti">活动数量：${countNums}</font>
+    <font class="nowziti">活动总数量：${countNums}</font><br><br>
     <c:forEach items="${activeTypeInfoList}" var="li">
-        <a href="${pageContext.request.contextPath}/Active/findActiveType?activeTypeId=${li.activeTypeId}"
-           class="ziti">${li.activeTypeName}</a>
+        <c:choose>
+            <c:when test="${li.activeTypeState=='已发布'}">
+                <a href="${pageContext.request.contextPath}/Active/findActiveType?activeTypeId=${li.activeTypeId}"
+                   class="ziti">${li.activeTypeName}</a>
+            </c:when>
+        </c:choose>
     </c:forEach>
     <div style="margin-left: 150px" id="activePage">
         <c:forEach items="${activeInfoList}" var="li">
-            <div class="box">
-                <div>
-                    <p id="activeName">活动名称：${li.activeName}</p>
-                    <img src="${pageContext.request.contextPath}/img/${li.img}" class="activeImg">
-                    <p>开始时间：${li.activeStartTime}</p>
-                    <p>结束时间：${li.activeEndTime}</p>
-                    <p>活动地点：${li.activeAddress}</p>
-                    <p>人数(Now/Max)：${li.activeNum}/${li.activeHighNum}</p>
-                    <a href="${pageContext.request.contextPath}/User/findActiveById?activeId=${li.activeId}"><input type="button" value="查看详情" class="button"></a>
-                </div>
-            </div>
+            <c:choose>
+                <c:when test="${li.activeState=='上线'}">
+                    <div class="box">
+                        <div>
+                            <p id="activeName">活动名称：${li.activeName}</p>
+                            <img src="${pageContext.request.contextPath}/img/${li.img}" class="activeImg">
+                            <p>开始时间：${li.activeStartTime}</p>
+                            <p>结束时间：${li.activeEndTime}</p>
+                            <p>活动地点：${li.activeAddress}</p>
+                            <p>人数(Now/Max)：${li.activeNum}/${li.activeHighNum}</p>
+                            <a href="${pageContext.request.contextPath}/User/findActiveById?activeId=${li.activeId}"><input type="button" value="查看详情" class="button"></a>
+                        </div>
+                    </div>
+                </c:when>
+            </c:choose>
         </c:forEach>
    </div>
 </div>

@@ -83,6 +83,7 @@
     <select id="countNum" resultType="java.lang.Integer">
         select count(active_id) as countNums
         from active_info
+        WHERE active_state='上线'
     </select>
 
     <update id="updateActive">
