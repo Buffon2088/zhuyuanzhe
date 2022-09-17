@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import zhiyuanzhe.pojo.ActiveInfo;
 import zhiyuanzhe.pojo.ActiveTypeInfo;
 import zhiyuanzhe.pojo.TeamTypeInfo;
+import zhiyuanzhe.service.IActiveService;
 import zhiyuanzhe.service.IActiveTypeService;
 import zhiyuanzhe.service.ITeamTypeService;
 
@@ -20,11 +21,19 @@ public class ActiveTypeController {
     private IActiveTypeService activeTypeService;
     @Autowired
     private ITeamTypeService teamTypeService;
+    @Autowired
+    private IActiveService activeService;
     /**
      * 添加修改中转方法
      * */
     @RequestMapping("/addPublic")
     public String addPublic(String url, String state, ActiveTypeInfo activeTypeInfo, ActiveInfo activeInfo,Model model){
+        //查询活动类型
+        List<ActiveTypeInfo> activeTypeInfoList=activeTypeService.findAllActiveType();
+        model.addAttribute(activeTypeInfoList);
+        //查询可报名团队等级表
+        List<TeamTypeInfo> teamTypeInfoList=teamTypeService.findAll();
+        model.addAttribute(teamTypeInfoList);
         //前台发送请求路径以及操作方式（添加/修改）
         if ("update".equals(state)){
             //活动类型修改-通过Id查询该活动类型的信息
@@ -36,13 +45,12 @@ public class ActiveTypeController {
         }
         //新增活动界面跳转判断
         if ("addActive".equals(state)){
-            //查询可报名团队等级表
-            List<TeamTypeInfo> teamTypeInfoList=teamTypeService.findAll();
-            //查询活动类型
-            List<ActiveTypeInfo> activeTypeInfoList=activeTypeService.findAllActiveType();
-            model.addAttribute(activeTypeInfoList);
-            model.addAttribute(teamTypeInfoList);
             model.addAttribute("state","addActive");
+        }
+        if ("updateAct".equals(state)){
+            ActiveInfo activeInfo1=activeService.findActive(activeInfo);
+            model.addAttribute(activeInfo1);
+            model.addAttribute("state","updateAct");
         }
         return "/active/add_activeType";
     }

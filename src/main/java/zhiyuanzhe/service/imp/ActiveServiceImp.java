@@ -41,6 +41,7 @@ public class ActiveServiceImp implements IActiveService {
 
     @Override
     public boolean updateActive(ActiveInfo activeInfo) {
+
         return activeDao.updateActive(activeInfo)>0;
     }
 

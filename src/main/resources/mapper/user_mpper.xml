@@ -53,7 +53,7 @@
             <if test="userEmail!=null">user_email=#{userEmail},</if>
             <if test="userLoginName!=null">user_loginName=#{userLoginName},</if>
             <if test="userPwd!=null">user_pwd=#{userPwd},</if>
-            <if test="teamJobInfo!=null">teamJob_id=#{teamJobId}</if>
+            <if test="teamJobInfo!=null">teamJob_id=#{teamJobInfo.teamJobId}</if>
         </trim>
         where user_id=#{userId}
     </update>

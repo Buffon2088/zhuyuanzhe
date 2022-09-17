@@ -18,7 +18,7 @@
 
         .box {
             width: 250px;
-            height: 450px;
+            height: 500px;
             border-bottom: #1084f6;
             background: darkgrey;
             float: left;
@@ -27,9 +27,10 @@
             background: linear-gradient(
                     #6eac38 0%, #FFF 80%);
         }
+
         .boxDown {
             width: 250px;
-            height: 450px;
+            height: 500px;
             border-bottom: #a9afb4;
             background: darkgrey;
             float: left;
@@ -37,6 +38,18 @@
             margin-top: 100px;
             background: linear-gradient(
                     #343832 0%, #FFF 80%);
+        }
+
+        .boxWeiHu {
+            width: 250px;
+            height: 500px;
+            border-bottom: #1084f6;
+            background: darkgrey;
+            float: left;
+            margin-left: 100px;
+            margin-top: 100px;
+            background: linear-gradient(
+                    #c90b38 0%, #FFF 80%);
         }
 
         .ziti {
@@ -141,9 +154,10 @@
                             <p>结束时间：${li.activeEndTime}</p>
                             <p>活动地点：${li.activeAddress}</p>
                             <p>人数(Now/Max)：${li.activeNum}/${li.activeHighNum}</p>
-                            <input
-                                    type="button" value="已下架" class="button">
-                            <a href="${pageContext.request.contextPath}/User/findActiveById?activeId=${li.activeId}"><input
+                            <p style="color: #101047;font-size: 20px;">当前状态：${li.activeState}</p>
+                            <a href="${pageContext.request.contextPath}/Active/upDownAct?state=delAct&activeId=${li.activeId}"><input
+                                    type="button" value="删除" class="button" style="background: red;"></a>
+                            <a href="${pageContext.request.contextPath}/Active/upDownAct?state=upAct&activeId=${li.activeId}"><input
                                     type="button" value="上架" class="button"></a>
                         </div>
                     </div>
@@ -157,10 +171,28 @@
                             <p>结束时间：${li.activeEndTime}</p>
                             <p>活动地点：${li.activeAddress}</p>
                             <p>人数(Now/Max)：${li.activeNum}/${li.activeHighNum}</p>
-                            <a href="${pageContext.request.contextPath}/User/findActiveById?activeId=${li.activeId}"><input
+                            <p style="color:green;font-size: 20px;">当前状态：${li.activeState}</p>
+                            <a href="${pageContext.request.contextPath}/activeType/addPublic?activeId=${li.activeId}&state=updateAct"><input
                                     type="button" value="修改" class="button"></a>
-                            <a href="${pageContext.request.contextPath}/User/findActiveById?activeId=${li.activeId}"><input
+                            <a href="${pageContext.request.contextPath}/Active/upDownAct?state=DownAct&activeId=${li.activeId}"><input
                                     type="button" value="下架" class="button"></a>
+                        </div>
+                    </div>
+                </c:when>
+                <c:when test="${li.activeState=='维护中'}">
+                    <div class="boxWeiHu">
+                        <div>
+                            <p>活动名称：${li.activeName}</p>
+                            <img src="${pageContext.request.contextPath}/img/${li.img}" class="activeImg">
+                            <p>开始时间：${li.activeStartTime}</p>
+                            <p>结束时间：${li.activeEndTime}</p>
+                            <p>活动地点：${li.activeAddress}</p>
+                            <p>人数(Now/Max)：${li.activeNum}/${li.activeHighNum}</p>
+                            <p style="color:red;font-size: 20px;">当前状态：${li.activeState}</p>
+                            <a href="${pageContext.request.contextPath}/activeType/addPublic?activeId=${li.activeId}&state=updateAct"><input
+                                    type="button" value="修改" class="button"></a>
+                            <a href="${pageContext.request.contextPath}/Active/upDownAct?state=upAct&activeId=${li.activeId}"><input
+                                    type="button" value="上架" class="button"></a>
                         </div>
                     </div>
                 </c:when>

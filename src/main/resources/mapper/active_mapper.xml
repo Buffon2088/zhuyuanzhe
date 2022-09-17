@@ -84,4 +84,23 @@
         select count(active_id) as countNums
         from active_info
     </select>
+
+    <update id="updateActive">
+        update active_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="activeName!=null">active_name=#{activeName},</if>
+            <if test="activeStartTime!=null">active_startTime=#{activeStartTime},</if>
+            <if test="activeEndTime!=null">active_endTime=#{activeEndTime},</if>
+            <if test="activeAddress!=null">active_address=#{activeAddress},</if>
+            <if test="activeHighNum!=null">active_highNum=#{activeHighNum},</if>
+            <if test="activeLowNum!=null">active_lowNum=#{activeLowNum},</if>
+            <if test="activeNum!=null">active_num=#{activeNum},</if>
+            <if test="activeContext!=null">active_context=#{activeContext},</if>
+            <if test="activeState!=null">active_state=#{activeState},</if>
+            <if test="activeJoinNum!=null">active_joinNum=#{activeJoinNum},</if>
+            <if test="activeTypeInfo!=null">activeType_id=#{activeTypeInfo.activeTypeId},</if>
+            <if test="teamTypeInfo!=null">teamType_id=#{teamTypeInfo.teamTypeId}</if>
+        </trim>
+        where active_id=#{activeId}
+    </update>
 </mapper>
