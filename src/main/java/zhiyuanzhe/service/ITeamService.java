@@ -1,15 +1,14 @@
-package zhiyuanzhe.dao;
+package zhiyuanzhe.service;
 
 import zhiyuanzhe.pojo.TeamInfo;
 
 import java.util.List;
 
-public interface TeamDao {
-
+public interface ITeamService {
     List<TeamInfo> findAllTeam();
     List<TeamInfo> findTeamList(int teamTypeId);
     TeamInfo findTeam(TeamInfo teamInfo);
-    int addTeam(TeamInfo teamInfo);
-    int updateTeam(TeamInfo teamInfo);
-    int deleteTeam(TeamInfo teamInfo);
+    boolean addTeam(TeamInfo teamInfo);
+    boolean updateTeam(TeamInfo teamInfo);
+    boolean deleteTeam(TeamInfo teamInfo);
 }
