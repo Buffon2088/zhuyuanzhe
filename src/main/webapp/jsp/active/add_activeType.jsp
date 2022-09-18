@@ -137,7 +137,7 @@
         <c:when test="${state=='updateAct'}">
             <form action="${pageContext.request.contextPath}/Active/updateAct?activeId=${activeInfo.activeId}" method="post" enctype="multipart/form-data">
                 <h2>添加活动</h2>
-                活动图片: <input type="file" name="file"><br><br>
+                活动图片: <input type="file" name="file" value="${activeInfo.img}"><br><br>
                 活动名称：<input type="text" name="activeName" value="${activeInfo.activeName}"><br><br>
                 开始时间：<input type="date" name="activeStartTime" value="${activeInfo.activeStartTime}"><br><br>
                 结束时间：<input type="date" name="activeEndTime" value="${activeInfo.activeEndTime}"><br><br>
