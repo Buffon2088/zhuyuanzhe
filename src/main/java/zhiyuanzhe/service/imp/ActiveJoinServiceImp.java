@@ -7,9 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 import zhiyuanzhe.dao.ActiveJoinDao;
 import zhiyuanzhe.pojo.ActiveJoinInInfo;
 import zhiyuanzhe.service.IActiveJoinService;
+
+import java.util.List;
+
 @Service
 @Transactional
-@Component
 public class ActiveJoinServiceImp implements IActiveJoinService {
     @Autowired
     private ActiveJoinDao activeJoinDao;
@@ -29,7 +31,32 @@ public class ActiveJoinServiceImp implements IActiveJoinService {
     }
 
     @Override
+    public ActiveJoinInInfo findActiveJoinMessage(ActiveJoinInInfo activeJoinInInfo) {
+        return activeJoinDao.findActiveJoinMessage(activeJoinInInfo);
+    }
+
+    @Override
     public boolean addActiveJoin(ActiveJoinInInfo activeJoinInInfo) {
         return activeJoinDao.addActiveJoin(activeJoinInInfo)>0;
+    }
+
+    @Override
+    public List<ActiveJoinInInfo> findAllActJoin() {
+        return activeJoinDao.findAllJoin();
+    }
+
+    @Override
+    public boolean passReq(ActiveJoinInInfo activeJoinInInfo) {
+        return activeJoinDao.passReq(activeJoinInInfo)>0;
+    }
+
+    @Override
+    public List<ActiveJoinInInfo> findActiveJoinMessageByState(ActiveJoinInInfo activeJoinInInfo) {
+        return activeJoinDao.findActiveJoinMessageByState(activeJoinInInfo);
+    }
+
+    @Override
+    public boolean refuseReq(ActiveJoinInInfo activeJoinInInfo) {
+        return activeJoinDao.refuseReq(activeJoinInInfo)>0;
     }
 }

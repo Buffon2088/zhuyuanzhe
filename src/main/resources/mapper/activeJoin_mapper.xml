@@ -27,7 +27,20 @@
             <result column="email" property="email"/>
             <result column="img" property="img"/>
         </association>
-
+        <association property="userInfo" column="user_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.UserInfo">
+            <id column="user_id" property="userId" />
+            <result column="user_name" property="userName" />
+            <result column="user_cardId" property="userCardId"/>
+            <result column="user_tel" property="userTel"/>
+            <result column="user_email" property="userEmail"/>
+            <result column="user_loginName" property="userLoginName"/>
+            <result column="user_pwd" property="userPwd"/>
+            <result column="user_helpTime" property="userHelpTime"/>
+            <result column="active_joNum" property="activeJoNum"/>
+            <result column="user_state" property="userState"/>
+            <result column="key" property="key"/>
+            <result column="img" property="img"/>
+        </association>
         <association column="team_id" property="teamInfo" jdbcType="INTEGER"
                      javaType="zhiyuanzhe.pojo.TeamInfo">
             <id column="team_id" property="teamId"/>
@@ -99,6 +112,9 @@
         </association>
     </resultMap>
 
+    <select id="findActiveJoinMessageByState" resultMap="activeJoinResultMap" resultType="java.util.ArrayList">
+        SELECT * FROM activejoinin j LEFT JOIN user_info u ON j.user_id=u.user_id LEFT JOIN activetype_info t ON j.activeType_id=t.activeType_id LEFT JOIN admin_info d ON j.admin_id=d.admin_id LEFT JOIN team_info m ON j.team_id=m.team_id LEFT JOIN active_info a ON j.active_id=a.active_id WHERE j.activeJoinIn_state=#{activeJoinInState};
+    </select>
     <select id="findActiveState" resultMap="activeJoinResultMap" resultType="java.util.ArrayList">
         SELECT * FROM activejoinin j LEFT JOIN user_info u ON j.user_id=u.user_id LEFT JOIN activetype_info t ON j.activeType_id=t.activeType_id LEFT JOIN admin_info d ON j.admin_id=d.admin_id LEFT JOIN team_info m ON j.team_id=m.team_id LEFT JOIN active_info a ON j.active_id=a.active_id WHERE a.active_id=#{activeId} AND u.user_id=#{userId};
     </select>
@@ -106,14 +122,17 @@
         SELECT * FROM activejoinin j LEFT JOIN user_info u ON j.user_id=u.user_id LEFT JOIN activetype_info t ON j.activeType_id=t.activeType_id LEFT JOIN admin_info d ON j.admin_id=d.admin_id LEFT JOIN team_info m ON j.team_id=m.team_id LEFT JOIN active_info a ON j.active_id=a.active_id WHERE u.user_id=#{userid}
     </select>
     <select id="findAllJoin" resultMap="activeJoinResultMap" resultType="java.util.ArrayList">
-        SELECT * FROM activejoinin
+        SELECT * FROM activejoinin j LEFT JOIN user_info u ON j.user_id=u.user_id LEFT JOIN activetype_info t ON j.activeType_id=t.activeType_id LEFT JOIN admin_info d ON j.admin_id=d.admin_id LEFT JOIN team_info m ON j.team_id=m.team_id LEFT JOIN active_info a ON j.active_id=a.active_id
     </select>
     <insert id="addActiveJoin">
         insert into activejoinin values (null,#{activeTypeInfo.activeTypeId},0,#{userInfo.userId},#{activeInfo.activeId},#{adminInfo.adminId},
                                         '申请中',1,current_time ,'9999-12-31 00:00:00')
     </insert>
 
-    <update id="updateActiveJoin">
+    <update id="passReq">
         update activejoinin set activeJoinIn_state='已通过',activeJoinIn_passTime=current_time where activeJoinIn_id=#{activeJoinInId}
+    </update>
+    <update id="refuseReq">
+        update activejoinin set activeJoinIn_state='已拒绝',activeJoinIn_passTime=current_time where activeJoinIn_id=#{activeJoinInId}
     </update>
 </mapper>

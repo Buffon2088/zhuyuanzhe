@@ -100,11 +100,10 @@
         <h2>新冠疫情志愿服务系统</h2>
         <a href="${pageContext.request.contextPath}" onclick="testLogin()">查看管理员</a>
         <a href="${pageContext.request.contextPath}/news/findAll" onclick="testLogin()">公告管理</a>
-        <a href="${pageContext.request.contextPath}/Active/findActiveList">活动管理</a>
+        <a href="${pageContext.request.contextPath}/Active/showAllActive" >活动管理</a>
         <a href="${pageContext.request.contextPath}">组织管理</a>
-        <a href="${pageContext.request.contextPath}">审核</a>
-        <a href="${pageContext.request.contextPath}/admin/goSendEmail?key=${sessionScope.adminInfo.key}"
-           onclick="testLogin()">发送邮件</a><br><br>
+        <a href="${pageContext.request.contextPath}/admin/ActRequest">审核</a>
+        <a href="${pageContext.request.contextPath}/admin/goSendEmail?key=${sessionScope.adminInfo.key}" onclick="testLogin()">发送邮件</a><br><br>
         <c:choose>
             <c:when test="${sessionScope.adminInfo.adminId>0}">
                 <font>欢迎<font

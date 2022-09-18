@@ -92,7 +92,7 @@ public class UserController {
         if (isTimeOut) {
             //判断当前活动状态
             int userId = (int) session.getAttribute("userId");
-            String activeState = activeJoinService.findActiveState(activeInfo.getActiveId(), userId);
+            String activeState = activeJoinService.findActiveState(activeInfo.getActiveId(),userId);
             //若状态为空则可以报名
             if (activeState == null) {
                 model.addAttribute("activeState", "立即报名");

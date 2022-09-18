@@ -10,8 +10,10 @@ import zhiyuanzhe.annotaion.LogInfoAnnotaion;
 import zhiyuanzhe.funtion.AjaxResult;
 import zhiyuanzhe.funtion.SendEmail;
 import zhiyuanzhe.funtion.SetEmailMessage;
+import zhiyuanzhe.pojo.ActiveJoinInInfo;
 import zhiyuanzhe.pojo.AdminInfo;
 import zhiyuanzhe.pojo.EmailInfo;
+import zhiyuanzhe.service.IActiveJoinService;
 import zhiyuanzhe.service.IAdminService;
 
 import javax.mail.MessagingException;
@@ -29,6 +31,8 @@ import java.util.Map;
 public class AdminController {
     @Autowired
     private IAdminService adminService;
+    @Autowired
+    private IActiveJoinService activeJoinService;
 
     @LogInfoAnnotaion(methodName = "adminLogin")
     @RequestMapping("/adminLogin")
@@ -39,28 +43,30 @@ public class AdminController {
         if (adminService.adminLogin(adminInfo)) {
             AdminInfo info = adminService.findAdminByLoginNameAndPwd(adminInfo);
             session.setAttribute("adminInfo", info);
-            session.setAttribute("key",info.getKey());
-            session.setAttribute("email",info.getEmail());
+            session.setAttribute("key", info.getKey());
+            session.setAttribute("email", info.getEmail());
             return "/adminHome/adminIndex";
         } else {
             //获取当前请求的URL
-            String contPath=request.getContextPath();
-            model.addAttribute("url",contPath);
+            String contPath = request.getContextPath();
+            model.addAttribute("url", contPath);
             //登陆失败提示语
             model.addAttribute("err", "登陆失败，请重新登录");
             return "/public_function/errMessage";
         }
     }
+
     /**
      * 退出方法
      */
     @RequestMapping("/loginOut")
-    public void  loginOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session=request.getSession();
+    public void loginOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         session.invalidate();
-        String requestPath=request.getContextPath();
+        String requestPath = request.getContextPath();
         response.sendRedirect(requestPath);
     }
+
     /**
      * 查询所有管理员类
      */
@@ -78,6 +84,7 @@ public class AdminController {
         model.addAttribute(key);
         return "/email/send_email";
     }
+
     /**
      * 邮箱发送方法
      */
@@ -86,20 +93,20 @@ public class AdminController {
     @ResponseBody
     public String sendEmail(String consignee, String addressOr, String otherInformation, String information, String imgInformation, String txtInformation, HttpSession session) throws MessagingException, GeneralSecurityException {
         //获取session中的数据
-        String email=session.getAttribute("email").toString();
-        String key=session.getAttribute("key").toString();
+        String email = session.getAttribute("email").toString();
+        String key = session.getAttribute("key").toString();
         //实例化邮箱类
         SendEmail sendEmail = new SendEmail();
         //实例邮件实体
-        SetEmailMessage setEmailMessage=new SetEmailMessage();
+        SetEmailMessage setEmailMessage = new SetEmailMessage();
         //将用户界面输入信息存入邮件实体
-        EmailInfo emailInfo=setEmailMessage.saveEmail(consignee,addressOr,otherInformation,information,imgInformation,txtInformation,email,key);
+        EmailInfo emailInfo = setEmailMessage.saveEmail(consignee, addressOr, otherInformation, information, imgInformation, txtInformation, email, key);
         //调用邮件发送类
         boolean emailState = sendEmail.sendEmail(emailInfo);
         //实例Ajax类
-        AjaxResult ajaxResult=new AjaxResult();
+        AjaxResult ajaxResult = new AjaxResult();
         //将返回给前端结果存入map
-        Map<String,String> resultMap=ajaxResult.emailResult(emailState);
+        Map<String, String> resultMap = ajaxResult.emailResult(emailState);
         //将map转为json
         String json = JSONObject.toJSONString(resultMap);
         //返回前端
@@ -118,8 +125,8 @@ public class AdminController {
         if (adminService.addAdmin(adminInfo)) {
             return "redirect:/admin/findAll";
         } else {
-            model.addAttribute("errorMessage", "登陆失败");
-            return "/error";
+            model.addAttribute("err", "添加失败，请联系管理员~");
+            return "/public_function/errMessage";
         }
     }
 
@@ -135,8 +142,8 @@ public class AdminController {
         if (adminService.updateAdmin(adminInfo)) {
             return "redirect:/admin/findAll";
         } else {
-            model.addAttribute("errorMessage", "登陆失败");
-            return "/error";
+            model.addAttribute("err", "登录失败，请输入正确的用户名和密码");
+            return "/public_function/errMessage";
         }
     }
 
@@ -145,8 +152,58 @@ public class AdminController {
         if (adminService.deleteAdmin(adminInfo)) {
             return "redirect:/admin/findAll";
         } else {
-            model.addAttribute("errorMessage", "登陆失败");
-            return "/error";
+            model.addAttribute("err", "删除失败，请联系管理员~");
+            return "/public_function/errMessage";
+        }
+    }
+
+    /**
+     * 管理员查看活动申请方法
+     */
+    @RequestMapping("/ActRequest")
+    public String ActRequest(Model model) {
+        //查询所有申请,按申请时间进行排序
+        List<ActiveJoinInInfo> activeJoinInInfoList = activeJoinService.findAllActJoin();
+        model.addAttribute(activeJoinInInfoList);
+        return "/adminHome/active_request";
+    }
+    /**
+     * 管理员通过状态查看活动申请方法
+     */
+    @RequestMapping("/findActRequestByState")
+    public String findActRequestByState(Model model,String activeJoinInState) {
+        //初始化实体
+        ActiveJoinInInfo activeJoinInInfo=new ActiveJoinInInfo();
+        //存入状态进行查询
+        activeJoinInInfo.setActiveJoinInState(activeJoinInState);
+        //管理员通过状态查看活动申请
+        List<ActiveJoinInInfo> activeJoinInInfoList=activeJoinService.findActiveJoinMessageByState(activeJoinInInfo);
+        model.addAttribute(activeJoinInInfoList);
+        return "/adminHome/active_request";
+    }
+
+    /**
+     * 管理员审核活动方法
+     */
+    @RequestMapping("/ActRequestResult")
+    public String ActRequestResult(Model model, ActiveJoinInInfo activeJoinInInfo, String updateState) {
+        //判断是通过或者拒绝
+        if ("0".equals(updateState)) {
+            //执行通过申请方法
+            if (activeJoinService.passReq(activeJoinInInfo)) {
+                return "redirect:/admin/ActRequest";
+            } else {
+                model.addAttribute("err", "申请处理失败，请联系管理员~");
+                return "/public_function/errMessage";
+            }
+        } else {
+            //执行拒绝申请方法
+            if (activeJoinService.refuseReq(activeJoinInInfo)) {
+                return "redirect:/admin/ActRequest";
+            } else {
+                model.addAttribute("err", "申请处理失败，请联系管理员~");
+                return "/public_function/errMessage";
+            }
         }
     }
 }
