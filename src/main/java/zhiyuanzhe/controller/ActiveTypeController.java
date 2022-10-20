@@ -26,6 +26,8 @@ public class ActiveTypeController {
     /**
      * 添加修改中转方法
      * */
+
+
     @RequestMapping("/addPublic")
     public String addPublic(String url, String state, ActiveTypeInfo activeTypeInfo, ActiveInfo activeInfo,Model model){
         //查询活动类型

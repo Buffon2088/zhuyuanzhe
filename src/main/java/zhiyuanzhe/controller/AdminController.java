@@ -176,6 +176,9 @@ public class AdminController {
     /**
      * 管理员通过状态查看活动申请方法
      */
+
+
+
     @RequestMapping("/findActRequestByState")
     public String findActRequestByState(Model model,String activeJoinInState) {
         //初始化实体
