@@ -1,5 +1,6 @@
 package zhiyuanzhe.service;
 
+import org.apache.ibatis.annotations.Param;
 import zhiyuanzhe.pojo.AdminInfo;
 import zhiyuanzhe.pojo.UserInfo;
 
@@ -13,4 +14,6 @@ public interface IUserService {
     boolean addUser(UserInfo userInfo);
     boolean updateUser(UserInfo userInfo);
     boolean deleteUser(UserInfo userInfo);
+    List<UserInfo> teamJob();
+    String findEmailByName(@Param("newAddressOr") String newAddressOr);
 }

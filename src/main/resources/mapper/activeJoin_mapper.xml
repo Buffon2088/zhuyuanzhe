@@ -124,6 +124,9 @@
     <select id="findAllJoin" resultMap="activeJoinResultMap" resultType="java.util.ArrayList">
         SELECT * FROM activejoinin j LEFT JOIN user_info u ON j.user_id=u.user_id LEFT JOIN activetype_info t ON j.activeType_id=t.activeType_id LEFT JOIN admin_info d ON j.admin_id=d.admin_id LEFT JOIN team_info m ON j.team_id=m.team_id LEFT JOIN active_info a ON j.active_id=a.active_id
     </select>
+    <select id="findActNumByUser"  resultType="java.lang.Integer">
+        SELECT count(*) FROM `activejoinin` a WHERE a.user_id=#{userId} AND a.activeJoinIn_state='已通过';
+    </select>
     <insert id="addActiveJoin">
         insert into activejoinin values (null,#{activeTypeInfo.activeTypeId},0,#{userInfo.userId},#{activeInfo.activeId},#{adminInfo.adminId},
                                         '申请中',1,current_time ,'9999-12-31 00:00:00')

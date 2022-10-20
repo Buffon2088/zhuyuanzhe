@@ -21,4 +21,6 @@ public interface ActiveJoinDao {
 
     List<ActiveJoinInInfo> findActiveJoinMessageByState(ActiveJoinInInfo activeJoinInInfo);
 
+    int findActNumByUser(@Param("userId")int userId);
+
 }

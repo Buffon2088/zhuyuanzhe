@@ -59,4 +59,9 @@ public class ActiveJoinServiceImp implements IActiveJoinService {
     public boolean refuseReq(ActiveJoinInInfo activeJoinInInfo) {
         return activeJoinDao.refuseReq(activeJoinInInfo)>0;
     }
+
+    @Override
+    public int findActNumByUser(int userId) {
+        return activeJoinDao.findActNumByUser(userId);
+    }
 }

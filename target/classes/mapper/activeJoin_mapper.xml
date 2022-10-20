@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zhiyuanzhe.dao.ActiveJoinDao">
+    <resultMap id="activeJoinResultMap" type="zhiyuanzhe.pojo.ActiveJoinInInfo">
+        <id column="activeJoinIn_id" property="activeJoinInId"/>
+        <result column="activeJoinIn_state" property="activeJoinInState"/>
+        <result column="activeJoinIn_num" property="activeJoinInNum"/>
+        <result column="activeJoinIn_askTime" property="activeJoinInAskTime"/>
+        <result column="activeJoinIn_passTime" property="activeJoinInPassTime"/>
+
+        <association column="activeType_id" property="activeTypeInfo" jdbcType="INTEGER"
+                     javaType="zhiyuanzhe.pojo.ActiveTypeInfo">
+            <id column="activeType_id" property="activeTypeId" />
+            <result column="activeType_name" property="activeTypeName" />
+            <result column="activeType_state" property="activeTypeState"/>
+        </association>
+
+        <association column="admin_id" property="adminInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.AdminInfo">
+            <id column="admin_id" property="adminId"/>
+            <result column="admin_carID" property="adminCarID"/>
+            <result column="admin_tel" property="adminTel"/>
+            <result column="admin_loginName" property="adminLoginName"/>
+            <result column="admin_pwd" property="adminPwd"/>
+            <result column="admin_state" property="adminState"/>
+            <result column="key" property="key"/>
+            <result column="email" property="email"/>
+            <result column="img" property="img"/>
+        </association>
+        <association property="userInfo" column="user_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.UserInfo">
+            <id column="user_id" property="userId" />
+            <result column="user_name" property="userName" />
+            <result column="user_cardId" property="userCardId"/>
+            <result column="user_tel" property="userTel"/>
+            <result column="user_email" property="userEmail"/>
+            <result column="user_loginName" property="userLoginName"/>
+            <result column="user_pwd" property="userPwd"/>
+            <result column="user_helpTime" property="userHelpTime"/>
+            <result column="active_joNum" property="activeJoNum"/>
+            <result column="user_state" property="userState"/>
+            <result column="key" property="key"/>
+            <result column="img" property="img"/>
+        </association>
+        <association column="team_id" property="teamInfo" jdbcType="INTEGER"
+                     javaType="zhiyuanzhe.pojo.TeamInfo">
+            <id column="team_id" property="teamId"/>
+            <result column="team_name" property="teamName"/>
+            <result column="team_startData" property="teamStartData"/>
+            <result column="team_peopleNum" property="teamPeopleNum"/>
+            <result column="team_helpTime" property="teamHelpTime"/>
+            <result column="team_state" property="teamState"/>
+
+            <association property="teamTypeInfo" column="teamType_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
+                <id column="teamType_id" property="teamTypeId"/>
+                <result column="teamType_name" property="teamTypeName"/>
+                <result column="teamType_state" property="teamTypeState"/>
+            </association>
+
+            <association property="userInfo" column="user_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.UserInfo">
+                <id column="user_id" property="userId" />
+                <result column="user_name" property="userName" />
+                <result column="user_cardId" property="userCardId"/>
+                <result column="user_tel" property="userTel"/>
+                <result column="user_email" property="userEmail"/>
+                <result column="user_loginName" property="userLoginName"/>
+                <result column="user_pwd" property="userPwd"/>
+                <result column="user_helpTime" property="userHelpTime"/>
+                <result column="active_joNum" property="activeJoNum"/>
+                <result column="user_state" property="userState"/>
+                <result column="key" property="key"/>
+            </association>
+        </association>
+        <association column="active_id" property="activeInfo" jdbcType="INTEGER"
+                     javaType="zhiyuanzhe.pojo.ActiveInfo">
+            <id column="active_id" property="activeId"/>
+            <result column="active_name" property="activeName"/>
+            <result column="active_startTime" property="activeStartTime"/>
+            <result column="active_endTime" property="activeEndTime"/>
+            <result column="active_time" property="activeTime"/>
+            <result column="active_address" property="activeAddress"/>
+            <result column="active_highNum" property="activeHighNum"/>
+            <result column="active_lowNum" property="activeLowNum"/>
+            <result column="active_num" property="activeNum"/>
+            <result column="active_context" property="activeContext"/>
+            <result column="img" property="img"/>
+            <result column="active_state" property="activeState"/>
+            <result column="active_joinNum" property="activeJoinNum"/>
+            <result column="img" property="img"/>
+            <association column="activeType_id" property="activeTypeInfo" jdbcType="INTEGER"
+                         javaType="zhiyuanzhe.pojo.ActiveTypeInfo">
+                <id column="activeType_id" property="activeTypeId" />
+                <result column="activeType_name" property="activeTypeName" />
+                <result column="activeType_state" property="activeTypeState"/>
+            </association>
+            <association column="admin_id" property="adminInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.AdminInfo">
+                <id column="admin_id" property="adminId"/>
+                <result column="admin_carID" property="adminCarID"/>
+                <result column="admin_tel" property="adminTel"/>
+                <result column="admin_loginName" property="adminLoginName"/>
+                <result column="admin_pwd" property="adminPwd"/>
+                <result column="admin_state" property="adminState"/>
+                <result column="key" property="key"/>
+                <result column="email" property="email"/>
+                <result column="img" property="img"/>
+            </association>
+
+            <association column="teamType_id" property="teamTypeInfo"  jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
+                <id column="teamType_id" property="teamTypeId"/>
+                <result column="teamType_name" property="teamTypeName"/>
+                <result column="teamType_state" property="teamTypeState"/>
+            </association>
+        </association>
+    </resultMap>
+
+    <select id="findActiveJoinMessageByState" resultMap="activeJoinResultMap" resultType="java.util.ArrayList">
+        SELECT * FROM activejoinin j LEFT JOIN user_info u ON j.user_id=u.user_id LEFT JOIN activetype_info t ON j.activeType_id=t.activeType_id LEFT JOIN admin_info d ON j.admin_id=d.admin_id LEFT JOIN team_info m ON j.team_id=m.team_id LEFT JOIN active_info a ON j.active_id=a.active_id WHERE j.activeJoinIn_state=#{activeJoinInState};
+    </select>
+    <select id="findActiveState" resultMap="activeJoinResultMap" resultType="java.util.ArrayList">
+        SELECT * FROM activejoinin j LEFT JOIN user_info u ON j.user_id=u.user_id LEFT JOIN activetype_info t ON j.activeType_id=t.activeType_id LEFT JOIN admin_info d ON j.admin_id=d.admin_id LEFT JOIN team_info m ON j.team_id=m.team_id LEFT JOIN active_info a ON j.active_id=a.active_id WHERE a.active_id=#{activeId} AND u.user_id=#{userId};
+    </select>
+    <select id="findTest" resultMap="activeJoinResultMap" resultType="java.util.ArrayList">
+        SELECT * FROM activejoinin j LEFT JOIN user_info u ON j.user_id=u.user_id LEFT JOIN activetype_info t ON j.activeType_id=t.activeType_id LEFT JOIN admin_info d ON j.admin_id=d.admin_id LEFT JOIN team_info m ON j.team_id=m.team_id LEFT JOIN active_info a ON j.active_id=a.active_id WHERE u.user_id=#{userid}
+    </select>
+    <select id="findAllJoin" resultMap="activeJoinResultMap" resultType="java.util.ArrayList">
+        SELECT * FROM activejoinin j LEFT JOIN user_info u ON j.user_id=u.user_id LEFT JOIN activetype_info t ON j.activeType_id=t.activeType_id LEFT JOIN admin_info d ON j.admin_id=d.admin_id LEFT JOIN team_info m ON j.team_id=m.team_id LEFT JOIN active_info a ON j.active_id=a.active_id
+    </select>
+    <select id="findActNumByUser"  resultType="java.lang.Integer">
+        SELECT count(*) FROM `activejoinin` a WHERE a.user_id=#{userId} AND a.activeJoinIn_state='已通过';
+    </select>
+    <insert id="addActiveJoin">
+        insert into activejoinin values (null,#{activeTypeInfo.activeTypeId},0,#{userInfo.userId},#{activeInfo.activeId},#{adminInfo.adminId},
+                                        '申请中',1,current_time ,'9999-12-31 00:00:00')
+    </insert>
+
+    <update id="passReq">
+        update activejoinin set activeJoinIn_state='已通过',activeJoinIn_passTime=current_time where activeJoinIn_id=#{activeJoinInId}
+    </update>
+    <update id="refuseReq">
+        update activejoinin set activeJoinIn_state='已拒绝',activeJoinIn_passTime=current_time where activeJoinIn_id=#{activeJoinInId}
+    </update>
+</mapper>

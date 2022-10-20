@@ -7,21 +7,21 @@ public class ActiveSignInfo {
     private String activeSignEndTime;
     private String activeSignTime;
     private String state;
-    private ActiveTypeInfo activeTypeInfo;
+    private ActiveInfo activeInfo;
     private TeamInfo teamInfo;
     private UserInfo userInfo;
 
     public ActiveSignInfo() {
     }
 
-    public ActiveSignInfo(int activeSignId, String activeSignState, String activeSignStartTime, String activeSignEndTime, String activeSignTime, String state, ActiveTypeInfo activeTypeInfo, TeamInfo teamInfo, UserInfo userInfo) {
+    public ActiveSignInfo(int activeSignId, String activeSignState, String activeSignStartTime, String activeSignEndTime, String activeSignTime, String state, ActiveInfo activeInfo, TeamInfo teamInfo, UserInfo userInfo) {
         this.activeSignId = activeSignId;
         this.activeSignState = activeSignState;
         this.activeSignStartTime = activeSignStartTime;
         this.activeSignEndTime = activeSignEndTime;
         this.activeSignTime = activeSignTime;
         this.state = state;
-        this.activeTypeInfo = activeTypeInfo;
+        this.activeInfo = activeInfo;
         this.teamInfo = teamInfo;
         this.userInfo = userInfo;
     }
@@ -74,12 +74,12 @@ public class ActiveSignInfo {
         this.state = state;
     }
 
-    public ActiveTypeInfo getActiveTypeInfo() {
-        return activeTypeInfo;
+    public ActiveInfo getActiveInfo() {
+        return activeInfo;
     }
 
-    public void setActiveTypeInfo(ActiveTypeInfo activeTypeInfo) {
-        this.activeTypeInfo = activeTypeInfo;
+    public void setActiveInfo(ActiveInfo activeInfo) {
+        this.activeInfo = activeInfo;
     }
 
     public TeamInfo getTeamInfo() {

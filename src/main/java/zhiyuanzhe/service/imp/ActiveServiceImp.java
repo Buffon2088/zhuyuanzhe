@@ -65,5 +65,20 @@ public class ActiveServiceImp implements IActiveService {
         return activeDao.countNum();
     }
 
+    @Override
+    public List<ActiveInfo> findHotAct() {
+        return activeDao.findHotAct();
+    }
+
+    @Override
+    public int sumActTime() {
+        return activeDao.sumActTime();
+    }
+
+    @Override
+    public List<ActiveInfo> findActByActiveType(String activeType) {
+        return activeDao.findActByActiveType(activeType);
+    }
+
 
 }

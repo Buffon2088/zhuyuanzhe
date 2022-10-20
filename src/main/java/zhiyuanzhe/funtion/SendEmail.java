@@ -1,6 +1,7 @@
 package zhiyuanzhe.funtion;
 
 import com.sun.mail.util.MailSSLSocketFactory;
+import org.apache.commons.lang.StringUtils;
 import zhiyuanzhe.pojo.EmailInfo;
 
 import javax.activation.DataHandler;
@@ -76,7 +77,7 @@ public class SendEmail {
         //准备图片数据
         MimeBodyPart image = new MimeBodyPart();
         //这里填的是图片路径
-        if (emailInfo.getImgInformation().equals("")) {
+        if (!StringUtils.isNotEmpty(emailInfo.getImgInformation())) {
             System.out.println("此邮件无图片");
         } else {
             DataHandler handler = new DataHandler(new FileDataSource(emailInfo.getImgInformation()));
@@ -91,7 +92,7 @@ public class SendEmail {
 
         //附件txt
         MimeBodyPart appendix = new MimeBodyPart();
-        if (emailInfo.getTxtInformation().equals("")) {
+        if (!StringUtils.isNotEmpty(emailInfo.getTxtInformation())) {
             System.out.println("此邮件无附件txt");
         } else {
             appendix.setDataHandler(new DataHandler(new FileDataSource(emailInfo.getTxtInformation())));
@@ -101,7 +102,7 @@ public class SendEmail {
         //拼装邮件正文
         MimeMultipart mimeMultipart = new MimeMultipart();
         //检出是否有图片需要拼接
-        if (!emailInfo.getImgInformation().equals("")) {
+        if (StringUtils.isNotEmpty(emailInfo.getImgInformation())) {
             mimeMultipart.addBodyPart(image);
         }
         mimeMultipart.addBodyPart(text);
@@ -112,7 +113,7 @@ public class SendEmail {
         //拼接附件
         MimeMultipart allFile = new MimeMultipart();
         //检出是否有图片需要拼接
-        if (!emailInfo.getTxtInformation().equals("")) {
+        if (StringUtils.isNotEmpty(emailInfo.getTxtInformation())) {
             allFile.addBodyPart(appendix);//附件都在邮件中,类型设置为mixed
         }
         allFile.addBodyPart(contentText);//正文

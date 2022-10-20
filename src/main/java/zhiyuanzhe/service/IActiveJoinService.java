@@ -1,4 +1,5 @@
 package zhiyuanzhe.service;
+import org.apache.ibatis.annotations.Param;
 import zhiyuanzhe.pojo.ActiveInfo;
 import zhiyuanzhe.pojo.ActiveJoinInInfo;
 
@@ -19,5 +20,8 @@ public interface IActiveJoinService {
     List<ActiveJoinInInfo> findActiveJoinMessageByState(ActiveJoinInInfo activeJoinInInfo);
 
     boolean refuseReq(ActiveJoinInInfo activeJoinInInfo);
+
+    int findActNumByUser(@Param("userId")int userId);
+
 
 }

@@ -1,6 +1,8 @@
 package zhiyuanzhe.dao;
 
+import org.apache.ibatis.annotations.Param;
 import zhiyuanzhe.pojo.TeamInfo;
+import zhiyuanzhe.pojo.UserInfo;
 
 import java.util.List;
 
@@ -12,4 +14,5 @@ public interface TeamDao {
     int addTeam(TeamInfo teamInfo);
     int updateTeam(TeamInfo teamInfo);
     int deleteTeam(TeamInfo teamInfo);
+    TeamInfo findTeamMessageByTeamName(@Param("teamName") String teamName);
 }

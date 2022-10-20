@@ -1,6 +1,8 @@
 package zhiyuanzhe.service;
 
+import org.apache.ibatis.annotations.Param;
 import zhiyuanzhe.pojo.TeamInfo;
+import zhiyuanzhe.pojo.UserInfo;
 
 import java.util.List;
 
@@ -11,4 +13,5 @@ public interface ITeamService {
     boolean addTeam(TeamInfo teamInfo);
     boolean updateTeam(TeamInfo teamInfo);
     boolean deleteTeam(TeamInfo teamInfo);
+    TeamInfo findTeamMessageByTeamName(@Param("teamName") String teamName);
 }

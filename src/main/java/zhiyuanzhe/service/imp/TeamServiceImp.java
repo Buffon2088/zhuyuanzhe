@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import zhiyuanzhe.dao.TeamDao;
 import zhiyuanzhe.pojo.TeamInfo;
+import zhiyuanzhe.pojo.UserInfo;
 import zhiyuanzhe.service.ITeamService;
 
 import java.util.List;
@@ -45,4 +46,11 @@ public class TeamServiceImp implements ITeamService {
     public boolean deleteTeam(TeamInfo teamInfo) {
         return teamDao.deleteTeam(teamInfo)>0;
     }
+
+    @Override
+    public TeamInfo findTeamMessageByTeamName(String teamName) {
+        return teamDao.findTeamMessageByTeamName(teamName);
+    }
+
+
 }

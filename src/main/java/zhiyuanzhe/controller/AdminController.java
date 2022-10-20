@@ -1,5 +1,6 @@
 package zhiyuanzhe.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,14 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import zhiyuanzhe.annotaion.LogInfoAnnotaion;
-import zhiyuanzhe.funtion.AjaxResult;
-import zhiyuanzhe.funtion.SendEmail;
-import zhiyuanzhe.funtion.SetEmailMessage;
-import zhiyuanzhe.pojo.ActiveJoinInInfo;
-import zhiyuanzhe.pojo.AdminInfo;
-import zhiyuanzhe.pojo.EmailInfo;
+import zhiyuanzhe.funtion.*;
+import zhiyuanzhe.pojo.*;
 import zhiyuanzhe.service.IActiveJoinService;
+import zhiyuanzhe.service.IActiveService;
 import zhiyuanzhe.service.IAdminService;
+import zhiyuanzhe.service.IUserService;
 
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
@@ -33,6 +32,10 @@ public class AdminController {
     private IAdminService adminService;
     @Autowired
     private IActiveJoinService activeJoinService;
+    @Autowired
+    private IUserService userService;
+    @Autowired
+    private IActiveService activeService;
 
     @LogInfoAnnotaion(methodName = "adminLogin")
     @RequestMapping("/adminLogin")
@@ -99,8 +102,12 @@ public class AdminController {
         SendEmail sendEmail = new SendEmail();
         //实例邮件实体
         SetEmailMessage setEmailMessage = new SetEmailMessage();
+        //初始化收件人邮箱
+        String newAddressOr;
+        //通过名称确认邮箱
+        newAddressOr=userService.findEmailByName(addressOr);
         //将用户界面输入信息存入邮件实体
-        EmailInfo emailInfo = setEmailMessage.saveEmail(consignee, addressOr, otherInformation, information, imgInformation, txtInformation, email, key);
+        EmailInfo emailInfo = setEmailMessage.saveEmail(consignee, newAddressOr, otherInformation, information, imgInformation, txtInformation, email, key);
         //调用邮件发送类
         boolean emailState = sendEmail.sendEmail(emailInfo);
         //实例Ajax类
@@ -111,7 +118,6 @@ public class AdminController {
         String json = JSONObject.toJSONString(resultMap);
         //返回前端
         return json;
-
     }
 
     @RequestMapping("/goHome")
@@ -205,5 +211,25 @@ public class AdminController {
                 return "/public_function/errMessage";
             }
         }
+    }
+
+    /**
+     * 管理员发送申请成功或者失败邮件
+     * */
+    @RequestMapping("/adminSendEmail")
+    @ResponseBody
+    public String adminSendEmail(UserInfo userInfo, AdminInfo adminInfo,String state,ActiveInfo activeInfo,HttpSession session) throws MessagingException, GeneralSecurityException {
+        //查询收件人信息
+        UserInfo userMessage=userService.findUser(userInfo);
+        //查询活动信息
+        ActiveInfo actInfo=activeService.findActive(activeInfo);
+        //编辑发送信息
+        String message=new ReqSendMessage().reqSendMessage(userMessage,actInfo,state);
+        //编辑发送实体
+        EmailInfo emailInfo= new AdminSengEmailByReqAct().adminSengEmailByReqAct(message,session.getAttribute("email"),session.getAttribute("key"),userMessage);
+        //调用发送方法
+        boolean sendState=new SendEmail().sendEmail(emailInfo);
+        //返回json格式数据
+        return JSONObject.toJSONString(new SendResult().adminReqAct(sendState,message));
     }
 }

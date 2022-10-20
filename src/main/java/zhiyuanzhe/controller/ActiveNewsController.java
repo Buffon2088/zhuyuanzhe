@@ -23,7 +23,7 @@ public class ActiveNewsController {
     public String findAll(Model model){
         List<ActiveNewsInfo> newsList = activeNewsService.findAll();
         model.addAttribute("newsList",newsList);
-        return "/news/news_index";
+        return "/news/news-details";
     }
 
     @RequestMapping("/showAdd")

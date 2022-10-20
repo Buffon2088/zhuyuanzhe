@@ -1,5 +1,6 @@
 package zhiyuanzhe.service;
 
+import org.apache.ibatis.annotations.Param;
 import zhiyuanzhe.pojo.ActiveInfo;
 
 import java.util.List;
@@ -25,4 +26,10 @@ public interface IActiveService {
     int addActiveList(List<ActiveInfo> activeInfoList);
 
     int countNum();
+
+    List<ActiveInfo> findHotAct();
+
+    int sumActTime();
+
+    List<ActiveInfo> findActByActiveType(@Param("activeType") String activeType);
 }

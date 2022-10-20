@@ -10,31 +10,48 @@
         <result column="team_helpTime" property="teamHelpTime"/>
         <result column="team_state" property="teamState"/>
 
-        <association property="TeamTypeInfo" column="teamType_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
+        <association property="teamTypeInfo" column="teamType_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
             <id column="teamType_id" property="teamTypeId"/>
             <result column="teamType_name" property="teamTypeName"/>
             <result column="teamType_state" property="teamTypeState"/>
         </association>
 
-        <association property="UserInfo" column="user_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.UserInfo">
+        <association property="userInfo" column="user_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.UserInfo">
             <id column="user_id" property="userId" />
             <result column="user_name" property="userName" />
             <result column="user_cardId" property="userCardId"/>
             <result column="user_tel" property="userTel"/>
             <result column="user_email" property="userEmail"/>
             <result column="user_loginName" property="userLoginName"/>
+            <result column="team_name" property="teamName"/>
             <result column="user_pwd" property="userPwd"/>
             <result column="user_helpTime" property="userHelpTime"/>
             <result column="active_joNum" property="activeJoNum"/>
-            <result column="user_state" property="userState"/>
+            <result column="team_name" property="teamName"/>
             <result column="key" property="key"/>
-            <association property="TeamJobInfo" column="teamJob_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamJobInfo">
-                <id column="teamJob_id" property="TeamJobId" />
-                <result column="teamJob_name" property="TeamJobName"/>
-                <result column="teamJob_state" property="TeamJobState"/>
+            <result column="img" property="img"/>
+            <association property="teamJobInfo" column="teamJob_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamJobInfo">
+                <id column="teamJob_id" property="teamJobId" />
+                <result column="teamJob_name" property="teamJobName"/>
+                <result column="teamJob_state" property="teamJobState"/>
             </association>
         </association>
     </resultMap>
+
+    <select id="findTeamList" resultMap="teamResultMap" resultType="java.util.ArrayList">
+        select * from team_info t left join teamtype_info te on t.teamType_id=te.teamType_id
+                                  left join user_info u on t.user_id=u.user_id
+                                  left join teamjob_info tj on u.teamJob_id=tj.teamJob_id
+        where t.teamType_id=#{teamTypeId}
+    </select>
+
+    <select id="findTeamMessageByTeamName" resultMap="teamResultMap" resultType="java.util.ArrayList">
+        select * from team_info t left join teamtype_info te on t.teamType_id=te.teamType_id
+                                  left join user_info u on t.user_id=u.user_id
+                                  left join teamjob_info tj on u.teamJob_id=tj.teamJob_id
+        where t.team_name=#{teamName}
+    </select>
+
 
     <select id="findAllTeam" resultMap="teamResultMap" resultType="java.util.ArrayList">
         select * from team_info t left join teamtype_info te on t.teamType_id=te.teamType_id
@@ -58,8 +75,8 @@
     </delete>
 
     <insert id="addTeam">
-        insert into team_info values (null ,#{teamName},#{teamName},#{teamStartData},1,0,
-                                      #{teamTypeInfo.teamTypeId},#{userInfo.userId},#{teamState})
+        insert into team_info values (null ,#{teamName},current_date ,1,0,
+                                      4,#{userInfo.userId},#{teamState})
     </insert>
 
     <update id="updateTime">

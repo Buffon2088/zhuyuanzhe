@@ -47,7 +47,21 @@
         select *
         from active_info a
                  LEFT JOIN activetype_info t ON a.activeType_id = t.activeType_id
-                 LEFT JOIN teamtype_info p ON a.teamType_id = p.teamType_id
+                 LEFT JOIN teamtype_info p ON a.teamType_id = p.teamType_id ORDER BY active_id DESC
+    </select>
+    <select id="findHotAct" resultMap="activeResultMap" resultType="java.util.ArrayList">
+        SELECT active_name FROM `active_info` WHERE active_joinNum GROUP BY active_joinNum desc
+    </select>
+
+    <select id="findActByActiveType" resultMap="activeResultMap" resultType="java.util.ArrayList">
+        select *
+        from active_info a
+                 LEFT JOIN activetype_info t ON a.activeType_id = t.activeType_id
+                 LEFT JOIN teamtype_info p ON a.teamType_id = p.teamType_id   WHERE t.activeType_name=#{activeType} ORDER BY active_id DESC
+    </select>
+
+    <select id="sumActTime"    resultType="java.lang.Integer">
+        SELECT SUM(user_helpTime) FROM user_info WHERE user_helpTime>0
     </select>
 
     <select id="findActiveList" resultMap="activeResultMap" resultType="java.util.ArrayList">

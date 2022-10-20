@@ -7,10 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import zhiyuanzhe.annotaion.LogInfoAnnotaion;
-import zhiyuanzhe.funtion.JudgeActUpOrDown;
-import zhiyuanzhe.funtion.MargeMessage;
-import zhiyuanzhe.funtion.SaveImg;
-import zhiyuanzhe.funtion.TimeSum;
+import zhiyuanzhe.funtion.*;
 import zhiyuanzhe.pojo.*;
 import zhiyuanzhe.service.IActiveJoinService;
 import zhiyuanzhe.service.IActiveService;
@@ -80,6 +77,23 @@ public class ActiveController {
     /**
      * 遍历所有活动类型
      */
+    @RequestMapping("/findActiveListTest")
+    public String findActiveListTest(Model model) {
+        //查询活动全部类型
+        List<ActiveTypeInfo> activeTypeInfoList = activeTypeService.findAllActiveType();
+        //查询活动总数量
+        String countNums = String.valueOf(activeService.countNum());
+        model.addAttribute("countNums", countNums);
+        model.addAttribute(activeTypeInfoList);
+        //查询全部活动
+        List<ActiveInfo> activeInfoList = activeService.activeList();
+        model.addAttribute(activeInfoList);
+        return "/active/active_show";
+    }
+
+    /**
+     * 遍历所有活动类型
+     */
     @RequestMapping("/findActiveList")
     public String findActiveList(Model model) {
         //查询活动全部类型
@@ -91,7 +105,7 @@ public class ActiveController {
         //查询全部活动
         List<ActiveInfo> activeInfoList = activeService.activeList();
         model.addAttribute(activeInfoList);
-        return "/active/active_show";
+        return "/active_jsp/show_active";
     }
 
     /**
@@ -119,7 +133,7 @@ public class ActiveController {
         //发送界面集合
         model.addAttribute(activeTypeInfoList);
         model.addAttribute(activeInfoList);
-        return "/active/active_show";
+        return "/active_jsp/show_active";
     }
 
     /**

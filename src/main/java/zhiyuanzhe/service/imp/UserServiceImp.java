@@ -53,4 +53,14 @@ public class UserServiceImp implements IUserService {
     public boolean deleteUser(UserInfo userInfo) {
         return userDao.deleteUser(userInfo)>0;
     }
+
+    @Override
+    public List<UserInfo> teamJob() {
+        return userDao.teamJob();
+    }
+
+    @Override
+    public String findEmailByName(String newAddressOr) {
+        return userDao.findEmailByName(newAddressOr);
+    }
 }

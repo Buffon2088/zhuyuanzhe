@@ -12,37 +12,46 @@
         <result column="user_pwd" property="userPwd"/>
         <result column="user_helpTime" property="userHelpTime"/>
         <result column="active_joNum" property="activeJoNum"/>
-        <result column="user_state" property="userState"/>
+        <result column="team_name" property="teamName"/>
         <result column="key" property="key"/>
-        <association property="TeamJobInfo" column="teamJob_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamJobInfo">
-            <id column="teamJob_id" property="TeamJobId" />
-            <result column="teamJob_name" property="TeamJobName"/>
-            <result column="teamJob_state" property="TeamJobState"/>
+        <result column="img" property="img"/>
+        <association property="teamJobInfo" column="teamJob_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamJobInfo">
+            <id column="teamJob_id" property="teamJobId" />
+            <result column="teamJob_name" property="teamJobName"/>
+            <result column="teamJob_state" property="teamJobState"/>
         </association>
     </resultMap>
     
     <select id="findAll" resultMap="userResultMap" resultType="java.util.ArrayList">
         select * from user_info u LEFT JOIN teamjob_info t ON u.teamJob_id=u.teamJob_id
     </select>
-    
+
+    <select id="teamJob" resultMap="userResultMap" resultType="java.util.ArrayList">
+        SELECT * FROM user_info WHERE teamJob_id > 0
+    </select>
+
     <select id="findUser" resultMap="userResultMap">
-        select * from user_info select * from user_info u LEFT JOIN teamjob_info t ON u.teamJob_id=u.teamJob_id
+         select * from user_info u LEFT JOIN teamjob_info t ON u.teamJob_id=u.teamJob_id
        <where>
            <if test="userId!=0">user_id=#{userId}</if>
            <if test="userLoginName!=null">and user_loginName=#{userLoginName}</if>
            <if test="userPwd!=null">and user_pwd=#{userPwd}</if>
-           <if test="userName!=null">and user_name=#{userName}</if>
-           <if test="userHelpNum!=0">and user_helpNum=#{userHelpNum}</if>
        </where>
     </select>
-    
+
+    <select id="findEmailByName"  resultType="java.lang.String">
+        SELECT case WHEN (SELECT COUNT(*) FROM user_info WHERE user_name=#{newAddressOr})>0 THEN (SELECT user_email FROM user_info WHERE user_name=#{newAddressOr})
+                    WHEN (SELECT COUNT(*) FROM admin_info WHERE admin_loginName=#{newAddressOr})>0 THEN (SELECT email FROM admin_info WHERE admin_loginName=#{newAddressOr})
+                    ELSE 0 END
+    </select>
+
     <delete id="deleteUser">
         delete from user_info where user_id=#{userId}
     </delete>
 
     <insert id="addUser">
         insert into user_info values (null,#{userName},#{userCardId},#{userTel},#{userEmail},#{userLoginName},#{userPwd},
-                                      #{teamJobInfo.teamJobId},0,0,#{userState},#{key})
+                                      0,0,0,#{teamName},#{key},#{img})
     </insert>
 
     <update id="updateUser">
@@ -54,7 +63,7 @@
             <if test="userEmail!=null">user_email=#{userEmail},</if>
             <if test="userLoginName!=null">user_loginName=#{userLoginName},</if>
             <if test="userPwd!=null">user_pwd=#{userPwd},</if>
-            <if test="teamJobInfo!=null">teamJob_id=#{teamJobId}</if>
+            <if test="teamJobInfo!=null">teamJob_id=#{teamJobInfo.teamJobId}</if>
         </trim>
         where user_id=#{userId}
     </update>
