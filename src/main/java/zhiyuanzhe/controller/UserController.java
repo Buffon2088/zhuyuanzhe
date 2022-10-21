@@ -293,5 +293,14 @@ public class UserController {
         systemMessage.put("threeActive", threeActive);
         return "/userHome/user_home";
     }
+
+    /**
+     * 进入创建组织界面
+     **/
+    @RequestMapping("/buildTeam")
+    public String buildTeam(){
+
+        return "/team/build_team";
+    }
 }
 

@@ -186,7 +186,7 @@
                     </li>
                     <li class="menu-item"><a href="page-causes-grid.html">组织模块</a>
                       <ul class="dropdown">
-                        <li><a href="page-causes-grid.html">创建组织</a></li>
+                        <li><a href="${pageContext.request.contextPath}/User/buildTeam">创建组织</a></li>
                         <li><a href="page-causes-details.html">加入组织</a></li>
                       </ul>
                     </li>
@@ -400,6 +400,36 @@
 <!-- Footer Scripts -->
 <!-- JS | Custom script for all pages -->
 <script src="${pageContext.request.contextPath}/js/custom.js"></script>
+<script>
+  setInterval(time,1000) //定时器
+  function time(){ //定义方法 time
+    let time = new Date();  //实例化日期对象
 
+    let year=time.getFullYear()+"年" //获取年
+
+    let month=time.getMonth()+1+"月" //获取月
+
+    let day=time.getDate()+"日"      //获取日
+
+    let h=time.getHours()+':'        //获取时
+
+    let m=time.getMinutes()+":"      //获取分
+
+    let s=time.getSeconds()          //获取秒
+
+    if(s<10){                        //判定秒 是否小于10秒
+
+      s="0"+time.getSeconds()      //小于是 在其前加0 01，02，03...
+
+    }
+
+    if(time.getMinutes()<10){        //判定分 是否小于10分
+
+      m="0"+time.getMinutes()+":"  //小于是 在其前加0 01，02，03...
+
+    }
+    document.getElementById('time').innerHTML='当前时间：'+year+month+day+h+m+s  //显示当前时间
+  }
+</script>
 </body>
 </html>

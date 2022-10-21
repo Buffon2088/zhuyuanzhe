@@ -73,54 +73,51 @@
 <div id="side-panel-container" class="dark" data-tm-bg-img="images/side-push-bg.jpg">
   <div class="side-panel-wrap">
     <div id="side-panel-trigger-close" class="side-panel-trigger"><a href="#"><i class="fa fa-times side-panel-trigger-icon"></i></a></div>
-    <img class="logo mb-50" src="${pageContext.request.contextPath}/images/logo-wide.png" alt="Logo">
-    <p>Our motive is to help the poor, helpless and orphan children all over the world.</p>
+    <p style="text-align: center">活动打卡</p>
+
+    <img class="logo mb-50" src="${pageContext.request.contextPath}/img/${sessionScope.userInfo.img}" alt="Logo">
+    <p>做你没做过的事情叫成长，做你不愿意做的事情叫改变，做你不敢做的事情叫突破。</p>
     <div class="widget">
-      <h4 class="widget-title widget-title-line-bottom line-bottom-theme-colored1">Latest News</h4>
+      <h4 class="widget-title widget-title-line-bottom line-bottom-theme-colored1" style="color: red;">进行中的活动~</h4>
+      <p id="time" style="color: #0c8d0c"></p>
       <div class="latest-posts">
         <article class="post media-post clearfix pb-0 mb-10">
-          <a class="post-thumb" href="news-details.html"><img src="${pageContext.request.contextPath}/images/blog/latest-news1.jpg" alt=""></a>
+          <a class="post-thumb" href="${pageContext.request.contextPath}/news-details.html"><img src="${pageContext.request.contextPath}/images/blog/latest-news1.jpg" alt=""></a>
           <div class="post-right">
-            <h5 class="post-title mt-0"><a href="news-details.html">Sustainable Construction</a></h5>
-            <p>Lorem ipsum dolor...</p>
+            <h5 class="post-title mt-0"><a href="${pageContext.request.contextPath}/news-details.html">活动名称</a></h5>
+            <p>活动时间</p>
           </div>
-        </article>
-        <article class="post media-post clearfix pb-0 mb-10">
-          <a class="post-thumb" href="news-details.html"><img src="images/blog/latest-news2.jpg" alt=""></a>
-          <div class="post-right">
-            <h5 class="post-title mt-0"><a href="news-details.html">Industrial Coatings</a></h5>
-            <p>Lorem ipsum dolor...</p>
+
+          <div class="buttons cart-action-buttons" style="width: 230px;">
+            <div class="row">
+              <div class="col-6 pl-1"><a href="${pageContext.request.contextPath}/User/userLogin" class="btn btn-theme-colored1 btn-block btn-sm checkout wc-forward">打卡</a>
+              </div>
+            </div>
           </div>
-        </article>
-        <article class="post media-post clearfix pb-0 mb-10">
-          <a class="post-thumb" href="news-details.html"><img src="images/blog/latest-news3.jpg" alt=""></a>
-          <div class="post-right">
-            <h5 class="post-title mt-0"><a href="news-details.html">Storefront Installations</a></h5>
-            <p>Lorem ipsum dolor...</p>
-          </div>
+          <br>
         </article>
       </div>
     </div>
 
     <div class="widget">
-      <h5 class="widget-title widget-title-line-bottom line-bottom-theme-colored1">Contact Info</h5>
+      <h5 class="widget-title widget-title-line-bottom line-bottom-theme-colored1">个人信息</h5>
       <div class="tm-widget-contact-info contact-info-style1 contact-icon-theme-colored1">
         <ul>
           <li class="contact-name">
             <div class="icon"><i class="flaticon-contact-037-address"></i></div>
-            <div class="text">John Doe</div>
+            <div class="text">姓名：${sessionScope.userInfo.userName}</div>
           </li>
           <li class="contact-phone">
             <div class="icon"><i class="flaticon-contact-042-phone-1"></i></div>
-            <div class="text"><a href="tel:+510-455-6735">+510-455-6735</a></div>
+            <div class="text"><a href="tel:+510-455-6735">电话：${sessionScope.userInfo.userTel}</a></div>
           </li>
           <li class="contact-email">
             <div class="icon"><i class="flaticon-contact-043-email-1"></i></div>
-            <div class="text"><a href="mailto:info@yourdomain.com">info@yourdomain.com</a></div>
+            <div class="text"><a href="mailto:info@yourdomain.com">邮箱：${sessionScope.userInfo.userEmail}</a></div>
           </li>
           <li class="contact-address">
             <div class="icon"><i class="flaticon-contact-047-location"></i></div>
-            <div class="text">3982 Browning Lane Carolyns Circle, California</div>
+            <div class="text">所属组织：${sessionScope.userInfo.teamJobInfo.teamJobName}</div>
           </li>
         </ul>
       </div>
@@ -190,7 +187,7 @@
                     </li>
                     <li class="menu-item"><a href="page-causes-grid.html">组织模块</a>
                       <ul class="dropdown">
-                        <li><a href="page-causes-grid.html">创建组织</a></li>
+                        <li><a href="${pageContext.request.contextPath}/User/buildTeam">创建组织</a></li>
                         <li><a href="page-causes-details.html">加入组织</a></li>
                       </ul>
                     </li>
@@ -340,13 +337,17 @@
                       </div>
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="checkuot-form-fname">姓名</label>
-                      <input id="checkuot-form-fname" type="email" class="form-control" value="${sessionScope.userInfo.userName}" disabled>
+                      <label for="checkuot-form-fname">修改头像</label>
+                      <input id="checkuot-form-fname" type="file" class="form-control" style="background-color: #dadeda">
                     </div>
-
+                    <div class="form-group col-md-6">
+                      <label for="checkuot-form-fname">姓名</label>
+                      <input  type="email" class="form-control" value="${sessionScope.userInfo.userName}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
                       <label for="checkuot-form-lname">身份证</label>
                       <input id="checkuot-form-lname" type="email" class="form-control" value="${sessionScope.userInfo.userCardId}" disabled>
-
+                    </div>
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="checkuot-form-cname">登录名</label>
@@ -609,6 +610,36 @@
 <!-- Footer Scripts -->
 <!-- JS | Custom script for all pages -->
 <script src="${pageContext.request.contextPath}/js/custom.js"></script>
+<script>
+  setInterval(time,1000) //定时器
+  function time(){ //定义方法 time
+    let time = new Date();  //实例化日期对象
 
+    let year=time.getFullYear()+"年" //获取年
+
+    let month=time.getMonth()+1+"月" //获取月
+
+    let day=time.getDate()+"日"      //获取日
+
+    let h=time.getHours()+':'        //获取时
+
+    let m=time.getMinutes()+":"      //获取分
+
+    let s=time.getSeconds()          //获取秒
+
+    if(s<10){                        //判定秒 是否小于10秒
+
+      s="0"+time.getSeconds()      //小于是 在其前加0 01，02，03...
+
+    }
+
+    if(time.getMinutes()<10){        //判定分 是否小于10分
+
+      m="0"+time.getMinutes()+":"  //小于是 在其前加0 01，02，03...
+
+    }
+    document.getElementById('time').innerHTML='当前时间：'+year+month+day+h+m+s  //显示当前时间
+  }
+</script>
 </body>
 </html>
