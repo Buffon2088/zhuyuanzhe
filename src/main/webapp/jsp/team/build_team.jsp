@@ -415,7 +415,7 @@
                 </div>
                 <div class="form-group">
                   <input name="form_botcheck" class="form-control" type="hidden" value="" />
-                  <button type="submit" class="btn btn-flat btn-theme-colored1 text-uppercase mt-10 mb-sm-30 border-left-theme-color-2-4px" data-loading-textdata-loading-text="Please wait...">创建</button>
+                  <button type="submit" class="btn btn-flat btn-theme-colored1 text-uppercase mt-10 mb-sm-30 border-left-theme-color-2-4px" data-loading-textdata-loading-text="Please wait..." id="buildTeam">创建</button>
                   <button type="reset" class="btn btn-flat btn-theme-colored3 text-uppercase mt-10 mb-sm-30 border-left-theme-color-2-4px">重填</button>
                 </div>
               </form>
@@ -512,6 +512,7 @@
 <!-- Footer Scripts -->
 <!-- JS | Custom script for all pages -->
 <script src="${pageContext.request.contextPath}/js/custom.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
 <script>
   setInterval(time,1000) //定时器
   function time(){ //定义方法 time
@@ -542,6 +543,32 @@
     }
     document.getElementById('time').innerHTML='当前时间：'+year+month+day+h+m+s  //显示当前时间
   }
+</script>
+<script>
+  let userId="${sessionScope.userInfo.userId}";
+  $.ajax({
+    //提交的服务地址，servlet服务器
+    url: '${pageContext.request.contextPath}/User/findTeamByUserId',
+    method: 'post',
+    data: {
+      'userId': userId
+    },
+    //回调值，响应respones
+    success: function (date) {
+      var obj=JSON.parse(date);
+      var result=obj['1'];
+      var teamName=obj['2'];
+      var button=document.getElementById('buildTeam');
+      if (result=='Y'){
+        alert('您已经已在<'+teamName+'>组织中\n请先退出该组织~');
+        button.innerText='已存在组织';
+        button.disabled=true;
+      }
+    },
+    error: function (data) {
+      alert('异步查询组织错误！请联系管理员~');
+    }
+  });
 </script>
 </body>
 </html>

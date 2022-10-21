@@ -1,5 +1,6 @@
 package zhiyuanzhe.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -272,7 +273,7 @@ public class UserController {
      * 用户个人中心处理
      **/
     @RequestMapping("/userIndex")
-    public String  userIndex() {
+    public String userIndex() {
         //创建存放用户信息map
         Map<Object, Object> systemMessage = new HashMap<>();
         //获取所有志愿者人数
@@ -298,9 +299,28 @@ public class UserController {
      * 进入创建组织界面
      **/
     @RequestMapping("/buildTeam")
-    public String buildTeam(){
+    public String buildTeam() {
 
         return "/team/build_team";
+    }
+
+    /**
+     * 异步判断是否已经创建组织或加入其他组织
+     **/
+    @ResponseBody
+    @RequestMapping(value = "/findTeamByUserId", produces = "text/html;charset=UTF-8")
+    public String findTeamByUserId(UserInfo userInfo) {
+        //定义存放查询结果map
+        Map<String, String> result = new HashMap<>();
+        //查询该用户是否已经创建组织或加入其他组织
+        String teamState = userService.findUser(userInfo).getTeamName();
+        if (teamState.length() > 0) {
+            result.put("1", "Y");
+            result.put("2", teamState);
+        } else {
+            result.put("1", "N");
+        }
+        return JSONObject.toJSONString(result);
     }
 }
 
