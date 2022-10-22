@@ -187,14 +187,15 @@
                     </li>
                     <li class="menu-item"><a href="page-causes-grid.html">组织模块</a>
                       <ul class="dropdown">
-                        <li><a href="${pageContext.request.contextPath}/User/buildTeam">创建组织</a></li>
-                        <li><a href="page-causes-details.html">加入组织</a></li>
+                        <li><a href="${pageContext.request.contextPath}/User/buildTeam">创建组织</ a></li>
+                        <li><a href="#">加入组织</a></li>
+                        <li><a href="#">我的组织</a></li>
                       </ul>
                     </li>
                     <li class="menu-item"><a href="news-grid.html">志愿记录</a>
                       <ul class="dropdown">
-                        <li><a href="news-grid.html">News Grid</a></li>
-                        <li><a href="news-details.html">News Details</a></li>
+                        <li><a href="news-grid.html">个人记录</a></li>
+                        <li><a href="news-details.html">组织记录</a></li>
                       </ul>
                     </li>
                     <li class="menu-item"><a href="${pageContext.request.contextPath}/User/userIndex">个人中心</a></li>

@@ -133,11 +133,11 @@
           <div class="col-xl-auto header-top-left align-self-center text-center text-xl-left">
             <ul class="element contact-info">
               <li class="contact-phone"><i class="fa fa-phone font-icon sm-display-block"></i>
-                Tel: ${userInfo.userTel}</li>
+                Tel: ${sessionScope.userInfo.userTel}</li>
               <li class="contact-email"><i
-                      class="fa fa-envelope font-icon sm-display-block"></i> ${userInfo.userEmail}</li>
+                      class="fa fa-envelope font-icon sm-display-block"></i> ${sessionScope.userInfo.userEmail}</li>
               <li class="contact-address"><i
-                      class="fa fa-map font-icon sm-display-block"></i> ${userInfo.userCardId}</li>
+                      class="fa fa-map font-icon sm-display-block"></i> ${sessionScope.userInfo.userCardId}</li>
             </ul>
           </div>
           <div class="col-xl-auto ml-xl-auto header-top-right align-self-center text-center text-xl-right">
@@ -188,13 +188,14 @@
                     <li class="menu-item"><a href="page-causes-grid.html">组织模块</a>
                       <ul class="dropdown">
                         <li><a href="${pageContext.request.contextPath}/User/buildTeam">创建组织</a></li>
-                        <li><a href="page-causes-details.html">加入组织</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Team/findTeam?userId=${sessionScope.userInfo.userId}">加入组织</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Team/MyTeam?userId=${sessionScope.userInfo.userId}">我的组织</a></li>
                       </ul>
                     </li>
                     <li class="menu-item"><a href="news-grid.html">志愿记录</a>
                       <ul class="dropdown">
-                        <li><a href="news-grid.html">News Grid</a></li>
-                        <li><a href="news-details.html">News Details</a></li>
+                        <li><a href="news-grid.html">个人记录</a></li>
+                        <li><a href="news-details.html">组织记录</a></li>
                       </ul>
                     </li>
                     <li class="menu-item"><a href="${pageContext.request.contextPath}/User/userIndex">个人中心</a></li>
@@ -379,18 +380,18 @@
               <h2 class="mt-0 mb-0">建立组织？</h2>
               <p class="font-size-20">可以参与组织活动哦</p>
               <!-- Contact Form -->
-              <form id="contact_form" name="contact_form" class="" action="includes/sendmail.php" method="post">
+              <form id="contact_form" name="contact_form" class="" action="${pageContext.request.contextPath}/Team/addTeam" method="post">
                 <div class="form-row">
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>组织名称 <small>*</small></label>
-                      <input name="form_name" class="form-control" type="text" placeholder="组织名称">
+                      <input name="teamName" class="form-control" type="text" placeholder="组织名称">
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>团队人数 <small>*</small></label>
-                      <input  class="form-control required email" type="number" placeholder="团队人数">
+                      <input  class="form-control" type="number" value="15" name="teamPeopleNum" disabled>
                     </div>
                   </div>
                 </div>
@@ -398,20 +399,19 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>建立时间 <small>*</small></label>
-                      <input name="form_subject" class="form-control required" type="date" placeholder="建立时间">
+                      <input name="teamStartData" class="form-control required" type="text" placeholder="当前时间" disabled>
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>创建人</label>
-                      <input name="form_phone" class="form-control" type="text" placeholder="创建人">
+                      <input  class="form-control" type="text" placeholder="${sessionScope.userInfo.userName}" disabled>
                     </div>
                   </div>
                 </div>
-
                 <div class="form-group">
                   <label>申请书</label>
-                  <textarea name="form_message" class="form-control required" rows="5" placeholder="申请书"></textarea>
+                  <textarea class="form-control required" rows="5" placeholder="申请书"></textarea>
                 </div>
                 <div class="form-group">
                   <input name="form_botcheck" class="form-control" type="hidden" value="" />

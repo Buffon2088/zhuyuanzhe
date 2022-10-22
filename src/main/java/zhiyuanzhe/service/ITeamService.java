@@ -14,4 +14,5 @@ public interface ITeamService {
     boolean updateTeam(TeamInfo teamInfo);
     boolean deleteTeam(TeamInfo teamInfo);
     TeamInfo findTeamMessageByTeamName(@Param("teamName") String teamName);
+    TeamInfo findTeamByUserId(@Param("userId") int userId);
 }

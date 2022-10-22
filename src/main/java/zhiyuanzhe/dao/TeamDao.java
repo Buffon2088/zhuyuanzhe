@@ -15,4 +15,5 @@ public interface TeamDao {
     int updateTeam(TeamInfo teamInfo);
     int deleteTeam(TeamInfo teamInfo);
     TeamInfo findTeamMessageByTeamName(@Param("teamName") String teamName);
+    TeamInfo findTeamByUserId(@Param("userId") int userId);
 }

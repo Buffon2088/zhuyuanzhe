@@ -39,7 +39,8 @@
             <result column="team_peopleNum" property="teamPeopleNum"/>
             <result column="team_helpTime" property="teamHelpTime"/>
             <result column="team_state" property="teamState"/>
-
+            <result column="team_nowNum" property="teamNowNum"/>
+            <result column="img" property="img"/>
             <association property="teamTypeInfo" column="teamType_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamTypeInfo">
                 <id column="teamType_id" property="teamTypeId"/>
                 <result column="teamType_name" property="teamTypeName"/>

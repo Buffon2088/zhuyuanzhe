@@ -25,7 +25,7 @@ public class TeamController {
     @Autowired
     private IUserService userService;
 
-    /*
+    /**
     便历所有组织
     * */
     @RequestMapping("/TeamList")
@@ -39,7 +39,7 @@ public class TeamController {
         return "/team/team_show";
     }
 
-    /*
+    /**
     * 用户界面展示的团队类型查询
     * */
     @RequestMapping("/findTeamType")
@@ -55,7 +55,7 @@ public class TeamController {
 
     }
 
-    /*
+    /**
      * 管理员界面展示的团队类型查询
      * */
     @RequestMapping("/findTeamTypeAdmin")
@@ -70,7 +70,7 @@ public class TeamController {
         return "/adminHome/admin_showTeam";
 
     }
-    /*
+    /**
      * 通过组织等级查询组织
      * */
     @RequestMapping("/findTeamByType")
@@ -82,7 +82,7 @@ public class TeamController {
     }
 
 
-    /*
+    /**
      * 跳转到创建组织的方法
      * */
     @RequestMapping("/showAdd")
@@ -90,7 +90,7 @@ public class TeamController {
         return "/team/add_team";
     }
 
-    /*
+    /**
      * 用户创建组织
      * */
     @RequestMapping("/addTeam")
@@ -102,7 +102,8 @@ public class TeamController {
         Info.setUserId(userId);
         //将装有userId的Info放入teamInfo中
         teamInfo.setUserInfo(Info);
-
+        //默认头像
+        teamInfo.setImg("770500d63c7ef49f6d09e9bf46ea865.jpg");
         if (teamService.addTeam(teamInfo)){
             return "redirect:/Team/TeamList";
         }else{
@@ -111,8 +112,33 @@ public class TeamController {
         }
     }
 
+    /**
+     * 组织列表
+     * */
+    @RequestMapping("/findTeam")
+    public String findTeam(UserInfo userInfo,Model model){
+        //查询组织级别
+        List<TeamTypeInfo> teamTypeInfoList=teamTypeService.findAll();
+        model.addAttribute("teamTypeInfoList",teamTypeInfoList);
+        //查询所有组织
+        List<TeamInfo> teamInfoList=teamService.findAllTeam();
+        model.addAttribute("teamInfoList",teamInfoList);
+        return "/team/join_team";
+    }
 
-
-
-
+    /**
+     * 查看我的组织
+     * */
+    @RequestMapping("/MyTeam")
+    public String myTeam(UserInfo userInfo,Model model){
+       //通过id查询组织
+        try {
+            TeamInfo teamInfo=teamService.findTeamByUserId(userInfo.getUserId());
+            model.addAttribute("teamInfo",teamInfo);
+        }catch (Exception e){
+            model.addAttribute("err", "活动组织查询异常，只能存在于一个组织之中!");
+            return "/public_function/errMessage";
+        }
+        return "/team/team_home";
+    }
 }

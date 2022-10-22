@@ -52,5 +52,10 @@ public class TeamServiceImp implements ITeamService {
         return teamDao.findTeamMessageByTeamName(teamName);
     }
 
+    @Override
+    public TeamInfo findTeamByUserId(int userId) {
+        return teamDao.findTeamByUserId(userId);
+    }
+
 
 }

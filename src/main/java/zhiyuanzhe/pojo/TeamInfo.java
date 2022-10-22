@@ -9,11 +9,13 @@ public class TeamInfo {
     private TeamTypeInfo teamTypeInfo;
     private UserInfo userInfo;
     private String teamState;
+    private String teamNowNum;
+    private String img;
 
     public TeamInfo() {
     }
 
-    public TeamInfo(int teamId, String teamName, String teamStartData, int teamPeopleNum, int teamHelpTime, TeamTypeInfo teamTypeInfo, UserInfo userInfo, String teamState) {
+    public TeamInfo(int teamId, String teamName, String teamStartData, int teamPeopleNum, int teamHelpTime, TeamTypeInfo teamTypeInfo, UserInfo userInfo, String teamState, String teamNowNum, String img) {
         this.teamId = teamId;
         this.teamName = teamName;
         this.teamStartData = teamStartData;
@@ -22,6 +24,8 @@ public class TeamInfo {
         this.teamTypeInfo = teamTypeInfo;
         this.userInfo = userInfo;
         this.teamState = teamState;
+        this.teamNowNum = teamNowNum;
+        this.img = img;
     }
 
     public int getTeamId() {
@@ -86,5 +90,21 @@ public class TeamInfo {
 
     public void setTeamState(String teamState) {
         this.teamState = teamState;
+    }
+
+    public String getTeamNowNum() {
+        return teamNowNum;
+    }
+
+    public void setTeamNowNum(String teamNowNum) {
+        this.teamNowNum = teamNowNum;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }
