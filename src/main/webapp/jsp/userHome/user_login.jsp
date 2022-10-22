@@ -31,26 +31,13 @@
     </form>
 
     <form action="${pageContext.request.contextPath}/User/oldUserLogin" method="post">
-        <h2>用户登录原版</h2>
+        <h2>用户登录（测试）</h2>
         <h5><a href="${pageContext.request.contextPath}/jsp/adminHome/admin_login.jsp">管理员登录</a></h5>
         账号：<input type="text" name="userLoginName" ><span></span><br><br>
         密码：<input type="password" name="userPwd" i><br><br>
         <input value="login" type="submit">
         <a href="">找回密码</a>
     </form>
-
-    <select name="收件人" class="form-control required" id="activeTypePage" onchange="activeByType(this.value)">
-        <option value="" id="active"> --- 选择收件人 --- </option>
-        <option value="Service 1">正在加载。。。</option>
-        <option value="Service 2">正在加载。。。</option>
-    </select>
-    <div class="col-sm-6">
-        <select name="form_service on" class="form-control required" onchange="activeByType(this.value)">
-            <option value=""> --- 选择活动 --- </option>
-            <option value="Service 1" >请按顺序选择！</option>
-            <option value="Service 2">请按顺序选择！</option>
-        </select>
-    </div>
 </div>
 <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
 <script>
@@ -85,7 +72,6 @@
     }
 </script>
 <script>
-        alert('122221');
         var selectStyle=document.getElementById('activeTypePage');
         $.ajax({
             //提交的服务地址，servlet服务器

@@ -187,9 +187,9 @@
                     </li>
                     <li class="menu-item"><a href="page-causes-grid.html">组织模块</a>
                       <ul class="dropdown">
-                        <li><a href="${pageContext.request.contextPath}/User/buildTeam">创建组织</ a></li>
-                        <li><a href="#">加入组织</a></li>
-                        <li><a href="#">我的组织</a></li>
+                        <li><a href="${pageContext.request.contextPath}/User/buildTeam">创建组织</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Team/findTeam?userId=${sessionScope.userInfo.userId}">加入组织</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Team/MyTeam?userId=${sessionScope.userInfo.userId}">我的组织</a></li>
                       </ul>
                     </li>
                     <li class="menu-item"><a href="news-grid.html">志愿记录</a>
