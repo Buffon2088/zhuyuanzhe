@@ -370,7 +370,7 @@
                                                         <div class="causes-thumb">
                                                             <img src="${pageContext.request.contextPath}/img/${li.img}"
                                                                  style="height: 280px;" alt="" class="w-100">
-                                                            <a href="${pageContext.request.contextPath}/User/findActiveById?activeId=${li.activeId}"
+                                                            <a href="${pageContext.request.contextPath}/User/findActiveById?activeId=${li.activeId}&userId=${sessionScope.userInfo.userId}"
                                                                class="btn btn-donate-now btn-theme-colored2">立刻参与</a>
                                                         </div>
                                                         <div class="causes-details">

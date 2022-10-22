@@ -2,6 +2,7 @@ package zhiyuanzhe.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +52,38 @@ public class UserController {
      * 活动下拉框请求
      */
     public static String ACTIVE = "02";
+    /**
+     * 组长编号（组织）
+     */
+    public static String HEAD_MAN = "组长";
+    /**
+     * 成员编号（组织）
+     */
+    public static String MEMBER = "成员";
+    /**
+     * 无组织人员编号
+     */
+    public static String PEOPLE = "";
+    /**
+     * 管理员编号（组织）
+     */
+    public static String ADMINISTRATOR = "管理员";
+    /**
+     * 个人活动（组织）
+     */
+    public static String ONE_ACTIVE = "个人活动";
+    /**
+     * 团体活动（组织）
+     */
+    public static String TEAM_ACTIVE = "团队活动";
+    /**
+     * 特殊活动（组织）
+     */
+    public static String SPECIAL_ACTIVE = "特殊活动";
+    /**
+     * 测试活动（组织）
+     */
+    public static String TEST_ACTIVE = "特殊活动";
 
     /**
      * 用户登录方法
@@ -154,27 +187,44 @@ public class UserController {
      * 用户查看活动详情
      */
     @RequestMapping("/findActiveById")
-    public String findActiveById(ActiveInfo activeInfo, Model model, HttpSession session) throws ParseException {
+    public String findActiveById(ActiveInfo activeInfo, Model model, HttpSession session, UserInfo userInfo) throws ParseException {
         //通过id查询活动信息
         activeInfo = activeService.findActiveById(activeInfo);
         //发送到前台界面
         model.addAttribute("activeInfo", activeInfo);
         //校验当前活动时间
         boolean isTimeOut = new IsTimeOut().isTimeOut(activeInfo);
-        if (isTimeOut) {
-            //判断当前活动状态
-            int userId = (int) session.getAttribute("userId");
-            String activeState = activeJoinService.findActiveState(activeInfo.getActiveId(), userId);
-            //若状态为空则可以报名
-            if (activeState == null) {
-                model.addAttribute("activeState", "立即报名");
+        //传该活动类型
+        String activeType = activeService.findActiveById(activeInfo).getActiveTypeInfo().getActiveTypeName();
+        //查询该用户身份
+        UserInfo user = userService.findUser(userInfo);
+        String userType = "";
+        //空指针处理
+       try {
+           userType=user.getTeamJobInfo().getTeamJobName();
+       }catch (Exception e){
+           userType=PEOPLE;
+       }
+        //校验用户当前身份
+        if ((HEAD_MAN.equals(userType) && TEAM_ACTIVE.equals(activeType)) || (MEMBER.equals(userType) && ONE_ACTIVE.equals(activeType)) || (TEST_ACTIVE.equals(activeType)) || (PEOPLE.equals(userType) && ONE_ACTIVE.equals(activeType))) {
+            if (isTimeOut) {
+                //判断当前活动状态
+                int userId = (int) session.getAttribute("userId");
+                String activeState = activeJoinService.findActiveState(activeInfo.getActiveId(), userId);
+                //若状态为空则可以报名
+                if (activeState == null) {
+                    model.addAttribute("activeState", "立即报名");
+                } else {
+                    model.addAttribute("activeState", activeState);
+                }
+                return "/active/active_detail";
             } else {
-                model.addAttribute("activeState", activeState);
+                //活动异常提示语
+                model.addAttribute("err", "该活动已经结束~");
+                return "/public_function/errMessage";
             }
-            return "/active/active_detail";
         } else {
-            //活动异常提示语
-            model.addAttribute("err", "该活动已经结束~");
+            model.addAttribute("err", "您的身份不符合当前活动~");
             return "/public_function/errMessage";
         }
     }
