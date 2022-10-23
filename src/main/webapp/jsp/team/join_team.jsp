@@ -452,7 +452,7 @@
          for (var i=0;i<objLength;i++){
            var td = $('<tr class="cart_item" id="tableDate">' +
                    '<td class="product-remove"><a title="Remove this item" class="remove" href="#">*</a></td>' +
-                   '<td class="product-thumbnail"><a href="#"><img alt="'+obj[i]['teamTypeInfo'].teamTypeName+'" src=""></a></td>' +
+                   '<td class="product-thumbnail"><a href="#"><img alt="'+obj[i]['teamTypeInfo'].teamTypeName+'"    ></a></td>' +
                    '<td class="product-price"><span class="amount"><img src="${pageContext.request.contextPath}/img/'+obj[i].img+'"></span></td>' +
 
                    '<td class="product-name"><a href="shop-product-details.html"><font color="red;">'+obj[i].teamName+'</font></a>'+

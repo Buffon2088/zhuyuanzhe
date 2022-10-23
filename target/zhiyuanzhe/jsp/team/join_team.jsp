@@ -280,7 +280,7 @@
                   <span><i class="fa fa-angle-right"></i></span>
                   <span><a href="#">组织</a></span>
                   <span><i class="fa fa-angle-right"></i></span>
-                  <span class="active">加入组织</span>
+                  <span >加入组织</span>
                 </div>
               </nav>
             </div>
@@ -295,10 +295,10 @@
                   <td colspan="3">
                     <div class="form-inline coupon-form">
                       <div class="coupon form-group">
-                        <select name="" class="form-control" style="width: 300px;">
-                          <option value="">选择等级</option>
-                          <c:forEach items="${teamTypeInfoList}" var="li">
-                            <option value="${li.teamTypeId}">${li.teamTypeName}</option>
+                        <select name="" class="form-control" style="width: 300px;"  onchange="grade(this.value)">
+                          <option value="排名查询">按排名</option>
+                            <c:forEach items="${teamTypeInfoList}" var="li">
+                            <option value="${li.teamTypeName}">${li.teamTypeName}</option>
                             </c:forEach>
                         </select>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -310,7 +310,7 @@
                   <br>
                 </div>
 
-                <table class="table table-striped table-bordered tbl-shopping-cart">
+                <table class="table table-striped table-bordered tbl-shopping-cart" id="table">
                   <thead>
                     <tr>
                       <th>排名</th>
@@ -322,9 +322,9 @@
                       <th>操作</th>
                     </tr>
                   </thead>
-                  <c:forEach items="${teamInfoList}" var="li" step="1" end="2" begin="0">
-                    <tbody>
-                    <tr class="cart_item">
+                  <c:forEach items="${teamInfoList}" var="li" step="1" end="4" begin="0">
+                    <tbody id="tbodyId">
+                    <tr class="cart_item" id="tableDate">
                       <td class="product-remove"><a title="Remove this item" class="remove" href="#">*</a></td>
                       <td class="product-thumbnail"><a href="#"><img alt="${li.teamTypeInfo.teamTypeName}" src="${pageContext.request.contextPath}/img/${li.teamId}"></a></td>
                       <td class="product-price"><span class="amount"><img src="${pageContext.request.contextPath}/img/${li.img}"></span></td>
@@ -395,7 +395,7 @@
 <!-- Footer Scripts -->
 <!-- JS | Custom script for all pages -->
 <script src="${pageContext.request.contextPath}/js/custom.js"></script>
-
+<script src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
 <style>
   .copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
 </style>
@@ -429,6 +429,58 @@
     }
     document.getElementById('time').innerHTML='当前时间：'+year+month+day+h+m+s  //显示当前时间
   }
+</script>
+<script type="text/javascript">
+   function grade(gradeDate){
+     //清空表（除了第一行）
+     $("#table tr:not(:first)").empty();
+     var grade=gradeDate;
+     $.ajax({
+       url : '${pageContext.request.contextPath}/Team/findTeamByGrade',
+       method : 'post',
+       data : {'grade': grade},
+       success(date){
+         //将json转换为对象
+         var obj=JSON.parse(date);
+         console.log(obj);
+         var teamTypeName=obj['teamTypeName'];
+         // 获取object的长度(map集合形式)
+         var objLength=Object.keys(obj).length;
+         //获取table元素
+         var tableDate=$('#tbodyId');
+         //定义拼接完成的最终数据
+         for (var i=0;i<objLength;i++){
+           var td = $('<tr class="cart_item" id="tableDate">' +
+                   '<td class="product-remove"><a title="Remove this item" class="remove" href="#">*</a></td>' +
+                   '<td class="product-thumbnail"><a href="#"><img alt="'+obj[i]['teamTypeInfo'].teamTypeName+'" ></a></td>' +
+                   '<td class="product-price"><span class="amount"><img src="${pageContext.request.contextPath}/img/'+obj[i].img+'"></span></td>' +
+
+                   '<td class="product-name"><a href="shop-product-details.html"><font color="red;">'+obj[i].teamName+'</font></a>'+
+                   '<ul class="variation">'+
+                   '<li class="variation-size"> 状态：<span>'+obj[i].teamState+'</span></li>'+
+                   '</ul></td>' +
+
+                   '<td class="product-price"><span class="amount">'+obj[i]['userInfo'].userName+'</span></td>' +
+                   '<td class="product-price"><span class="amount">'+obj[i].teamNowNum+'/'+obj[i].teamPeopleNum+'</span></td>' +
+                   '<td class="product-subtotal"><button type="button" class="cart-update-total-button btn btn-theme-colored1">申请加入</button></td>' +
+                   '</tr>'+
+                   '<tr class="cart_item">'+
+                   '<td colspan="2">&nbsp;</td>'+
+                   '</tr>');
+           td.appendTo(tableDate);
+
+         }
+       }
+     });
+   }
+   //获取json的长度
+   function getJsonLength(jsonData) {
+     var length = 0;
+     for (var ever in jsonData) {
+       length++;
+     }
+     return length;
+   }
 </script>
 </body>
 </html>
