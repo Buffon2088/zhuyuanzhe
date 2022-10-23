@@ -39,7 +39,36 @@
         <a href="">找回密码</a>
     </form>
 </div>
+<div>
+    <table id="errTable">
+        <thead>
+        <tr>
+            <th>排名</th>
+            <th>等级</th>
+            <th>标志</th>
+        </tr>
+        </thead>
+        <tbody id="tbodyId">
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        </tbody>
+    </table>
+    <button onclick="addTableRows()">添加</button>
+</div>
 <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
+<script>
+    //增加table行
+    function addTableRows(){
+        var tables = $("#tbodyId");
+        var td = $("<tr>" +
+            "<td>4</td>" +
+            "<td>5</td>" +
+            "<td>6</td>" +
+            "</tr>");
+        td.appendTo(tables);
+    }
+</script>
 <script>
     setInterval(time,1000) //定时器
     function time(){ //定义方法 time

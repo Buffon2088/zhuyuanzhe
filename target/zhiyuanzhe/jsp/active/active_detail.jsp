@@ -137,9 +137,9 @@
         <div class="row">
           <div class="col-xl-auto header-top-left align-self-center text-center text-xl-left">
             <ul class="element contact-info">
-              <li class="contact-phone"><i class="fa fa-phone font-icon sm-display-block"></i> Tel: ${userInfo.userTel}</li>
-              <li class="contact-email"><i class="fa fa-envelope font-icon sm-display-block"></i> ${userInfo.userEmail}</li>
-              <li class="contact-address"><i class="fa fa-map font-icon sm-display-block"></i> ${userInfo.userCardId}</li>
+              <li class="contact-phone"><i class="fa fa-phone font-icon sm-display-block"></i> Tel: ${sessionScope.userInfo.userTel}</li>
+              <li class="contact-email"><i class="fa fa-envelope font-icon sm-display-block"></i> ${sessionScope.userInfo.userEmail}</li>
+              <li class="contact-address"><i class="fa fa-map font-icon sm-display-block"></i> ${sessionScope.userInfo.userCardId}</li>
             </ul>
           </div>
           <div class="col-xl-auto ml-xl-auto header-top-right align-self-center text-center text-xl-right">
@@ -335,7 +335,7 @@
                     <div class="form-group">
                       <c:choose>
                       <c:when test="${activeState=='立即报名'}">
-                     <a  class="btn btn-theme-colored1 btn-round m-0" href="${pageContext.request.contextPath}/Active/addActiveJoin?ActiveTypeInfo.activeTypeId=${activeInfo.activeTypeInfo.activeTypeId}&activeInfo.activeId=${activeInfo.activeId}&UserInfo.userId=${sessionScope.userId}&AdminInfo.adminId=${activeInfo.adminInfo.adminId}">申请活动</a>
+                     <a  class="btn btn-theme-colored1 btn-round m-0" href="${pageContext.request.contextPath}/Active/addActiveJoin?ActiveTypeInfo.activeTypeId=${activeInfo.activeTypeInfo.activeTypeId}&userId=${sessionScope.userId}&activeInfo.activeId=${activeInfo.activeId}&UserInfo.userId=${sessionScope.userId}&AdminInfo.adminId=${activeInfo.adminInfo.adminId}">申请活动</a>
                       </c:when>
                         <c:otherwise>
                           <a href="#" class="btn btn-theme-colored1 btn-round m-0">${activeState}</a>

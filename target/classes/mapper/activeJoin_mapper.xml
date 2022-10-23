@@ -129,7 +129,7 @@
         SELECT count(*) FROM `activejoinin` a WHERE a.user_id=#{userId} AND a.activeJoinIn_state='已通过';
     </select>
     <insert id="addActiveJoin">
-        insert into activejoinin values (null,#{activeTypeInfo.activeTypeId},0,#{userInfo.userId},#{activeInfo.activeId},#{adminInfo.adminId},
+        insert into activejoinin values (null,#{activeTypeInfo.activeTypeId},#{teamInfo.teamId},#{userInfo.userId},#{activeInfo.activeId},#{adminInfo.adminId},
                                         '申请中',1,current_time ,'9999-12-31 00:00:00')
     </insert>
 

@@ -31,7 +31,7 @@
     </select>
 
     <select id="findUser" resultMap="userResultMap">
-         select * from user_info u LEFT JOIN teamjob_info t ON u.teamJob_id=u.teamJob_id
+        select * from user_info u LEFT JOIN teamjob_info t ON u.teamJob_id=t.teamJob_id
        <where>
            <if test="userId!=0">user_id=#{userId}</if>
            <if test="userLoginName!=null">and user_loginName=#{userLoginName}</if>

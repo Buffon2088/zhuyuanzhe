@@ -12,6 +12,7 @@ import zhiyuanzhe.pojo.*;
 import zhiyuanzhe.service.IActiveJoinService;
 import zhiyuanzhe.service.IActiveService;
 import zhiyuanzhe.service.IActiveTypeService;
+import zhiyuanzhe.service.ITeamService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,6 +33,8 @@ public class ActiveController {
 
     @Autowired
     private IActiveJoinService activeJoinService;
+    @Autowired
+    private ITeamService teamService;
     //活动状态
     private static final String UP_ACTIVE = "上线";
 
@@ -171,13 +174,13 @@ public class ActiveController {
     @RequestMapping("/updateAct")
     public String updateAct(Model model, ActiveInfo activeInfo, MultipartFile file, HttpServletRequest request) throws IllegalAccessException, NoSuchFieldException {
         //通过获得id查询该活动信息
-        ActiveInfo actResult=activeService.findActiveById(activeInfo);
+        ActiveInfo actResult = activeService.findActiveById(activeInfo);
         //修改活动图片,放入实体
         actResult.setImg(new SaveImg().saveActImgToTarget(activeInfo, file, request).getImg());
         //合并活动原始数据与修改数据（不包含外键实体）
-        ActiveInfo newActInfo=new MargeMessage().MargeActMessage(actResult,activeInfo);
+        ActiveInfo newActInfo = new MargeMessage().MargeActMessage(actResult, activeInfo);
         //合并外键实体
-        ActiveInfo finalActInfo=new MargeMessage().outActInfo(newActInfo,activeInfo,actResult);
+        ActiveInfo finalActInfo = new MargeMessage().outActInfo(newActInfo, activeInfo, actResult);
         //修改其他信息，并判断是否返回成功
         if (activeService.updateActive(finalActInfo)) {
             return "redirect:/Active/showAllActive";
@@ -191,10 +194,21 @@ public class ActiveController {
      * 报名重定向详情页面
      */
     @RequestMapping("/addActiveJoin")
-    public String addActiveJoin(ActiveJoinInInfo activeJoinInInfo, Model model) {
-        if (activeJoinService.addActiveJoin(activeJoinInInfo)) {
-            return "redirect:/User/findActiveById?activeId=" + activeJoinInInfo.getActiveInfo().getActiveId() + "";
-        } else {
+    public String addActiveJoin(ActiveJoinInInfo activeJoinInInfo, Model model,UserInfo userInfo) {
+        //通过用户id查询团队id
+        int teamId=teamService.findTeamByUserId(userInfo.getUserId()).getTeamId();
+        //组长信息写入实体
+        TeamInfo teamInfo=new TeamInfo();
+        teamInfo.setTeamId(teamId);
+        activeJoinInInfo.setTeamInfo(teamInfo);
+        try {
+            if (activeJoinService.addActiveJoin(activeJoinInInfo)) {
+                return "redirect:/User/findActiveById?activeId=" + activeJoinInInfo.getActiveInfo().getActiveId() + "&userId="+userInfo.getUserId()+"";
+            } else {
+                model.addAttribute("err", "申请异常，请联系工作人员");
+                return "/public_function/errMessage";
+            }
+        } catch (Exception e) {
             model.addAttribute("err", "申请异常，请联系工作人员");
             return "/public_function/errMessage";
         }

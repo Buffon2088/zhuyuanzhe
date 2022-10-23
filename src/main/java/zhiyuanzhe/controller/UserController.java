@@ -75,7 +75,7 @@ public class UserController {
     /**
      * 团体活动（组织）
      */
-    public static String TEAM_ACTIVE = "团队活动";
+    public static String TEAM_ACTIVE = "团体活动";
     /**
      * 特殊活动（组织）
      */
