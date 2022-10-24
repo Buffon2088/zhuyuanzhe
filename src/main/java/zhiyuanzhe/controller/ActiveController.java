@@ -189,7 +189,6 @@ public class ActiveController {
             return "/public_function/errMessage";
         }
     }
-
     /**
      * 报名重定向详情页面
      */
