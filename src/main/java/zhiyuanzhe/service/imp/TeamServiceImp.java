@@ -62,5 +62,10 @@ public class TeamServiceImp implements ITeamService {
         return teamDao.findTeamByGrade(grade);
     }
 
+    @Override
+    public List<TeamInfo> buttonFindTeamList(String date) {
+        return teamDao.buttonFindTeamList(date);
+    }
+
 
 }

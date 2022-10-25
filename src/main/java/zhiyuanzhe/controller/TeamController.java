@@ -177,7 +177,7 @@ public class TeamController {
         //存放查询结果map
         Map<String, Object> map = new HashMap<>();
         //判断等级查询还是排名查询
-        if ("排名查询".equals(grade)) {
+        if ("按排名".equals(grade)) {
             List<TeamInfo> teamInfoList = teamService.findAllTeam();
             //只显示组织前五名
             if (teamInfoList.size() >= 4) {

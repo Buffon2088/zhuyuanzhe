@@ -46,6 +46,12 @@
         where t.teamType_id=#{teamTypeId}
     </select>
 
+    <select id="buttonFindTeamList" resultMap="teamResultMap" resultType="java.util.ArrayList">
+        select * from team_info t left join teamtype_info te on t.teamType_id=te.teamType_id
+                                  left join user_info u on t.user_id=u.user_id
+                                  left join teamjob_info tj on u.teamJob_id=tj.teamJob_id WHERE t.team_name=#{date} OR u.team_name=#{date} OR te.teamType_name=#{date};
+    </select>
+
     <select id="findTeamMessageByTeamName" resultMap="teamResultMap" resultType="java.util.ArrayList">
         select * from team_info t left join teamtype_info te on t.teamType_id=te.teamType_id
                                   left join user_info u on t.user_id=u.user_id

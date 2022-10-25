@@ -17,4 +17,5 @@ public interface TeamDao {
     TeamInfo findTeamMessageByTeamName(@Param("teamName") String teamName);
     TeamInfo findTeamByUserId(@Param("userId") int userId);
     List<TeamInfo> findTeamByGrade(@Param("grade") String grade);
+    List<TeamInfo> buttonFindTeamList(@Param("date") String date);
 }

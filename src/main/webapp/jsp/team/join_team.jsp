@@ -349,15 +349,15 @@
                         <div class="form-inline coupon-form">
                             <div class="coupon form-group">
                                 <select name="" class="form-control" style="width: 300px;" onchange="grade(this.value)">
-                                    <option value="排名查询">按排名</option>
+                                    <option value="按排名" id="nowState">按排名</option>
                                     <c:forEach items="${teamTypeInfoList}" var="li">
                                         <option value="${li.teamTypeName}">${li.teamTypeName}</option>
                                     </c:forEach>
                                 </select>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="text" name="coupon_code" class="input-text form-control mr-1"
-                                       id="coupon_code" value="" placeholder="搜索">
-                                <button type="button" class="cart-update-total-button btn btn-theme-colored1">搜索
+                                <input type="text" name="coupon_code"  class="input-text form-control mr-1"
+                                       id="coupon_code"  placeholder="搜索">
+                                <button type="button" class="cart-update-total-button btn btn-theme-colored1"  onclick="searchView()">搜索
                                 </button>
                             </div>
                         </div>
@@ -377,36 +377,10 @@
                         <th>操作</th>
                     </tr>
                     </thead>
-                    <c:forEach items="${teamInfoList}" var="li" step="1" end="4" begin="0">
-                        <tbody id="tbodyId">
-                        <tr class="cart_item" id="tableDate">
-                            <td class="product-remove"><a title="Remove this item" class="remove" href="#">*</a></td>
-                            <td class="product-thumbnail"><a href="#"><img alt="${li.teamTypeInfo.teamTypeName}"
-                                                                           src="${pageContext.request.contextPath}/img/${li.teamId}"></a>
-                            </td>
-                            <td class="product-price"><span class="amount"><img
-                                    src="${pageContext.request.contextPath}/img/${li.img}"></span></td>
-                            <td class="product-name"><a href="shop-product-details.html" id="teamName"><font
-                                    color="red;">${li.teamName}</font></a>
-                                <ul class="variation">
-                                    <li class="variation-size"> 状态：<span>${li.teamState}</span></li>
-                                </ul>
-                            </td>
-                            <td class="product-price"><span class="amount">${li.userInfo.userName}</span></td>
-                            <td class="product-price"><span class="amount">${li.teamNowNum}/${li.teamPeopleNum}</span>
-                            </td>
-                            <td class="product-subtotal">
-                                <button type="button" class="cart-update-total-button btn btn-theme-colored1"
-                                        onclick="reqJoinTeam(this.value)" value="${li.teamName}" id="reqButton">申请加入
-                                </button>
-                            </td>
-                        </tr>
 
-                        <tr class="cart_item">
-                            <td colspan="2">&nbsp;</td>
-                        </tr>
-                        </tbody>
-                    </c:forEach>
+                    <tbody id="tbodyId">
+
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -496,10 +470,14 @@
     }
 </script>
 <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
+
 <script type="text/javascript">
+    var datee=document.getElementById('nowState').innerText;
+    alert(datee);
+    window.onload = grade(datee);
      function grade(gradeDate) {
         //清空表（除了第一行）
-        $("#table tr:not(:first)").empty();
+         $("#table tr:not(:first)").empty();
         var grade = gradeDate;
         $.ajax({
             url: '${pageContext.request.contextPath}/Team/findTeamByGrade',
@@ -601,6 +579,20 @@
                     //将返回结果写入按钮提示
                 }
                 reqButton.disabled=true;
+            }
+        });
+    }
+</script>
+<%--模糊查询/输入框搜索--%>
+<script>
+    function  searchView(date){
+        var date=document.getElementById('coupon_code').innerText;
+        $.ajax({
+            url : '${pageContext.request.contextPath}/Team/reqTeamSave',
+            method: 'post',
+            data: {'date': date},
+            success(result){
+
             }
         });
     }
