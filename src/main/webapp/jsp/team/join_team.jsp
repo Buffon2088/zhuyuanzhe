@@ -386,7 +386,7 @@
                             </td>
                             <td class="product-price"><span class="amount"><img
                                     src="${pageContext.request.contextPath}/img/${li.img}"></span></td>
-                            <td class="product-name"><a href="shop-product-details.html"><font
+                            <td class="product-name"><a href="shop-product-details.html" id="teamName"><font
                                     color="red;">${li.teamName}</font></a>
                                 <ul class="variation">
                                     <li class="variation-size"> 状态：<span>${li.teamState}</span></li>
@@ -396,7 +396,8 @@
                             <td class="product-price"><span class="amount">${li.teamNowNum}/${li.teamPeopleNum}</span>
                             </td>
                             <td class="product-subtotal">
-                                <button type="button" class="cart-update-total-button btn btn-theme-colored1">申请加入
+                                <button type="button" class="cart-update-total-button btn btn-theme-colored1"
+                                        onclick="reqJoinTeam(this.value)" value="${li.teamName}" id="reqButton">申请加入
                                 </button>
                             </td>
                         </tr>
@@ -476,38 +477,27 @@
     }
 </style>
 <script>
-    setInterval(time, 1000) //定时器
-    function time() { //定义方法 time
-        let time = new Date();  //实例化日期对象
-
-        let year = time.getFullYear() + "年" //获取年
-
-        let month = time.getMonth() + 1 + "月" //获取月
-
-        let day = time.getDate() + "日"      //获取日
-
-        let h = time.getHours() + ':'        //获取时
-
-        let m = time.getMinutes() + ":"      //获取分
-
-        let s = time.getSeconds()          //获取秒
-
-        if (s < 10) {                        //判定秒 是否小于10秒
-
-            s = "0" + time.getSeconds()      //小于是 在其前加0 01，02，03...
-
+    setInterval(time, 1000)                   //定时器
+    function time() {                         //定义方法 time
+        var time = new Date();                //实例化日期对象
+        var year = time.getFullYear() + "年"  //获取年
+        var month = time.getMonth() + 1 + "月" //获取月
+        var day = time.getDate() + "日"        //获取日
+        var h = time.getHours() + ':'          //获取时
+        var m = time.getMinutes() + ":"        //获取分
+        var s = time.getSeconds()              //获取秒
+        if (s < 10) {                           //判定秒 是否小于10秒
+            s = "0" + time.getSeconds()         //小于是 在其前加0 01，02，03...
         }
-
-        if (time.getMinutes() < 10) {        //判定分 是否小于10分
-
-            m = "0" + time.getMinutes() + ":"  //小于是 在其前加0 01，02，03...
-
+        if (time.getMinutes() < 10) {            //判定分 是否小于10分
+            m = "0" + time.getMinutes() + ":"    //小于是 在其前加0 01，02，03...
         }
         document.getElementById('time').innerHTML = '当前时间：' + year + month + day + h + m + s  //显示当前时间
     }
 </script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
-    function grade(gradeDate) {
+     function grade(gradeDate) {
         //清空表（除了第一行）
         $("#table tr:not(:first)").empty();
         var grade = gradeDate;
@@ -516,6 +506,7 @@
             method: 'post',
             data: {'grade': grade},
             success(date) {
+                var userId="${sessionScope.userId}";
                 //json格式化
                 var obj = JSON.parse(date);
                 console.log(obj);
@@ -526,24 +517,28 @@
                 var tableDate = $('#tbodyId');
                 //定义拼接完成的最终数据
                 for (var i = 0; i < objLength; i++) {
+                    //将返回状态值赋给按钮
+                    var state=isReq(userId,obj[i].teamName,document.getElementById('reqButton'));
+                    var teamName=obj[i].teamName;
                     var td = $('<tr class="cart_item" id="tableDate">' +
                         '<td class="product-remove"><a title="Remove this item" class="remove" href="#">*</a></td>' +
                         '<td class="product-thumbnail"><a href="#"><img alt="' + obj[i]['teamTypeInfo'].teamTypeName + '"    ></a></td>' +
                         '<td class="product-price"><span class="amount"><img src="${pageContext.request.contextPath}/img/' + obj[i].img + '"></span></td>' +
 
-                        '<td class="product-name"><a href="shop-product-details.html"><font color="red;">' + obj[i].teamName + '</font></a>' +
+                        '<td class="product-name" id="teamName"><a href="shop-product-details.html"><font color="red;">' + obj[i].teamName + '</font></a>' +
                         '<ul class="variation">' +
                         '<li class="variation-size"> 状态：<span>' + obj[i].teamState + '</span></li>' +
                         '</ul></td>' +
 
                         '<td class="product-price"><span class="amount">' + obj[i]['userInfo'].userName + '</span></td>' +
                         '<td class="product-price"><span class="amount">' + obj[i].teamNowNum + '/' + obj[i].teamPeopleNum + '</span></td>' +
-                        '<td class="product-subtotal"><button type="button" class="cart-update-total-button btn btn-theme-colored1">申请加入</button></td>' +
+                        '<td class="product-subtotal"><button class="cart-update-total-button btn btn-theme-colored1" onclick="reqJoinTeam(this.value)" id="reqButton" value='+obj[i].teamName+'>'+state+'</button></td>' +
                         '</tr>' +
                         '<tr class="cart_item">' +
                         '<td colspan="2">&nbsp;</td>' +
                         '</tr>');
-                    td.appendTo(tableDate);
+                    tableDate.append(td);
+                    //是否申请该活动检验
                 }
             }
         });
@@ -556,6 +551,58 @@
             length++;
         }
         return length;
+    }
+</script>
+<%--判断是否已申请该组织方法--%>
+<script>
+     function isReq(userId,teamName,reqButton){
+         var returnState;
+        $.ajax({
+            url: '${pageContext.request.contextPath}/Team/isReq',
+            method: 'post',
+            data: {'userId': userId,'teamName':teamName},
+            async: false, //默认为true false为同步
+            success(data){
+                //json格式化
+                var result=JSON.parse(data);
+                //找初异常结果
+                if (result=='N'){
+                    alert('用户身份状态异常，5s后将重新登录！');
+                    setTimeout(window.location = '../jsp/userHome/user_login.jsp',5000);
+                    reqButton.disabled=true;
+                }else {
+                    returnState=result['res'];
+                }
+            }
+        });
+         return returnState;
+    }
+</script>
+<%--存入组织申请表方法--%>
+<script>
+    function  reqJoinTeam(teamName) {
+        var userId = "${sessionScope.userId}";
+        var teamReqState = '1';
+        var reqButton = document.getElementById('reqButton');
+        $.ajax({
+            url: '${pageContext.request.contextPath}/Team/reqTeamSave',
+            method: 'post',
+            data: {'userId': userId, 'teamName': teamName, 'teamReqState': teamReqState},
+            success(date) {
+                //初始化json
+                var newData = JSON.parse(date);
+                //获取返回结果
+                var result = newData['res'];
+                //判断返回结果
+                if (result == 'N') {
+                    result = '申请失败';
+                    alert('申请失败,请联系管理员~');
+                } else {
+                    //将返回结果写入按钮提示
+                }
+                reqButton.disabled=true;
+            }
+        });
     }
 </script>
 </body>

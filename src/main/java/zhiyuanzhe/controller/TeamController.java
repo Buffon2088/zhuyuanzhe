@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zhiyuanzhe.funtion.checkRule.IsReqTeam;
 import zhiyuanzhe.pojo.TeamInfo;
 import zhiyuanzhe.pojo.TeamReqInfo;
 import zhiyuanzhe.pojo.TeamTypeInfo;
@@ -32,6 +33,10 @@ public class TeamController {
     private IUserService userService;
     @Autowired
     private ITeamReqService teamReqService;
+    /**
+     * 申请加入
+     */
+    static final String REQUEST_STATE_READ = "0";
     /**
      * 审核中
      */
@@ -202,42 +207,51 @@ public class TeamController {
     public String reqTeamSave(int userId, String teamName, String teamReqState) {
         //存放返回结果map
         Map<String, String> resultMap = new HashMap<>();
-        //处理用户信息
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUserId(userId);
-        //处理组织信息
-        TeamInfo teamInfo = new TeamInfo();
-        teamInfo.setTeamName(teamName);
-        try {
-            //通过组织名称查询组织id
-            int teamId = teamService.findTeam(teamInfo).getTeamId();
-            teamInfo.setTeamId(teamId);
-        } catch (RuntimeException r) {
-            resultMap.put("res", "N");
-            System.out.println("错误:组织名称不可为空！" + r.getMessage());
-        }
-        //初始化TeamReqInfo
-        TeamReqInfo teamReqInfo = new TeamReqInfo();
-        //将处理信息存入实体
-        teamReqInfo.setUserInfo(userInfo);
-        teamReqInfo.setTeamInfo(teamInfo);
-        teamReqInfo.setTeamReqState(teamReqState);
-        //存入组织申请表中
-        try {
-            if (teamReqService.addTeamReq(teamReqInfo)) {
-                resultMap.put("res", "申请中");
-            } else {
-                resultMap.put("res", "申请失败");
+        //申请条件校验
+        boolean result=new IsReqTeam().reqTeamState(userId,teamName,teamReqService,teamService);
+        if (result){
+            //处理用户信息
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUserId(userId);
+            //处理组织信息
+            TeamInfo teamInfo = new TeamInfo();
+            teamInfo.setTeamName(teamName);
+            try {
+                //通过组织名称查询组织id
+                int teamId = teamService.findTeam(teamInfo).getTeamId();
+                teamInfo.setTeamId(teamId);
+            } catch (RuntimeException r) {
+                resultMap.put("res", "N");
+                System.out.println("错误:组织名称不可为空！" + r.getMessage());
             }
-        } catch (RuntimeException e) {
+            //初始化TeamReqInfo
+            TeamReqInfo teamReqInfo = new TeamReqInfo();
+            //将处理信息存入实体
+            teamReqInfo.setUserInfo(userInfo);
+            teamReqInfo.setTeamInfo(teamInfo);
+            teamReqInfo.setTeamReqState(teamReqState);
+            //存入组织申请表中
+            try {
+                if (teamReqService.addTeamReq(teamReqInfo)) {
+                    resultMap.put("res", "申请中");
+                } else {
+                    resultMap.put("res", "申请失败");
+                }
+            } catch (RuntimeException e) {
+                resultMap.put("res", "N");
+            }
+            return JSONObject.toJSONString(resultMap);
+        }else {
             resultMap.put("res", "N");
+            return JSONObject.toJSONString(resultMap);
         }
-        return JSONObject.toJSONString(resultMap);
     }
-
+    /**
+     * 组织状态判断-需加锁
+     */
     @ResponseBody
     @RequestMapping(value = "/isReq", produces = "text/html;charset=UTF-8")
-    public String isReq(int userId, String teamName) {
+    public synchronized String isReq(int userId, String teamName) {
         //存放返回结果map
         Map<String, String> resultMap = new HashMap<>();
         //处理组织信息
@@ -253,10 +267,15 @@ public class TeamController {
             System.out.println("错误:组织名称不可为空！" + r.getMessage());
             return JSONObject.toJSONString(resultMap);
         }
+        String nowReqState;
         //通过用户id和组织id查询记录表
         TeamReqInfo teamReqInfo = teamReqService.findReqByUserIdAndTeamName(userId, teamId);
-        //获取当前状态
-        String nowReqState = teamReqInfo.getTeamReqState();
+        if (teamReqInfo==null){
+             nowReqState =REQUEST_STATE_READ;
+        }else {
+            //获取当前状态
+             nowReqState = teamReqInfo.getTeamReqState();
+        }
         //状态判断
         if (nowReqState.equals(REQUEST_STATE_REQ)) {
             resultMap.put("res", "申请中");
@@ -264,7 +283,9 @@ public class TeamController {
             resultMap.put("res", "未通过");
         } else if (nowReqState.equals(REQUEST_STATE_PASS)) {
             resultMap.put("res", "已通过");
-        } else {
+        } else if (nowReqState.equals(REQUEST_STATE_READ)){
+            resultMap.put("res", "申请加入");
+        }else {
             resultMap.put("res", "N");
         }
         return JSONObject.toJSONString(resultMap);

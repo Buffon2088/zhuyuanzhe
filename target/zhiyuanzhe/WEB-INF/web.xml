@@ -10,7 +10,7 @@
   </context-param>
   <filter>
     <filter-name>characterFilter</filter-name>
-    <filter-class>zhiyuanzhe.funtion.CharacterFilter</filter-class>
+    <filter-class>zhiyuanzhe.funtion.system.CharacterFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>characterFilter</filter-name>

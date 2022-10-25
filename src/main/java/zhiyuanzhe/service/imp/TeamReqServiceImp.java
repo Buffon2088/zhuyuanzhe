@@ -38,4 +38,9 @@ public class TeamReqServiceImp implements ITeamReqService {
     public boolean deleteTeamReq(TeamReqInfo teamReqInfo) {
         return reqDao.deleteTeamReq(teamReqInfo)>0;
     }
+
+    @Override
+    public TeamReqInfo findReqByUserIdAndTeamName(int userId, int teaId) {
+        return reqDao.findReqByUserIdAndTeamName(userId,teaId);
+    }
 }

@@ -1,13 +1,14 @@
 package zhiyuanzhe.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-import zhiyuanzhe.annotaion.LogInfoAnnotaion;
-import zhiyuanzhe.funtion.*;
+import zhiyuanzhe.funtion.SumHelpTime.TimeSum;
+import zhiyuanzhe.funtion.checkRule.JudgeActUpOrDown;
+import zhiyuanzhe.funtion.objectInfo.MargeMessage;
+import zhiyuanzhe.funtion.objectInfo.SaveImg;
 import zhiyuanzhe.pojo.*;
 import zhiyuanzhe.service.IActiveJoinService;
 import zhiyuanzhe.service.IActiveService;
@@ -15,12 +16,9 @@ import zhiyuanzhe.service.IActiveTypeService;
 import zhiyuanzhe.service.ITeamService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadPoolExecutor;
 
 
 @Controller

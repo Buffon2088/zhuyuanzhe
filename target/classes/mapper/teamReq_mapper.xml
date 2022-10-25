@@ -65,8 +65,11 @@
         </where>
     </select>
 
-    <insert id="addTeamType">
-        insert into addTeamReq values (null,#{teamReqTime},current_time ,#{state},#{userInfo.userId},#{teamInfo.teamId})
+    <insert id="addTeamReq">
+        insert into team_req_info values (null,current_time ,#{teamReqState},1,#{userInfo.userId},#{teamInfo.teamId})
     </insert>
 
+    <select id="findReqByUserIdAndTeamName" resultMap="teamReqResultMap" resultType="java.util.ArrayList">
+        select * from team_req_info where user_id=#{userId} AND team_Id=#{teamId}
+    </select>
 </mapper>

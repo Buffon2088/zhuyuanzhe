@@ -1,6 +1,5 @@
 package zhiyuanzhe.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import zhiyuanzhe.annotaion.LogInfoAnnotaion;
-import zhiyuanzhe.funtion.*;
+import zhiyuanzhe.funtion.objectInfo.*;
+import zhiyuanzhe.funtion.system.SendEmail;
 import zhiyuanzhe.pojo.*;
 import zhiyuanzhe.service.IActiveJoinService;
 import zhiyuanzhe.service.IActiveService;

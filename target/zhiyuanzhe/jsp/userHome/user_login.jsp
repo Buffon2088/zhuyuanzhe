@@ -49,17 +49,17 @@
         </tr>
         </thead>
         <tbody id="tbodyId">
-        <td>1</td>
+        <td id="testt">1</td>
         <td>2</td>
         <td>3</td>
         </tbody>
     </table>
-    <button onclick="addTableRows()">添加</button>
+    <button onclick="addTableRows(222)">添加</button>
 </div>
 <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
 <script>
     //增加table行
-    function addTableRows(){
+    function addTableRows(number){
         var tables = $("#tbodyId");
         var td = $("<tr>" +
             "<td>4</td>" +
@@ -157,5 +157,40 @@ loginK.onblur=function (){
     }
 }
 </script>--%>
+<script>
+    let CODE1 = null
+    let CODE2 = null
+    function myFunc() {
+        console.log(CODE1, CODE2);
+    }
+    //第一种
+    let flag = 0 //flag默认为0
+    function ajax1() {
+        setTimeout(() => {
+            console.log('ajax1得到响应')
+            CODE1 = 'ajax1返回的数据'
+//如果回调时flag为1，代表另一个ajax已经初始化成功
+            if (flag === 1) {
+                myFunc()
+            } else {
+//否则flag+1代表本ajax成功
+                flag += 1
+            }
+        }, 1000)
+    }
+    function ajax2() {
+        setTimeout(() => {
+            console.log('ajax2得到响应')
+            CODE2 = 'ajax2返回的数据'
+            if (flag === 1) {
+                myFunc()
+            } else {
+                flag += 1
+            }
+        }, 2000)
+    }
+    ajax1()
+    ajax2()
+</script>
 </body>
 </html>

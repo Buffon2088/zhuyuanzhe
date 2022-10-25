@@ -1,5 +1,6 @@
 package zhiyuanzhe.service;
 
+import org.apache.ibatis.annotations.Param;
 import zhiyuanzhe.pojo.TeamReqInfo;
 import zhiyuanzhe.pojo.TeamTypeInfo;
 
@@ -11,4 +12,5 @@ public interface ITeamReqService {
     boolean addTeamReq(TeamReqInfo teamReqInfo);
     boolean updateTeamReq(TeamReqInfo teamReqInfo);
     boolean deleteTeamReq(TeamReqInfo teamReqInfo);
+    TeamReqInfo findReqByUserIdAndTeamName(@Param("userId")int userId,@Param("teamId") int teamId);
 }
