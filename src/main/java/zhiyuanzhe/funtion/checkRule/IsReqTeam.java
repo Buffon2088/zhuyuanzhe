@@ -44,8 +44,21 @@ public  class  IsReqTeam {
      * 校验个人时长是否满足
      * */
     public boolean isTimeEnough(int userId, String teamName, ITeamReqService teamReqService, ITeamService teamService){
-        //
-        return this.teamPeopleEnough(userId,teamName,teamReqService,teamService);
+        //获取个人服务时长
+        TeamInfo userInfo = teamService.findTeamByUserId(userId);
+        String userTime = userInfo.getUserInfo().getUserHelpTime();
+        int userHelpTime = Integer.parseInt(userTime);
+        //获取团队相应等级的服务时长
+        TeamInfo teamInfo = teamService.findTeamMessageByTeamName(teamName);
+        String teamLevel = teamInfo.getTeamTypeInfo().getTeamTypeName();
+        int teamTime = Integer.parseInt(teamInfo.getTeamTypeInfo().getTeamTypeState());
+        //判断是否满足时长校验条件
+        if(userHelpTime >= teamTime){
+            return this.teamPeopleEnough(userId,teamName,teamReqService,teamService);
+        }else{
+            return false;
+        }
+
     }
 
     /**
