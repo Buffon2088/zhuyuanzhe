@@ -21,7 +21,7 @@ public class SearchView {
     @Autowired
     private ITeamService teamService;
     @ResponseBody
-    @RequestMapping("/button")
+    @RequestMapping(value = "button",produces = "text/html;charset=UTF-8")
     public String button(String date) {
         List<TeamInfo> teamInfoList = teamService.buttonFindTeamList(date);
         return JSONObject.toJSONString(teamInfoList);

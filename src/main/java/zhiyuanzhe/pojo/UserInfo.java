@@ -14,10 +14,11 @@ public class   UserInfo {
     private String teamName;
     private String key;
     private String img;
+    private String state;
     public UserInfo() {
     }
 
-    public UserInfo(int userId, String userName, String userCardId, String userTel, String userEmail, String userLoginName, String userPwd, String userHelpTime, TeamJobInfo teamJobInfo, int activeJoNum, String teamName, String key, String img) {
+    public UserInfo(int userId, String userName, String userCardId, String userTel, String userEmail, String userLoginName, String userPwd, String userHelpTime, TeamJobInfo teamJobInfo, int activeJoNum, String teamName, String key, String img, String state) {
         this.userId = userId;
         this.userName = userName;
         this.userCardId = userCardId;
@@ -31,6 +32,7 @@ public class   UserInfo {
         this.teamName = teamName;
         this.key = key;
         this.img = img;
+        this.state = state;
     }
 
     public int getUserId() {
@@ -135,5 +137,13 @@ public class   UserInfo {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import zhiyuanzhe.dao.ActiveJoinDao;
+import zhiyuanzhe.funtion.checkRule.IsBuildTeam;
+import zhiyuanzhe.funtion.checkRule.UserLoginMessage;
 import zhiyuanzhe.funtionDao.IsTimeOut;
 import zhiyuanzhe.pojo.*;
 import zhiyuanzhe.service.*;
@@ -91,31 +93,40 @@ public class UserController {
     @RequestMapping("/userLogin")
     public String userLogin(UserInfo userInfo, Model model, HttpSession session, HttpServletRequest request) {
         if (userService.userLogin(userInfo)) {
-            UserInfo info = userService.findUserByLoginNameAndPwd(userInfo);
-            session.setAttribute("userInfo", info);
-            session.setAttribute("userId", info.getUserId());
-            session.setAttribute("key", info.getKey());
-            session.setAttribute("email", info.getUserEmail());
-            //系统界面信息处理
-            Map<Object, Object> systemMessage = systemMessage();
-            int userNum = (int) systemMessage.get("userNum");
-            int activeNum = (int) systemMessage.get("activeNum");
-            String hotAct = String.valueOf(systemMessage.get("hotAct"));
-            int actSumTime = (int) systemMessage.get("actSumTime");
-            Object threeActive = systemMessage.get("threeActive");
-            model.addAttribute("userNum", userNum);
-            model.addAttribute("activeNum", activeNum);
-            model.addAttribute("hotAct", hotAct);
-            model.addAttribute("actSumTime", actSumTime);
-            model.addAttribute("threeActive", threeActive);
-            //用户主页界面信息处理
-            Map<Object, Object> userMessage = userMessage(info);
-            int userJoinNum = (int) userMessage.get("用户参与活动数量");
-            Object teamInfo = userMessage.get("组织信息");
-            model.addAttribute("userInfo", info);
-            model.addAttribute("teamInfo", teamInfo);
-            model.addAttribute("userJoinNum", userJoinNum);
-            return "/userHome/index";
+            //获取用户信息
+            UserInfo user=userService.findUser(userInfo);
+            //用户信息校验
+            String result=new UserLoginMessage().userLoginCheck(userService,user);
+            if ("Y".equals(result)){
+                UserInfo info = userService.findUserByLoginNameAndPwd(userInfo);
+                session.setAttribute("userInfo", info);
+                session.setAttribute("userId", info.getUserId());
+                session.setAttribute("key", info.getKey());
+                session.setAttribute("email", info.getUserEmail());
+                //系统界面信息处理
+                Map<Object, Object> systemMessage = systemMessage();
+                int userNum = (int) systemMessage.get("userNum");
+                int activeNum = (int) systemMessage.get("activeNum");
+                String hotAct = String.valueOf(systemMessage.get("hotAct"));
+                int actSumTime = (int) systemMessage.get("actSumTime");
+                Object threeActive = systemMessage.get("threeActive");
+                model.addAttribute("userNum", userNum);
+                model.addAttribute("activeNum", activeNum);
+                model.addAttribute("hotAct", hotAct);
+                model.addAttribute("actSumTime", actSumTime);
+                model.addAttribute("threeActive", threeActive);
+                //用户主页界面信息处理
+                Map<Object, Object> userMessage = userMessage(info);
+                int userJoinNum = (int) userMessage.get("用户参与活动数量");
+                Object teamInfo = userMessage.get("组织信息");
+                model.addAttribute("userInfo", info);
+                model.addAttribute("teamInfo", teamInfo);
+                model.addAttribute("userJoinNum", userJoinNum);
+                return "/userHome/index";
+            }else {
+                model.addAttribute("err", "登陆失败，用户信息异常!"+result);
+                return "/public_function/errMessage";
+            }
         } else {
             //获取当前请求的URL
             String contPath = request.getContextPath();
@@ -360,17 +371,9 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/findTeamByUserId", produces = "text/html;charset=UTF-8")
     public String findTeamByUserId(UserInfo userInfo) {
-        //定义存放查询结果map
-        Map<String, String> result = new HashMap<>();
-        //查询该用户是否已经创建组织或加入其他组织
-        String teamState = userService.findUser(userInfo).getTeamName();
-        if (teamState.length() > 0) {
-            result.put("1", "Y");
-            result.put("2", teamState);
-        } else {
-            result.put("1", "N");
-        }
-        return JSONObject.toJSONString(result);
+        //创建组织规则校验
+        Map<String,String> resultMap=new IsBuildTeam().isBuildTeam(userService,userInfo);
+        return JSONObject.toJSONString(resultMap);
     }
 }
 

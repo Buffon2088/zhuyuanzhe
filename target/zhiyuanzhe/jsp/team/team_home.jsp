@@ -159,7 +159,7 @@
           <div class="container position-relative">
             <div class="row header-nav-col-row">
               <div class="col-sm-auto align-self-center">
-                <a class="menuzord-brand site-brand" href="index-mp-layout1.html">
+                <a class="menuzord-brand site-brand" href="#">
                   <img class="logo-default logo-1x" src="${pageContext.request.contextPath}/images/logo-wide.png" alt="Logo">
                   <img class="logo-default logo-2x retina" src="${pageContext.request.contextPath}/images/logo-wide@2x.png" alt="Logo">
                 </a>
@@ -177,7 +177,7 @@
                          <li><a href="#">组织活动</a></li>
                        </ul>--%>
                     </li>
-                    <li class="menu-item"><a href="page-causes-grid.html">组织模块</a>
+                    <li class="menu-item"><a href="#">组织模块</a>
                       <ul class="dropdown">
                         <li><a href="${pageContext.request.contextPath}/User/buildTeam">创建组织</a></li>
                         <li><a href="${pageContext.request.contextPath}/Team/findTeam?userId=${sessionScope.userInfo.userId}">加入组织</a></li>
@@ -201,7 +201,7 @@
                     <div class="top-nav-mini-cart-icon-container">
                       <div class="top-nav-mini-cart-icon-contents">
                         <div class="top-nav-mini-cart-icon-contents">
-                          <a class="mini-cart-icon" href="shop-cart.html" title="View your shopping cart">
+                          <a class="mini-cart-icon" href="#" title="View your shopping cart">
                             <img src="${pageContext.request.contextPath}/img/${sessionScope.userInfo.img}" width="25" alt="cart"><span class="items-count">1</span> <span class="cart-quick-info">1 item - <span class="amount"><span class="currencySymbol">&pound;</span>18.00</span></span>
                           </a>
                           <div class="dropdown-content">

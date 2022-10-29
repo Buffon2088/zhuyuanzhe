@@ -196,7 +196,7 @@
                                                      <li><a href="#">组织活动</a></li>
                                                  </ul>--%>
                                         </li>
-                                        <li class="menu-item"><a href="page-causes-grid.html">组织模块</a>
+                                        <li class="menu-item"><a href="#">组织模块</a>
                                             <ul class="dropdown">
                                                 <li><a href="${pageContext.request.contextPath}/User/buildTeam">创建组织</a></li>
                                                 <li><a href="${pageContext.request.contextPath}/Team/findTeam?userId=${sessionScope.userInfo.userId}">加入组织</a></li>
@@ -220,7 +220,7 @@
                                     <li class="hidden-mobile-mode">
                                         <div class="top-nav-mini-cart-icon-container">
                                             <div class="top-nav-mini-cart-icon-contents">
-                                                <a class="mini-cart-icon" href="shop-cart.html"
+                                                <a class="mini-cart-icon" href="#"
                                                    title="View your shopping cart">
                                                     <img src="${pageContext.request.contextPath}/img/${sessionScope.userInfo.img}"
                                                          width="25" alt="cart"><span class="items-count">1</span> <span

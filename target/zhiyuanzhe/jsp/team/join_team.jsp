@@ -174,7 +174,7 @@
                     <div class="container position-relative">
                         <div class="row header-nav-col-row">
                             <div class="col-sm-auto align-self-center">
-                                <a class="menuzord-brand site-brand" href="index-mp-layout1.html">
+                                <a class="menuzord-brand site-brand" href="#">
                                     <img class="logo-default logo-1x"
                                          src="${pageContext.request.contextPath}/images/logo-wide.png" alt="Logo">
                                     <img class="logo-default logo-2x retina"
@@ -196,7 +196,7 @@
                                                <li><a href="#">组织活动</a></li>
                                              </ul>--%>
                                         </li>
-                                        <li class="menu-item"><a href="page-causes-grid.html">组织模块</a>
+                                        <li class="menu-item"><a href="#">组织模块</a>
                                             <ul class="dropdown">
                                                 <li><a href="${pageContext.request.contextPath}/User/buildTeam">创建组织</a>
                                                 </li>
@@ -226,7 +226,7 @@
                                         <div class="top-nav-mini-cart-icon-container">
                                             <div class="top-nav-mini-cart-icon-contents">
                                                 <div class="top-nav-mini-cart-icon-contents">
-                                                    <a class="mini-cart-icon" href="shop-cart.html"
+                                                    <a class="mini-cart-icon" href="#"
                                                        title="View your shopping cart">
                                                         <img src="${pageContext.request.contextPath}/img/${sessionScope.userInfo.img}"
                                                              width="25" alt="cart"><span class="items-count">1</span>
@@ -355,9 +355,9 @@
                                     </c:forEach>
                                 </select>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="text" name="coupon_code" class="input-text form-control mr-1"
-                                       id="coupon_code" value="" placeholder="搜索">
-                                <button type="button" class="cart-update-total-button btn btn-theme-colored1">搜索
+                                <input type="text" name="coupon_code"  class="input-text form-control mr-1"
+                                       id="coupon_code"  placeholder="搜索">
+                                <button type="button" class="cart-update-total-button btn btn-theme-colored1"  onclick="searchView()">搜索
                                 </button>
                             </div>
                         </div>
@@ -473,7 +473,6 @@
 
 <script type="text/javascript">
     var datee=document.getElementById('nowState').innerText;
-    alert(datee);
     window.onload = grade(datee);
      function grade(gradeDate) {
         //清空表（除了第一行）
@@ -487,7 +486,6 @@
                 var userId="${sessionScope.userId}";
                 //json格式化
                 var obj = JSON.parse(date);
-                console.log(obj);
                 var teamTypeName = obj['teamTypeName'];
                 // 获取object的长度(map集合形式)
                 var objLength = Object.keys(obj).length;
@@ -561,7 +559,6 @@
     function  reqJoinTeam(teamName) {
         var userId = "${sessionScope.userId}";
         var teamReqState = '1';
-        var reqButton = document.getElementById('reqButton');
         $.ajax({
             url: '${pageContext.request.contextPath}/Team/reqTeamSave',
             method: 'post',
@@ -574,11 +571,59 @@
                 //判断返回结果
                 if (result == 'N') {
                     result = '申请失败';
-                    alert('申请失败,请联系管理员~');
+                    alert('申请异常，请联系管理员~');
                 } else {
                     //将返回结果写入按钮提示
+                    location.reload(true);
                 }
-                reqButton.disabled=true;
+            }
+        });
+    }
+</script>
+<%--模糊查询/输入框搜索--%>
+<script>
+    function  searchView(){
+        //清空表（除了第一行）
+        $("#table tr:not(:first)").empty();
+        var date=document.getElementById('coupon_code').value;
+        $.ajax({
+            url : '${pageContext.request.contextPath}/SearchView/button',
+            method: 'post',
+            data: {'date': date},
+            success(date) {
+                var userId="${sessionScope.userId}";
+                //json格式化
+                var obj = JSON.parse(date);
+                var teamTypeName = obj['teamTypeName'];
+                // 获取object的长度(map集合形式)
+                var objLength = Object.keys(obj).length;
+                //获取table元素
+                var tableDate = $('#tbodyId');
+                //定义拼接完成的最终数据
+                for (var i = 0; i < objLength; i++) {
+                    //将返回状态值赋给按钮
+                    var state=isReq(userId,obj[i].teamName,document.getElementById('reqButton'));
+                    var teamName=obj[i].teamName;
+                    var td = $('<tr class="cart_item" id="tableDate">' +
+                        '<td class="product-remove"><a title="Remove this item" class="remove" href="#">*</a></td>' +
+                        '<td class="product-thumbnail"><a href="#"><img alt="' + obj[i]['teamTypeInfo'].teamTypeName + '"    ></a></td>' +
+                        '<td class="product-price"><span class="amount"><img src="${pageContext.request.contextPath}/img/' + obj[i].img + '"></span></td>' +
+
+                        '<td class="product-name" id="teamName"><a href="shop-product-details.html"><font color="red;">' + obj[i].teamName + '</font></a>' +
+                        '<ul class="variation">' +
+                        '<li class="variation-size"> 状态：<span>' + obj[i].teamState + '</span></li>' +
+                        '</ul></td>' +
+
+                        '<td class="product-price"><span class="amount">' + obj[i]['userInfo'].userName + '</span></td>' +
+                        '<td class="product-price"><span class="amount">' + obj[i].teamNowNum + '/' + obj[i].teamPeopleNum + '</span></td>' +
+                        '<td class="product-subtotal"><button class="cart-update-total-button btn btn-theme-colored1" onclick="reqJoinTeam(this.value)" id="reqButton" value='+obj[i].teamName+'>'+state+'</button></td>' +
+                        '</tr>' +
+                        '<tr class="cart_item">' +
+                        '<td colspan="2">&nbsp;</td>' +
+                        '</tr>');
+                    tableDate.append(td);
+                    //是否申请该活动检验
+                }
             }
         });
     }

@@ -31,6 +31,7 @@
             <result column="team_name" property="teamName"/>
             <result column="key" property="key"/>
             <result column="img" property="img"/>
+            <result column="user_state" property="state"/>
             <association property="teamJobInfo" column="teamJob_id" jdbcType="INTEGER" javaType="zhiyuanzhe.pojo.TeamJobInfo">
                 <id column="teamJob_id" property="teamJobId" />
                 <result column="teamJob_name" property="teamJobName"/>
@@ -49,7 +50,7 @@
     <select id="buttonFindTeamList" resultMap="teamResultMap" resultType="java.util.ArrayList">
         select * from team_info t left join teamtype_info te on t.teamType_id=te.teamType_id
                                   left join user_info u on t.user_id=u.user_id
-                                  left join teamjob_info tj on u.teamJob_id=tj.teamJob_id WHERE t.team_name=#{date} OR u.team_name=#{date} OR te.teamType_name=#{date};
+                                  left join teamjob_info tj on u.teamJob_id=tj.teamJob_id WHERE t.team_name like concat('%',#{date},'%') OR u.user_name like concat('%',#{date},'%') OR te.teamType_name like concat('%',#{date},'%');
     </select>
 
     <select id="findTeamMessageByTeamName" resultMap="teamResultMap" resultType="java.util.ArrayList">

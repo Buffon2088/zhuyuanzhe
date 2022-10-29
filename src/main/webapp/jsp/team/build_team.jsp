@@ -185,7 +185,7 @@
                                <li><a href="#">组织活动</a></li>
                            </ul>--%>
                     </li>
-                    <li class="menu-item"><a href="page-causes-grid.html">组织模块</a>
+                    <li class="menu-item"><a href="#">组织模块</a>
                       <ul class="dropdown">
                         <li><a href="${pageContext.request.contextPath}/User/buildTeam">创建组织</a></li>
                         <li><a href="${pageContext.request.contextPath}/Team/findTeam?userId=${sessionScope.userInfo.userId}">加入组织</a></li>
@@ -556,12 +556,13 @@
     //回调值，响应respones
     success: function (date) {
       var obj=JSON.parse(date);
-      var result=obj['1'];
-      var teamName=obj['2'];
+      var errResult=obj['2'];
       var button=document.getElementById('buildTeam');
-      if (result=='Y'){
-        alert('您已经已在<'+teamName+'>组织中\n请先退出该组织~');
-        button.innerText='已存在组织';
+      if (errResult=='undefind'){
+         alert(obj['1']);
+      }else {
+        alert(obj['2']);
+        button.innerText='创建失败';
         button.disabled=true;
       }
     },

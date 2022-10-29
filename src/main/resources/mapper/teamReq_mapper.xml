@@ -19,6 +19,7 @@
             <result column="active_joNum" property="activeJoNum"/>
             <result column="user_state" property="userState"/>
             <result column="key" property="key"/>
+            <result column="user_state" property="state"/>
         </association>
         <association column="team_id" property="teamInfo" jdbcType="INTEGER"
                      javaType="zhiyuanzhe.pojo.TeamInfo">
