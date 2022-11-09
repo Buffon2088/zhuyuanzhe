@@ -35,6 +35,6 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
-    <welcome-file>/jsp/userHome/user_login.jsp</welcome-file>
+    <welcome-file>/jsp/home_login/login.jsp</welcome-file>
   </welcome-file-list>
 </web-app>

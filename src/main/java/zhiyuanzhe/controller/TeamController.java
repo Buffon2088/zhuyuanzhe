@@ -1,11 +1,13 @@
 package zhiyuanzhe.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zhiyuanzhe.funtion.checkRule.IsBuildTeam;
 import zhiyuanzhe.funtion.checkRule.IsReqTeam;
 import zhiyuanzhe.pojo.TeamInfo;
 import zhiyuanzhe.pojo.TeamReqInfo;
@@ -209,8 +211,8 @@ public class TeamController {
         //存放返回结果map
         Map<String, String> resultMap = new HashMap<>();
         //申请条件校验
-        boolean result=new IsReqTeam().reqTeamState(userId,teamName,teamReqService,teamService);
-        if (result){
+        Map<String,String> result=new IsReqTeam().reqTeamState(userId,teamName,teamReqService,teamService,userService);
+        if (StringUtils.isEmpty(result.get("N"))){
             //处理用户信息
             UserInfo userInfo = new UserInfo();
             userInfo.setUserId(userId);
@@ -243,8 +245,7 @@ public class TeamController {
             }
             return JSONObject.toJSONString(resultMap);
         }else {
-            resultMap.put("res", "N");
-            return JSONObject.toJSONString(resultMap);
+            return JSONObject.toJSONString(result);
         }
     }
     /**
@@ -268,9 +269,9 @@ public class TeamController {
             System.out.println("错误:组织名称不可为空！" + r.getMessage());
             return JSONObject.toJSONString(resultMap);
         }
-        String nowReqState;
         //通过用户id和组织id查询记录表
         TeamReqInfo teamReqInfo = teamReqService.findReqByUserIdAndTeamName(userId, teamId);
+        String nowReqState;
         if (teamReqInfo==null){
              nowReqState =REQUEST_STATE_READ;
         }else {

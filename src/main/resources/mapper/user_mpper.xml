@@ -51,8 +51,8 @@
     </delete>
 
     <insert id="addUser">
-        insert into user_info values (null,#{userName},#{userCardId},#{userTel},#{userEmail},#{userLoginName},#{userPwd},
-                                      0,0,0,#{teamName},0,#{key},#{img})
+        insert into user_info values (null,#{userName},#{userCardId},0000000000,#{userEmail},#{userLoginName},#{userPwd},
+                                      0,0,0,0,0,#{key},#{img})
     </insert>
 
     <update id="updateUser">

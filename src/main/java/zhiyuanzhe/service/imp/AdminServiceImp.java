@@ -51,4 +51,9 @@ public class AdminServiceImp implements IAdminService {
     public boolean deleteAdmin(AdminInfo adminInfo) {
         return adminDao.deleteAdmin(adminInfo)>0;
     }
+
+    @Override
+    public List<AdminInfo> findSuperAdmin(String adminState) {
+        return adminDao.findSuperAdmin(adminState);
+    }
 }

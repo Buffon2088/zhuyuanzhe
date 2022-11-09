@@ -192,5 +192,7 @@ loginK.onblur=function (){
     ajax1()
     ajax2()
 </script>
+<div ><a href="../home_login/login.jsp">测试登录</a></div>
+
 </body>
 </html>

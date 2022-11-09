@@ -8,18 +8,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import zhiyuanzhe.dao.ActiveJoinDao;
 import zhiyuanzhe.funtion.checkRule.IsBuildTeam;
 import zhiyuanzhe.funtion.checkRule.UserLoginMessage;
+import zhiyuanzhe.funtion.objectInfo.SetEmailMessage;
+import zhiyuanzhe.funtion.objectInfo.SuperAdmin;
+import zhiyuanzhe.funtion.system.SendEmail;
+import zhiyuanzhe.funtion.system.StringUtil;
 import zhiyuanzhe.funtionDao.IsTimeOut;
 import zhiyuanzhe.pojo.*;
 import zhiyuanzhe.service.*;
 
+import javax.mail.MessagingException;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -177,7 +187,41 @@ public class UserController {
             return "/public_function/errMessage";
         }
     }
-
+    /**
+     * 注册发送邮箱验证码
+     * */
+    @RequestMapping("/sendEmailCheckCode")
+    @ResponseBody
+    public String sendEmailCheckCode(String addressOr, HttpSession session, ModelAndView modelAndView) throws MessagingException, GeneralSecurityException {
+        //清空当前session中的验证码
+        session.removeAttribute("checkCode");
+        //生成UUID
+        StringUtil stringUtil=new StringUtil();
+        String checkCode=stringUtil.getRandomValue(6);
+        //将uuid存入session中
+        session.setAttribute("checkCode",checkCode);
+        modelAndView.addObject("checkCode",checkCode);
+        //调用管理员信息
+        AdminInfo adminInfo=new SuperAdmin().superAdmin(adminService);
+        //处理发送实体
+        EmailInfo emailInfo=new SetEmailMessage().saveEmail(adminInfo.getEmail(),addressOr,"",checkCode,"","","",adminInfo.getKey());
+        //调用邮箱发送方法
+        //实例化邮箱类
+        SendEmail sendEmail = new SendEmail();
+        //返回发送结果与数据
+        Map<String,String> resultMap=new HashMap<>();
+        try {
+            boolean emailState = sendEmail.sendEmail(emailInfo);
+            if (emailState){
+                resultMap.put("res",checkCode);
+            }else {
+                resultMap.put("res","N");
+            }
+        }catch (Exception e){
+            resultMap.put("res","N");
+        }
+        return JSONObject.toJSONString(resultMap);
+    }
 
     @RequestMapping("goHome")
     public String goHome(Model modeel) {
@@ -374,6 +418,23 @@ public class UserController {
         //创建组织规则校验
         Map<String,String> resultMap=new IsBuildTeam().isBuildTeam(userService,userInfo);
         return JSONObject.toJSONString(resultMap);
+    }
+    /**
+     * 验证码计算
+     * */
+    @ResponseBody
+    @RequestMapping("/sumJs")
+    public String sumJs(String value){
+        Map<String,String> resMap=new HashMap<>();
+        ScriptEngine se = new ScriptEngineManager().getEngineByName("js");
+        try {
+            Object result=se.eval(value);
+            resMap.put("res", String.valueOf(result));
+        } catch (ScriptException e) {
+            resMap.put("res","N");
+            e.printStackTrace();
+        }
+        return JSONObject.toJSONString(resMap);
     }
 }
 

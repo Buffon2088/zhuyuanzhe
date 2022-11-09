@@ -1,5 +1,6 @@
 package zhiyuanzhe.dao;
 
+import org.apache.ibatis.annotations.Param;
 import zhiyuanzhe.pojo.AdminInfo;
 
 import javax.servlet.http.HttpSession;
@@ -12,5 +13,5 @@ public interface AdminDao {
     int addAdmin(AdminInfo adminInfo);
     int updateAdmin(AdminInfo adminInfo);
     int deleteAdmin(AdminInfo adminInfo);
-
+    List<AdminInfo> findSuperAdmin(@Param("adminState") String adminState);
 }

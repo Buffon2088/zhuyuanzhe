@@ -26,7 +26,9 @@
             <if test="adminPwd!=null">and admin_pwd=#{adminPwd}</if>
         </where>
      </select>
-    
+    <select id="findSuperAdmin" resultMap="adminResultMap" resultType="java.util.ArrayList">
+        select * from admin_info where admin_state=#{adminState}
+    </select>
      <insert id="addAdmin">
          insert into admin_info values (null,#{adminCarID},#{adminTel},#{adminLoginName},#{adminPwd},#{adminState},#{key},#{email})
      </insert>

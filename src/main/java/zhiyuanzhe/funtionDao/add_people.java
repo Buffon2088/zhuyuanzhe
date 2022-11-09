@@ -29,15 +29,23 @@ public class add_people {
     @Autowired
     private SaveImg saveImg;
     /**
+     * 用户注册方法（信息）
+     * */
+    @RequestMapping("/addUserMessage")
+    public String addUser(UserInfo userInfo, Model model){
+        model.addAttribute("userInfo",userInfo);
+        return "/home_login/zhuce";
+    }
+    /**
      * 用户注册方法（图片）
     * */
-    @RequestMapping("addUser")
-    public String addUser(UserInfo userInfo, Model model, MultipartFile file, HttpServletRequest request){
+    @RequestMapping("/addUser")
+    public String addUser(UserInfo userInfo, Model model, MultipartFile file, HttpServletRequest request,String state){
         //处理图片存储(存储到target,后使用IO流复制到本地项目img文件夹中)
         UserInfo newUser=saveImg.saveImgToTarget(userInfo,file,request);
         //判断图片是否保存成功,是否注册成功
         if (userService.addUser(newUser) && newUser!=null){
-            return "/userHome/user_login";
+            return "/home_login/login";
         }else {
             //失败跳转页面进行提示
             String err="数据库存储异常：请联系管理员";

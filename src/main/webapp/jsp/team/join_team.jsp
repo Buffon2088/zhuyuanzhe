@@ -474,6 +474,7 @@
 <script type="text/javascript">
     var datee=document.getElementById('nowState').innerText;
     window.onload = grade(datee);
+    document.getElementById('');
      function grade(gradeDate) {
         //清空表（除了第一行）
          $("#table tr:not(:first)").empty();
@@ -571,10 +572,16 @@
                 //判断返回结果
                 if (result == 'N') {
                     result = '申请失败';
-                    alert('申请异常，请联系管理员~');
+                    alert('系统异常，请联系管理员~');
                 } else {
-                    //将返回结果写入按钮提示
-                    location.reload(true);
+                    if (result =='申请中'){
+                        alert('申请成功！请等待管理员审核~');
+                        //待优化
+                        grade('按排名');
+                    }else {
+                        alert(newData['N']);
+                        //将返回结果写入按钮提示
+                    }
                 }
             }
         });
@@ -610,7 +617,7 @@
                         '<td class="product-price"><span class="amount"><img src="${pageContext.request.contextPath}/img/' + obj[i].img + '"></span></td>' +
 
                         '<td class="product-name" id="teamName"><a href="shop-product-details.html"><font color="red;">' + obj[i].teamName + '</font></a>' +
-                        '<ul class="variation">' +
+                        '<ul class="variation">' +css
                         '<li class="variation-size"> 状态：<span>' + obj[i].teamState + '</span></li>' +
                         '</ul></td>' +
 
