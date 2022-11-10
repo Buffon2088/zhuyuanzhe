@@ -260,13 +260,17 @@ public class UserController {
        }catch (Exception e){
            userType=PEOPLE;
        }
+       //空处理
+       if (userType==null){
+           userType=PEOPLE;
+       }
         //校验用户当前身份
         if ((HEAD_MAN.equals(userType) && TEAM_ACTIVE.equals(activeType)) || (MEMBER.equals(userType) && ONE_ACTIVE.equals(activeType)) || (TEST_ACTIVE.equals(activeType)) || (PEOPLE.equals(userType) && ONE_ACTIVE.equals(activeType))) {
             if (isTimeOut) {
                 //判断当前活动状态
                 int userId = (int) session.getAttribute("userId");
                 String activeState = activeJoinService.findActiveState(activeInfo.getActiveId(), userId);
-                //若状态为空则可以报名
+                //若状态为空则可以报名3
                 if (activeState == null) {
                     model.addAttribute("activeState", "立即报名");
                 } else {
@@ -435,6 +439,11 @@ public class UserController {
             e.printStackTrace();
         }
         return JSONObject.toJSONString(resMap);
+    }
+
+    public static void main(String[] args) throws ScriptException {
+        ScriptEngine se = new ScriptEngineManager().getEngineByName("javascript");
+        System.out.println(se.eval("1-1*5"));
     }
 }
 

@@ -37,10 +37,9 @@
             <result column="user_pwd" property="userPwd"/>
             <result column="user_helpTime" property="userHelpTime"/>
             <result column="active_joNum" property="activeJoNum"/>
-            <result column="user_state" property="userState"/>
+            <result column="user_state" property="state"/>
             <result column="key" property="key"/>
             <result column="img" property="img"/>
-            <result column="user_state" property="state"/>
         </association>
         <association column="team_id" property="teamInfo" jdbcType="INTEGER"
                      javaType="zhiyuanzhe.pojo.TeamInfo">
@@ -68,10 +67,9 @@
                 <result column="user_pwd" property="userPwd"/>
                 <result column="user_helpTime" property="userHelpTime"/>
                 <result column="active_joNum" property="activeJoNum"/>
-                <result column="user_state" property="userState"/>
+                <result column="user_state" property="state"/>
                 <result column="key" property="key"/>
                 <result column="img" property="img"/>
-                <result column="user_state" property="state"/>
             </association>
         </association>
         <association column="active_id" property="activeInfo" jdbcType="INTEGER"

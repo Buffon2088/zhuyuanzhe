@@ -10,10 +10,7 @@ import zhiyuanzhe.funtion.checkRule.JudgeActUpOrDown;
 import zhiyuanzhe.funtion.objectInfo.MargeMessage;
 import zhiyuanzhe.funtion.objectInfo.SaveImg;
 import zhiyuanzhe.pojo.*;
-import zhiyuanzhe.service.IActiveJoinService;
-import zhiyuanzhe.service.IActiveService;
-import zhiyuanzhe.service.IActiveTypeService;
-import zhiyuanzhe.service.ITeamService;
+import zhiyuanzhe.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
@@ -33,6 +30,8 @@ public class ActiveController {
     private IActiveJoinService activeJoinService;
     @Autowired
     private ITeamService teamService;
+    @Autowired
+    private IUserService userService;
     //活动状态
     private static final String UP_ACTIVE = "上线";
 
@@ -193,7 +192,14 @@ public class ActiveController {
     @RequestMapping("/addActiveJoin")
     public String addActiveJoin(ActiveJoinInInfo activeJoinInInfo, Model model,UserInfo userInfo) {
         //通过用户id查询团队id
-        int teamId=teamService.findTeamByUserId(userInfo.getUserId()).getTeamId();
+        UserInfo userInfo1=userService.findUser(userInfo);
+        String teamName=userInfo1.getTeamName();
+        int teamId;
+        if ("0".equals(teamName)){
+            teamId=0;
+        }else {
+            teamId=teamService.findTeamMessageByTeamName(teamName).getTeamId();
+        }
         //组长信息写入实体
         TeamInfo teamInfo=new TeamInfo();
         teamInfo.setTeamId(teamId);
